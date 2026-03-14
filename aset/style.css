@@ -1,0 +1,442 @@
+/* 1. IMPORT FONTS */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap");
+
+/* 2. BASE RESET */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #e5e7eb;
+  font-family: "JetBrains Mono", monospace;
+  margin: 0;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+:root {
+  --rotator-duration: 9s;
+}
+
+.text-rotator {
+  /* Pastikan teks tidak pecah jadi dua baris */
+  white-space: nowrap;
+  /* Paksa menempel kanan dalam kontainer */
+  right: 0;
+  text-align: right;
+  animation: rotateText 9s infinite ease-in-out;
+  /* Tambahkan sedikit padding kanan agar tidak mepet garis border-dash */
+  padding-right: 2px;
+}
+
+/* Animasi tetap sama, tapi kita pastikan transform-origin di kanan */
+@keyframes rotateText {
+  0%,
+  5% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  10%,
+  30% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  35%,
+  40% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  45%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.text-rotator:nth-child(1) {
+  animation-delay: 0s;
+}
+.text-rotator:nth-child(2) {
+  animation-delay: 3s;
+}
+.text-rotator:nth-child(3) {
+  animation-delay: 6s;
+}
+
+@keyframes rotateText {
+  /* Muncul dari bawah sedikit */
+  0%,
+  5% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  /* Posisi sempurna dan terlihat (diam) */
+  10%,
+  30% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Menghilang ke atas sedikit */
+  35%,
+  40% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  /* Sisa waktu siklus tetap tersembunyi */
+  45%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 4. SKILL CARDS & PROGRESS BARS */
+.skill-card {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.skill-card:hover {
+  transform: translate(-4px, -4px);
+}
+
+/* Efek Kilau di Progress Bar */
+[style*="width:"] {
+  position: relative;
+  overflow: hidden;
+}
+
+[style*="width:"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 5. BUTTONS & SOCIALS */
+.pixel-btn-social {
+  transition: all 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+/* Efek Klik Nyata */
+.pixel-btn-social:active,
+.pixel-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px transparent !important;
+}
+
+/* LinkedIn Restricted */
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+  position: relative;
+}
+
+/* 6. RESPONSIVITAS */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  .text-rotator {
+    font-size: 1.5rem !important;
+  }
+}
+/* Custom Styles */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "JetBrains Mono", monospace;
+  background-color: #0a0a0a;
+  color: #e5e7eb;
+  margin: 0;
+}
+
+.pixel-border {
+  border: 4px solid #4ade80;
+  box-shadow: 6px 6px 0px #166534;
+}
+
+.pixel-btn {
+  border: 2px solid #4ade80;
+  box-shadow: 4px 4px 0px #166534;
+  transition: all 0.2s;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.group:hover img {
+  filter: grayscale(0%) brightness(1.1) contrast(1.1);
+  box-shadow: 0px 0px 20px rgba(74, 222, 128, 0.3);
+}
+
+.pixel-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #4ade80;
+  background-color: #4ade80;
+  color: black;
+}
+
+.glitch-effect:hover {
+  text-shadow:
+    2px 2px #ff00ff,
+    -2px -2px #00ffff;
+}
+
+.disabled-link {
+  color: #4b5563;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+
+body {
+  font-family: "Roboto";
+  background-color: #131417;
+}
+p {
+  text-shadow:
+    0 0 7px rgba(255, 255, 255, 0.3),
+    0 0 3px rgba(255, 255, 255, 0.3);
+}
+.container {
+  color: #e5e5e5;
+  font-size: 2.26rem;
+  text-transform: uppercase;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animation {
+  height: 50px;
+  overflow: hidden;
+  margin-left: 1rem;
+}
+
+.animation > div > div {
+  padding: 0.25rem 0.75rem;
+  height: 2.81rem;
+  margin-bottom: 2.81rem;
+  display: inline-block;
+}
+
+/* Animasi Slider Profesi */
+.job-slider {
+  display: flex;
+  flex-direction: column;
+  animation: slide-job 9s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+}
+
+.job-item {
+  height: 45px; /* Harus sama dengan tinggi container di HTML */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 45px; /* Jarak antar slide */
+  white-space: nowrap;
+}
+
+/* Animasi Slider Profesi (V2: Anti Terpotong) */
+.job-slider {
+  display: flex;
+  flex-direction: column;
+  animation: slide-job 9s cubic-bezier(0.85, 0, 0.15, 1) infinite;
+}
+
+.job-item {
+  height: 60px; /* Tinggi harus sama dengan container di HTML */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Supaya menempel ke kanan */
+  margin-bottom: 60px; /* Jarak antar slide */
+  padding-right: 4px; /* Sedikit ruang agar shadow tidak terpotong */
+}
+/* Custom Styles */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap");
+
+body {
+  font-family: "JetBrains_Mono", monospace;
+  background-color: #0a0a0a;
+  margin: 0;
+}
+
+/* Hindari menggunakan nama .container secara manual jika pakai Tailwind */
+.hero-wrapper {
+  color: #e5e5e5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Efek Hover untuk Kartu agar terasa lebih "Game" */
+.shadow-retro {
+  transition: transform 0.1s ease-in-out;
+}
+
+.shadow-retro:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0px #166534;
+}
+
+/* Ukuran Teks Button */
+.pixel-btn {
+  font-weight: 800;
+  box-shadow: 4px 4px 0px #166534;
+}
+
+body {
+  background-color: #0a0a0a;
+  margin: 0;
+  /* Gunakan font JetBrains Mono atau Roboto Mono */
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Animasi halus saat hover kartu */
+[class*="shadow-[10px"] {
+  transition: all 0.2s ease;
+}
+
+[class*="shadow-[10px"]:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 15px 15px 0px #166534 !important;
+}
+
+/* 1. Import Font Khusus Dev */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap");
+
+/* 2. Base Style */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #e5e7eb;
+  font-family: "JetBrains Mono", monospace;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 3. Utility untuk Efek Bayangan Kaku (Hard Shadow) */
+/* Kita buat custom class agar tidak perlu menulis shadow berulang kali */
+.pixel-shadow-green {
+  box-shadow: 8px 8px 0px #166534;
+}
+
+.pixel-shadow-purple {
+  box-shadow: 8px 8px 0px #581c87;
+}
+
+.pixel-shadow-blue {
+  box-shadow: 8px 8px 0px #1e3a8a;
+}
+
+.pixel-shadow-pink {
+  box-shadow: 8px 8px 0px #831843;
+}
+
+/* 4. Animasi Kartu saat Hover */
+.skill-card {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.skill-card:hover {
+  transform: translate(-4px, -4px);
+}
+
+/* 5. Tombol Social Media & LinkedIn Restrict */
+.pixel-btn-social {
+  transition: all 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Efek saat tombol ditekan (menciptakan sensasi klik) */
+.pixel-btn-social:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px transparent !important;
+}
+
+/* Style khusus untuk LinkedIn yang sedang restrict */
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+  position: relative;
+}
+
+/* Tooltip untuk LinkedIn */
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+
+/* 6. Custom Progress Bar Fill */
+/* Menambahkan efek kilau halus pada bar agar tidak terlalu flat */
+[style*="width:"] {
+  position: relative;
+  overflow: hidden;
+}
+
+[style*="width:"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+}
+
+/* 7. Responsivitas */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem !important; /* Agar judul tidak kebesaran di HP */
+  }
+
+  .pixel-shadow-green,
+  .pixel-shadow-purple,
+  .pixel-shadow-blue,
+  .pixel-shadow-pink {
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5); /* Shadow lebih kecil di mobile */
+  }
+}
+
+.pixel-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px transparent !important;
+}
