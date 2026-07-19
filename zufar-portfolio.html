@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ahmad Zufar Ginting — Backend Developer & Project Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicon/2.15.1/devicon.min.css">
+<style>
+  :root{
+    --washi:#F6F2EA;      /* putih kertas washi */
+    --washi-deep:#EDE7DA;
+    --sumi:#121212;       /* hitam tinta sumi */
+    --sumi-soft:#1C1B19;
+    --shu:#BC002D;        /* merah hinomaru */
+    --shu-bright:#E3123B;
+    --ink-gray:#6E6A63;
+    --line:rgba(18,18,18,.14);
+    --line-light:rgba(246,242,234,.16);
+
+    --font-display:'Shippori Mincho B1', serif;
+    --font-body:'Zen Kaku Gothic New', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--washi);
+    color:var(--sumi);
+    font-family:var(--font-body);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  ::selection{background:var(--shu);color:var(--washi);}
+
+  /* ---------- vertical bushido rails ---------- */
+  .rail{
+    position:fixed;top:50%;transform:translateY(-50%);
+    writing-mode:vertical-rl;letter-spacing:.6em;
+    font-family:var(--font-display);font-size:12px;color:var(--ink-gray);
+    z-index:5;user-select:none;pointer-events:none;
+  }
+  .rail.left{left:18px;}
+  .rail.right{right:18px;color:var(--shu);}
+  @media(max-width:900px){.rail{display:none;}}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 56px;
+    background:rgba(246,242,234,.85);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--sumi);}
+  .brand-mark{
+    width:34px;height:34px;border-radius:50%;background:var(--shu);
+    display:grid;place-items:center;color:var(--washi);
+    font-family:var(--font-display);font-size:16px;font-weight:800;
+  }
+  .brand-name{font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:.08em;}
+  .nav-links{display:flex;gap:34px;list-style:none;}
+  .nav-links a{
+    text-decoration:none;color:var(--sumi);font-size:13.5px;font-weight:700;
+    letter-spacing:.12em;text-transform:uppercase;position:relative;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;
+    background:var(--shu);transition:width .3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  @media(max-width:760px){
+    nav{padding:14px 20px;}
+    .nav-links{display:none;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;position:relative;
+    display:grid;grid-template-columns:1.05fr .9fr 1.05fr;
+    align-items:center;gap:24px;
+    padding:130px 72px 60px;
+  }
+  .hero-eyebrow{
+    font-family:var(--font-mono);font-size:12px;letter-spacing:.28em;
+    color:var(--shu);text-transform:uppercase;margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:var(--font-display);font-weight:800;
+    font-size:clamp(40px,4.6vw,64px);line-height:1.08;letter-spacing:.01em;
+  }
+  .hero h1 .red{color:var(--shu);}
+  .hero-divider{width:88px;height:3px;background:var(--sumi);margin:26px 0;position:relative;}
+  .hero-divider::after{content:"";position:absolute;right:-14px;top:-3.5px;width:10px;height:10px;border-radius:50%;background:var(--shu);}
+  .hero-bio{font-size:15px;color:var(--ink-gray);max-width:400px;}
+  .hero-bio b{color:var(--sumi);}
+
+  /* center portrait + hinomaru */
+  .portrait-wrap{position:relative;display:grid;place-items:center;min-height:440px;}
+  .hinomaru{
+    position:absolute;width:min(400px,88%);aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, var(--shu-bright), var(--shu) 62%);
+    box-shadow:0 30px 80px rgba(188,0,45,.35);
+    animation:breath 7s ease-in-out infinite;
+  }
+  @keyframes breath{0%,100%{transform:scale(1);}50%{transform:scale(1.035);}}
+  .portrait{
+    position:relative;z-index:2;width:min(330px,74%);aspect-ratio:3/3.6;
+    border-radius:170px 170px 26px 26px;overflow:hidden;
+    background:var(--sumi);
+    display:grid;place-items:center;
+    border:4px solid var(--washi);
+    box-shadow:0 24px 60px rgba(18,18,18,.35);
+  }
+  .portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+  .portrait-fallback{
+    color:var(--washi);text-align:center;font-family:var(--font-display);
+  }
+  .portrait-fallback .kanji{font-size:84px;color:var(--shu-bright);display:block;line-height:1;}
+  .portrait-fallback span{font-size:12px;letter-spacing:.3em;color:rgba(246,242,234,.55);}
+  .portrait-caption{
+    position:absolute;bottom:6px;z-index:3;
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;
+    background:var(--sumi);color:var(--washi);padding:7px 16px;border-radius:999px;
+  }
+
+  /* right column stats */
+  .hero-right{display:flex;flex-direction:column;gap:26px;align-items:flex-start;}
+  .stat{position:relative;padding-left:20px;}
+  .stat::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;background:var(--shu);}
+  .stat .num{
+    font-family:var(--font-display);font-weight:800;
+    font-size:clamp(34px,3.4vw,50px);line-height:1;
+  }
+  .stat .label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.2em;color:var(--ink-gray);text-transform:uppercase;margin-top:4px;}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+    font-weight:700;font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;
+    padding:14px 26px;border-radius:999px;transition:all .25s ease;cursor:pointer;border:none;
+  }
+  .btn-red{background:var(--shu);color:var(--washi);}
+  .btn-red:hover{background:var(--sumi);transform:translateY(-2px);}
+  .btn-ghost{background:transparent;color:var(--sumi);border:1.5px solid var(--sumi);}
+  .btn-ghost:hover{background:var(--sumi);color:var(--washi);transform:translateY(-2px);}
+
+  /* social bar */
+  .social-bar{
+    display:flex;gap:14px;flex-wrap:wrap;justify-content:center;
+    padding:0 72px 70px;
+  }
+  .social-chip{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:13px 24px;border:1.5px solid var(--line);border-radius:14px;
+    text-decoration:none;color:var(--sumi);font-weight:700;font-size:14px;
+    background:#fff;transition:all .25s ease;
+  }
+  .social-chip .dot{width:9px;height:9px;border-radius:50%;background:var(--shu);}
+  .social-chip:hover{border-color:var(--shu);transform:translateY(-3px);box-shadow:0 12px 26px rgba(188,0,45,.14);}
+
+  /* ---------- marquee ---------- */
+  .marquee{
+    background:var(--sumi);color:var(--washi);overflow:hidden;white-space:nowrap;
+    padding:16px 0;border-top:3px solid var(--shu);border-bottom:3px solid var(--shu);
+  }
+  .marquee-track{display:inline-block;animation:scroll 26s linear infinite;}
+  .marquee span{
+    font-family:var(--font-display);font-size:16px;letter-spacing:.24em;margin:0 28px;
+  }
+  .marquee .m-red{color:var(--shu-bright);}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{animation:none;}
+    .hinomaru{animation:none;}
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:96px 72px;}
+  @media(max-width:760px){section{padding:70px 22px;}}
+  .section-head{display:flex;align-items:baseline;gap:20px;margin-bottom:52px;flex-wrap:wrap;}
+  .section-kanji{
+    font-family:var(--font-display);font-size:15px;color:var(--shu);
+    letter-spacing:.3em;
+  }
+  .section-title{
+    font-family:var(--font-display);font-weight:800;
+    font-size:clamp(30px,3.6vw,46px);letter-spacing:.01em;
+  }
+  .section-sub{width:100%;color:var(--ink-gray);font-size:15px;max-width:560px;}
+
+  /* ---------- tools ---------- */
+  .tools-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;
+  }
+  .tool{
+    background:#fff;border:1.5px solid var(--line);border-radius:18px;
+    padding:26px 16px;text-align:center;transition:all .25s ease;
+  }
+  .tool i{font-size:44px;display:block;margin-bottom:12px;}
+  .tool .t-name{font-weight:700;font-size:14px;}
+  .tool .t-role{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-gray);text-transform:uppercase;margin-top:2px;}
+  .tool:hover{border-color:var(--shu);transform:translateY(-5px);box-shadow:0 16px 30px rgba(18,18,18,.08);}
+  .tool:hover i{color:var(--shu) !important;}
+
+  /* ---------- projects ---------- */
+  .projects{background:var(--washi-deep);border-top:1px solid var(--line);}
+  .project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;}
+  .card{
+    background:#fff;border:1.5px solid var(--line);border-radius:22px;
+    padding:30px 28px;cursor:pointer;position:relative;overflow:hidden;
+    transition:all .3s ease;
+  }
+  .card::before{
+    content:attr(data-kanji);
+    position:absolute;right:14px;top:6px;
+    font-family:var(--font-display);font-size:86px;font-weight:800;
+    color:rgba(188,0,45,.07);line-height:1;pointer-events:none;
+    transition:color .3s ease;
+  }
+  .card:hover{border-color:var(--shu);transform:translateY(-6px);box-shadow:0 22px 44px rgba(18,18,18,.12);}
+  .card:hover::before{color:rgba(188,0,45,.16);}
+  .card-num{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;color:var(--shu);margin-bottom:14px;}
+  .card h3{font-family:var(--font-display);font-weight:800;font-size:24px;margin-bottom:6px;}
+  .card .role{font-size:13px;font-weight:700;color:var(--ink-gray);margin-bottom:14px;}
+  .card .desc{font-size:14px;color:var(--ink-gray);margin-bottom:18px;min-height:64px;}
+  .card .stack{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+  .card .stack span{
+    font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;
+    padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--sumi);
+  }
+  .card-open{
+    display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:13px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--shu);
+  }
+  .card-open .arr{transition:transform .25s ease;}
+  .card:hover .card-open .arr{transform:translateX(6px);}
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--sumi);color:var(--washi);
+    padding:80px 72px 40px;text-align:center;
+  }
+  footer .f-kanji{font-family:var(--font-display);font-size:40px;color:var(--shu-bright);display:block;margin-bottom:14px;}
+  footer h2{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,3vw,40px);margin-bottom:14px;}
+  footer p{color:rgba(246,242,234,.6);font-size:14.5px;max-width:520px;margin:0 auto 30px;}
+  footer .f-line{margin-top:56px;padding-top:22px;border-top:1px solid var(--line-light);
+    font-family:var(--font-mono);font-size:11.5px;letter-spacing:.18em;color:rgba(246,242,234,.4);}
+
+  /* =========================================================
+     PROJECT DETAIL OVERLAY  (gaya lampiran 1 — mode gelap)
+     ========================================================= */
+  .overlay{
+    position:fixed;inset:0;z-index:100;background:var(--sumi);color:var(--washi);
+    overflow-y:auto;display:none;
+  }
+  .overlay.open{display:block;animation:fadeUp .45s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
+
+  .ov-inner{max-width:1180px;margin:0 auto;padding:32px 40px 90px;}
+  @media(max-width:760px){.ov-inner{padding:22px 18px 70px;}}
+
+  .ov-top{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-bottom:20px;border-bottom:1px solid var(--line-light);margin-bottom:36px;
+  }
+  .ov-back{
+    display:inline-flex;align-items:center;gap:10px;background:none;border:1.5px solid var(--line-light);
+    color:var(--washi);padding:11px 22px;border-radius:999px;cursor:pointer;
+    font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    transition:all .25s ease;
+  }
+  .ov-back:hover{border-color:var(--shu-bright);color:var(--shu-bright);}
+  .ov-brand{font-family:var(--font-display);font-weight:800;letter-spacing:.1em;}
+
+  .ov-meta{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;
+    margin-bottom:34px;
+  }
+  .ov-meta .m-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.22em;color:var(--shu-bright);text-transform:uppercase;margin-bottom:4px;}
+  .ov-meta .m-value{font-size:14px;font-weight:700;}
+
+  .ov-title-wrap{position:relative;margin-bottom:14px;}
+  .ov-title{
+    font-family:var(--font-display);font-weight:800;
+    font-size:clamp(52px,9.5vw,128px);line-height:.98;letter-spacing:.01em;
+    text-transform:uppercase;word-break:break-word;
+  }
+  .ov-script{
+    position:absolute;right:4%;bottom:-12px;
+    font-family:var(--font-display);font-style:italic;
+    font-size:clamp(26px,4vw,54px);color:var(--shu-bright);
+    transform:rotate(-6deg);text-shadow:0 4px 24px rgba(227,18,59,.4);
+    pointer-events:none;
+  }
+  .ov-subrow{
+    display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+    margin:26px 0 44px;
+  }
+  .ov-kanji{font-family:var(--font-display);font-size:18px;letter-spacing:.4em;color:rgba(246,242,234,.55);}
+  .ov-palette{display:flex;gap:8px;margin-left:auto;}
+  .ov-palette span{width:34px;height:26px;border-radius:7px;border:1px solid var(--line-light);}
+
+  .ov-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;}
+  @media(max-width:860px){.ov-grid{grid-template-columns:1fr;}}
+
+  .ov-shot{
+    border-radius:22px;overflow:hidden;min-height:300px;position:relative;
+    background:linear-gradient(150deg,#2a2119,#3d1017 55%,var(--shu) 130%);
+    display:grid;place-items:center;border:1px solid var(--line-light);
+  }
+  .ov-shot .shot-kanji{
+    font-family:var(--font-display);font-size:110px;color:rgba(246,242,234,.12);
+  }
+  .ov-shot .shot-tag{
+    position:absolute;bottom:16px;left:16px;
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;
+    background:rgba(18,18,18,.7);padding:7px 14px;border-radius:999px;color:rgba(246,242,234,.75);
+  }
+  .ov-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+
+  .ov-about h4{
+    font-family:var(--font-mono);font-size:12px;letter-spacing:.26em;color:var(--shu-bright);
+    text-transform:uppercase;margin-bottom:14px;
+  }
+  .ov-about p{color:rgba(246,242,234,.78);font-size:15px;margin-bottom:22px;}
+
+  .impact-box{
+    border:1px solid var(--line-light);border-left:4px solid var(--shu);
+    border-radius:14px;padding:20px 22px;margin-bottom:26px;
+  }
+  .impact-box .i-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.22em;color:var(--shu-bright);text-transform:uppercase;margin-bottom:10px;}
+  .impact-line{display:flex;align-items:center;gap:12px;font-size:14.5px;margin-bottom:8px;flex-wrap:wrap;}
+  .impact-line .before{color:rgba(246,242,234,.5);text-decoration:line-through;text-decoration-color:var(--shu-bright);}
+  .impact-line .arrow{color:var(--shu-bright);font-weight:900;}
+  .impact-line .after{font-weight:900;}
+
+  .ov-stack{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:34px;}
+  .ov-stack span{
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+    padding:7px 14px;border:1px solid var(--line-light);border-radius:999px;color:rgba(246,242,234,.85);
+  }
+
+  .ov-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-play{
+    display:inline-flex;align-items:center;gap:12px;text-decoration:none;
+    background:var(--shu);color:var(--washi);
+    padding:16px 32px;border-radius:999px;font-weight:900;font-size:14px;
+    letter-spacing:.12em;text-transform:uppercase;transition:all .25s ease;
+  }
+  .btn-play .play-ico{
+    width:26px;height:26px;border-radius:50%;background:var(--washi);color:var(--shu);
+    display:grid;place-items:center;font-size:11px;
+  }
+  .btn-play:hover{background:var(--shu-bright);transform:translateY(-3px);box-shadow:0 16px 34px rgba(227,18,59,.35);}
+  .btn-git{
+    display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+    border:1.5px solid var(--line-light);color:var(--washi);
+    padding:16px 30px;border-radius:999px;font-weight:700;font-size:14px;
+    letter-spacing:.1em;text-transform:uppercase;transition:all .25s ease;
+  }
+  .btn-git:hover{border-color:var(--washi);transform:translateY(-3px);}
+  .btn-play:focus-visible,.btn-git:focus-visible,.btn:focus-visible,.ov-back:focus-visible,.card:focus-visible{
+    outline:3px solid var(--shu-bright);outline-offset:3px;
+  }
+
+  @media(max-width:1020px){
+    .hero{grid-template-columns:1fr;text-align:center;padding-top:110px;gap:44px;}
+    .hero-left{display:flex;flex-direction:column;align-items:center;}
+    .hero-right{align-items:center;}
+    .stat{padding-left:0;text-align:center;}
+    .stat::before{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="rail left">アフマド・ズファル・ギンティン</div>
+<div class="rail right">武士道 — BUSHIDŌ</div>
+
+<!-- ======================= NAV ======================= -->
+<nav>
+  <a class="brand" href="#home">
+    <span class="brand-mark">侍</span>
+    <span class="brand-name">ZUFAR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home">Beranda</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#projects">Proyek</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- ======================= HERO ======================= -->
+<header class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Backend Developer × Project Manager</p>
+    <h1>Ahmad<br>Zufar <span class="red">Ginting</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-bio">
+      Mahasiswa Sistem Informasi UPN "Veteran" Jakarta sekaligus
+      <b>Founder PT Zufar Solusi Nawasena</b>. Aku membangun backend yang rapi dan
+      terdokumentasi, lalu memastikan proyeknya sampai ke garis finis sebagai
+      Project Manager. Disiplin seperti samurai: satu tebasan, tepat sasaran.
+    </p>
+  </div>
+
+  <div class="portrait-wrap">
+    <div class="hinomaru" aria-hidden="true"></div>
+    <div class="portrait">
+      <!-- GANTI: hapus .portrait-fallback dan aktifkan <img> di bawah dengan fotomu -->
+      <!-- <img src="foto-zufar.jpg" alt="Ahmad Zufar Ginting"> -->
+      <div class="portrait-fallback">
+        <span class="kanji">侍</span>
+        <span>FOTO ZUFAR DI SINI</span>
+      </div>
+    </div>
+    <div class="portrait-caption">JAKARTA, INDONESIA</div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat">
+      <div class="num">10+</div>
+      <div class="label">Proyek Selesai</div>
+    </div>
+    <div class="stat">
+      <div class="num">3.84</div>
+      <div class="label">IPK — Sistem Informasi</div>
+    </div>
+    <div class="stat">
+      <div class="num">2</div>
+      <div class="label">Jalur Karier — PM & Backend</div>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-red" href="#contact">Hubungi Aku →</a>
+      <a class="btn btn-ghost" href="#projects">Lihat Proyek</a>
+    </div>
+  </div>
+</header>
+
+<!-- social bar (ala lampiran 2) -->
+<div class="social-bar">
+  <a class="social-chip" href="https://github.com/username-kamu" target="_blank" rel="noopener"><span class="dot"></span>GitHub</a>
+  <a class="social-chip" href="https://linkedin.com/in/username-kamu" target="_blank" rel="noopener"><span class="dot"></span>LinkedIn</a>
+  <a class="social-chip" href="https://instagram.com/username-kamu" target="_blank" rel="noopener"><span class="dot"></span>Instagram</a>
+  <a class="social-chip" href="mailto:email@kamu.com"><span class="dot"></span>Email</a>
+</div>
+
+<!-- ======================= MARQUEE ======================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>武士道</span><span class="m-red">BACKEND DEVELOPMENT</span><span>侍</span><span>PROJECT MANAGEMENT</span><span class="m-red">一期一会</span><span>NODE.JS · TYPESCRIPT</span>
+    <span>武士道</span><span class="m-red">BACKEND DEVELOPMENT</span><span>侍</span><span>PROJECT MANAGEMENT</span><span class="m-red">一期一会</span><span>NODE.JS · TYPESCRIPT</span>
+  </div>
+</div>
+
+<!-- ======================= TOOLS ======================= -->
+<section id="tools">
+  <div class="section-head">
+    <span class="section-kanji">道具 — DŌGU</span>
+    <h2 class="section-title">Tools & Skills</h2>
+    <p class="section-sub">Senjata yang kupakai sehari-hari — dari membangun REST API sampai mengelola tim dan timeline proyek.</p>
+  </div>
+  <div class="tools-grid">
+    <div class="tool"><i class="devicon-nodejs-plain colored"></i><div class="t-name">Node.js</div><div class="t-role">Backend Runtime</div></div>
+    <div class="tool"><i class="devicon-typescript-plain colored"></i><div class="t-name">TypeScript</div><div class="t-role">Bahasa Utama</div></div>
+    <div class="tool"><i class="devicon-express-original"></i><div class="t-name">Express</div><div class="t-role">Web Framework</div></div>
+    <div class="tool"><i class="devicon-postgresql-plain colored"></i><div class="t-name">PostgreSQL</div><div class="t-role">Database</div></div>
+    <div class="tool"><i class="devicon-supabase-plain colored"></i><div class="t-name">Supabase</div><div class="t-role">BaaS / DB Hosting</div></div>
+    <div class="tool"><i class="devicon-kotlin-plain colored"></i><div class="t-name">Kotlin</div><div class="t-role">Android Dev</div></div>
+    <div class="tool"><i class="devicon-java-plain colored"></i><div class="t-name">Java</div><div class="t-role">OOP Foundation</div></div>
+    <div class="tool"><i class="devicon-python-plain colored"></i><div class="t-name">Python</div><div class="t-role">Data Science</div></div>
+    <div class="tool"><i class="devicon-git-plain colored"></i><div class="t-name">Git & GitHub</div><div class="t-role">Version Control</div></div>
+    <div class="tool"><i class="devicon-docker-plain colored"></i><div class="t-name">Docker</div><div class="t-role">Containerization</div></div>
+    <div class="tool"><i class="devicon-nextjs-original"></i><div class="t-name">Next.js</div><div class="t-role">Frontend</div></div>
+    <div class="tool"><i class="devicon-notion-plain"></i><div class="t-name">Notion & PM Tools</div><div class="t-role">Project Management</div></div>
+  </div>
+</section>
+
+<!-- ======================= PROJECTS ======================= -->
+<section class="projects" id="projects">
+  <div class="section-head">
+    <span class="section-kanji">作品 — SAKUHIN</span>
+    <h2 class="section-title">Proyek Pilihan</h2>
+    <p class="section-sub">Klik kartu untuk membuka halaman detail — lengkap dengan role, impact, stack, dan tombol preview langsung ke proyeknya.</p>
+  </div>
+  <div class="project-grid" id="projectGrid"><!-- diisi oleh JS --></div>
+</section>
+
+<!-- ======================= FOOTER / CONTACT ======================= -->
+<footer id="contact">
+  <span class="f-kanji">礼</span>
+  <h2>Mari Bangun Sesuatu.</h2>
+  <p>Terbuka untuk magang Project Manager, kolaborasi backend, atau sekadar ngobrol soal produk sambil kopi hitam.</p>
+  <a class="btn btn-red" href="mailto:email@kamu.com">email@kamu.com</a>
+  <div class="f-line">© 2026 AHMAD ZUFAR GINTING — DIBANGUN DENGAN DISIPLIN BUSHIDŌ · JAKARTA</div>
+</footer>
+
+<!-- ======================= PROJECT DETAIL OVERLAY ======================= -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+  <div class="ov-inner">
+    <div class="ov-top">
+      <button class="ov-back" id="ovClose">← Kembali</button>
+      <span class="ov-brand">ZUFAR <span style="color:var(--shu-bright)">侍</span></span>
+    </div>
+
+    <div class="ov-meta">
+      <div><div class="m-label">Role —</div><div class="m-value" id="ovRole"></div></div>
+      <div><div class="m-label">Tahun —</div><div class="m-value" id="ovYear"></div></div>
+      <div><div class="m-label">Tipe —</div><div class="m-value" id="ovType"></div></div>
+      <div><div class="m-label">Status —</div><div class="m-value" id="ovStatus"></div></div>
+    </div>
+
+    <div class="ov-title-wrap">
+      <h2 class="ov-title" id="ovTitle"></h2>
+      <span class="ov-script" id="ovScript"></span>
+    </div>
+
+    <div class="ov-subrow">
+      <span class="ov-kanji" id="ovKanjiWord"></span>
+      <div class="ov-palette" aria-hidden="true">
+        <span style="background:#F6F2EA"></span>
+        <span style="background:#E3123B"></span>
+        <span style="background:#BC002D"></span>
+        <span style="background:#6E1420"></span>
+        <span style="background:#121212"></span>
+      </div>
+    </div>
+
+    <div class="ov-grid">
+      <div class="ov-shot" id="ovShot">
+        <!-- GANTI: tambahkan <img src="screenshot-proyek.png" alt=""> di dalam div ini lewat data proyek -->
+        <span class="shot-kanji" id="ovShotKanji"></span>
+        <span class="shot-tag">PREVIEW · SCREENSHOT PROYEK</span>
+      </div>
+
+      <div class="ov-about">
+        <h4>About —</h4>
+        <p id="ovAbout"></p>
+
+        <div class="impact-box">
+          <div class="i-label">Impact — Before → After</div>
+          <div id="ovImpacts"></div>
+        </div>
+
+        <div class="ov-stack" id="ovStack"></div>
+
+        <div class="ov-actions">
+          <a class="btn-play" id="ovLive" href="#" target="_blank" rel="noopener">
+            <span class="play-ico">▶</span> Preview Live
+          </a>
+          <a class="btn-git" id="ovRepo" href="#" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================
+   DATA PROYEK — edit di sini saja.
+   liveUrl  : link demo / web live (tombol ▶ Preview Live)
+   repoUrl  : link GitHub
+   shotImg  : path screenshot proyek (opsional). Contoh: "img/safespace.png"
+   ===================================================== */
+const projects = [
+  {
+    id: "safespace",
+    kanji: "安",
+    scriptWord: "Aman",
+    kanjiWord: "安全な場所 — SAFE PLACE",
+    title: "SafeSpace",
+    role: "Backend Developer (Solo)",
+    year: "2026",
+    type: "Capstone — REST API",
+    status: "Selesai",
+    desc: "Backend capstone yang kukerjakan sendirian dari nol: 7 fitur penuh dengan dokumentasi OpenAPI lengkap.",
+    about: "SafeSpace adalah backend capstone yang kuselesaikan secara solo — 7 fitur end-to-end mulai dari autentikasi hingga modul inti aplikasi, semuanya terdokumentasi rapi dalam spesifikasi OpenAPI. Proyek ini jadi bukti kemampuanku membangun API production-ready secara mandiri: arsitektur bersih, validasi ketat, dan dokumentasi yang bisa langsung dipakai tim frontend tanpa perlu bertanya.",
+    impacts: [
+      {before: "Tanpa dokumentasi API", after: "Full OpenAPI spec — frontend integrasi tanpa hambatan"},
+      {before: "0 fitur", after: "7 fitur selesai 100% dikerjakan solo"}
+    ],
+    stack: ["Node.js","Express","TypeScript","Drizzle ORM","Supabase","OpenAPI"],
+    liveUrl: "#",
+    repoUrl: "#",
+    shotImg: ""
+  },
+  {
+    id: "haiphysio",
+    kanji: "療",
+    scriptWord: "Pulih",
+    kanjiWord: "理学療法 — PHYSIOTHERAPY",
+    title: "Hai Physio",
+    role: "Team Lead + Backend Developer",
+    year: "2026",
+    type: "Web App — Kesehatan",
+    status: "Selesai",
+    desc: "Platform fisioterapi: 2 backend service + frontend Next.js. Aku memimpin tim sekaligus membangun backendnya.",
+    about: "Hai Physio adalah platform layanan fisioterapi dengan arsitektur 2 backend service terpisah dan frontend Next.js. Di sini aku memegang dua pedang sekaligus: sebagai Team Lead aku mengatur pembagian kerja, timeline, dan koordinasi tim; sebagai Backend Developer aku membangun service inti dengan Drizzle ORM di atas PostgreSQL (Supabase).",
+    impacts: [
+      {before: "Koordinasi tim ad-hoc", after: "Timeline terstruktur, proyek selesai tepat target"},
+      {before: "Monolith rencana awal", after: "2 backend service terpisah yang lebih mudah dirawat"}
+    ],
+    stack: ["Node.js","Express","TypeScript","Drizzle ORM","PostgreSQL","Supabase","Next.js"],
+    liveUrl: "#",
+    repoUrl: "#",
+    shotImg: ""
+  },
+  {
+    id: "siera",
+    kanji: "催",
+    scriptWord: "Event",
+    kanjiWord: "行事管理 — EVENT MANAGEMENT",
+    title: "SIERA",
+    role: "Backend Developer",
+    year: "2026",
+    type: "Sistem Informasi Event",
+    status: "Selesai",
+    desc: "Sistem manajemen event — aku memegang spesifikasi API modul Events dan User Management.",
+    about: "SIERA adalah sistem informasi manajemen event tempat aku bertanggung jawab atas spesifikasi API modul Events serta implementasi User Management. Fokusku: kontrak API yang jelas sejak awal, sehingga tim bisa bekerja paralel tanpa saling menunggu.",
+    impacts: [
+      {before: "Kontrak API tidak jelas", after: "API spec modul Events terdefinisi — tim kerja paralel"},
+      {before: "Manajemen user manual", after: "Modul User Management dengan role & akses terstruktur"}
+    ],
+    stack: ["Node.js","Express","TypeScript","API Specification","PostgreSQL"],
+    liveUrl: "#",
+    repoUrl: "#",
+    shotImg: ""
+  },
+  {
+    id: "urbancycle",
+    kanji: "環",
+    scriptWord: "Hijau",
+    kanjiWord: "廃棄物管理 — WASTE MANAGEMENT",
+    title: "UrbanCycle",
+    role: "Android Developer",
+    year: "2026",
+    type: "Mobile App — Smart Waste",
+    status: "Selesai",
+    desc: "Aplikasi Android manajemen sampah pintar dengan klasifikasi berbasis TensorFlow Lite.",
+    about: "UrbanCycle adalah aplikasi Android untuk manajemen sampah perkotaan yang lebih cerdas. Dibangun dengan Kotlin dan Jetpack Compose, aplikasi ini memakai TensorFlow Lite untuk mengklasifikasikan jenis sampah langsung dari kamera pengguna — menjembatani kebiasaan memilah sampah dengan teknologi yang mudah diakses.",
+    impacts: [
+      {before: "Pilah sampah manual & bingung", after: "Klasifikasi otomatis via kamera (on-device ML)"},
+      {before: "UI XML tradisional", after: "Jetpack Compose — deklaratif & modern"}
+    ],
+    stack: ["Kotlin","Jetpack Compose","TensorFlow Lite","Android"],
+    liveUrl: "#",
+    repoUrl: "#",
+    shotImg: ""
+  },
+  {
+    id: "silako",
+    kanji: "珈",
+    scriptWord: "Kopi",
+    kanjiWord: "喫茶店 — COFFEE SHOP MIS",
+    title: "SILAKO",
+    role: "Project Manager",
+    year: "2026",
+    type: "Sistem Informasi Manajemen",
+    status: "Selesai",
+    desc: "MIS untuk coffee shop — aku memimpin sebagai PM: scope, timeline, dan koordinasi deliverables tim.",
+    about: "SILAKO adalah sistem informasi manajemen untuk coffee shop. Di proyek ini aku murni bermain di sisi Project Manager: mendefinisikan scope, menyusun timeline, memfasilitasi komunikasi tim, dan memastikan setiap deliverable selesai sesuai standar. Proyek ini memperkuat jalur karier PM-ku dengan pengalaman memimpin dari perencanaan sampai serah terima.",
+    impacts: [
+      {before: "Scope melebar tanpa kendali", after: "Scope terkunci, deliverable jelas per milestone"},
+      {before: "Progres tim tidak terlihat", after: "Tracking rutin — semua anggota tahu prioritasnya"}
+    ],
+    stack: ["Project Management","Scope Definition","Timeline Planning","Team Coordination"],
+    liveUrl: "#",
+    repoUrl: "#",
+    shotImg: ""
+  },
+  {
+    id: "advika",
+    kanji: "智",
+    scriptWord: "Cerdas",
+    kanjiWord: "学業助言 — ACADEMIC ADVISOR AI",
+    title: "AdviKa",
+    role: "Android Developer",
+    year: "2026",
+    type: "Mobile App — AI",
+    status: "Dalam Pengembangan",
+    desc: "Penasihat akademik berbasis AI di Android — Kotlin + Gemini API untuk membantu mahasiswa mengambil keputusan studi.",
+    about: "AdviKa adalah aplikasi Android penasihat akademik bertenaga AI. Dibangun dengan Kotlin dan terintegrasi dengan Gemini API, AdviKa membantu mahasiswa merencanakan studi, memahami mata kuliah, dan mengambil keputusan akademik dengan rekomendasi yang dipersonalisasi.",
+    impacts: [
+      {before: "Konsultasi akademik terbatas jam dosen", after: "Advisor AI tersedia 24/7 di genggaman"},
+      {before: "Saran generik", after: "Rekomendasi personal via Gemini API"}
+    ],
+    stack: ["Kotlin","Android","Gemini API","AI Integration"],
+    liveUrl: "#",
+    repoUrl: "#",
+    shotImg: ""
+  }
+];
+
+/* ---------- render kartu proyek ---------- */
+const kanjiNums = ["一","二","三","四","五","六","七","八","九","十"];
+const grid = document.getElementById("projectGrid");
+
+projects.forEach((p, i) => {
+  const card = document.createElement("article");
+  card.className = "card";
+  card.tabIndex = 0;
+  card.setAttribute("role","button");
+  card.setAttribute("aria-label","Buka detail proyek " + p.title);
+  card.dataset.kanji = p.kanji;
+  card.innerHTML = `
+    <div class="card-num">${kanjiNums[i] || (i+1)} / PROJECT ${String(i+1).padStart(2,"0")}</div>
+    <h3>${p.title}</h3>
+    <div class="role">${p.role} · ${p.year}</div>
+    <p class="desc">${p.desc}</p>
+    <div class="stack">${p.stack.slice(0,4).map(s => `<span>${s}</span>`).join("")}</div>
+    <span class="card-open">Buka Detail <span class="arr">→</span></span>
+  `;
+  const open = () => openProject(p);
+  card.addEventListener("click", open);
+  card.addEventListener("keydown", e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); open(); } });
+  grid.appendChild(card);
+});
+
+/* ---------- overlay detail ---------- */
+const overlay = document.getElementById("overlay");
+const ovClose = document.getElementById("ovClose");
+
+function openProject(p){
+  document.getElementById("ovTitle").textContent = p.title;
+  document.getElementById("ovScript").textContent = p.scriptWord;
+  document.getElementById("ovKanjiWord").textContent = p.kanjiWord;
+  document.getElementById("ovRole").textContent = p.role;
+  document.getElementById("ovYear").textContent = p.year;
+  document.getElementById("ovType").textContent = p.type;
+  document.getElementById("ovStatus").textContent = p.status;
+  document.getElementById("ovAbout").textContent = p.about;
+  document.getElementById("ovShotKanji").textContent = p.kanji;
+
+  document.getElementById("ovImpacts").innerHTML = p.impacts.map(im => `
+    <div class="impact-line">
+      <span class="before">${im.before}</span>
+      <span class="arrow">→</span>
+      <span class="after">${im.after}</span>
+    </div>
+  `).join("");
+
+  document.getElementById("ovStack").innerHTML =
+    p.stack.map(s => `<span>${s}</span>`).join("");
+
+  document.getElementById("ovLive").href = p.liveUrl || "#";
+  document.getElementById("ovRepo").href = p.repoUrl || "#";
+
+  // screenshot proyek (opsional)
+  const shot = document.getElementById("ovShot");
+  const oldImg = shot.querySelector("img");
+  if(oldImg) oldImg.remove();
+  if(p.shotImg){
+    const img = document.createElement("img");
+    img.src = p.shotImg;
+    img.alt = "Screenshot " + p.title;
+    shot.prepend(img);
+  }
+
+  overlay.classList.add("open");
+  overlay.scrollTop = 0;
+  document.body.style.overflow = "hidden";
+  ovClose.focus();
+}
+
+function closeProject(){
+  overlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+ovClose.addEventListener("click", closeProject);
+document.addEventListener("keydown", e => { if(e.key === "Escape" && overlay.classList.contains("open")) closeProject(); });
+</script>
+</body>
+</html>
