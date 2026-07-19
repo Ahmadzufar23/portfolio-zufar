@@ -65,10 +65,31 @@ const tools = [
   { group: "pm", iconImg: "assets/img/icons/trello.svg", nama: "Trello", peran: "Board Kanban" }
 ];
 
+/* ---------- Peta ikon stack (dipakai stack proyek di overlay detail) ----------
+   Diturunkan otomatis dari `tools` di atas — nama tool jadi key, ikonnya
+   dipakai ulang (tidak ada aset baru). Kalau sebuah nama di `stack` suatu
+   proyek tidak ketemu di peta ini (mis. "OpenAPI", "Jetpack Compose"),
+   render otomatis jatuh ke teks biasa tanpa ikon — tidak error.
+   Tambah entri baru di `tools` (dengan deviconClass/iconImg) untuk membuat
+   nama itu otomatis punya ikon di stack proyek juga.
+   ------------------------------------------------------ */
+const techIcons = {};
+tools.forEach(t => {
+  techIcons[t.nama] = { deviconClass: t.deviconClass, iconImg: t.iconImg };
+});
+
 /* ---------- Proyek ----------
-   liveUrl  : link demo / web live (tombol ▶ Preview Live)
-   repoUrl  : link GitHub
-   shotImg  : path screenshot proyek (opsional). Contoh: "assets/img/projects/safespace.png"
+   accent   : kode hex warna aksen halaman detail proyek ini (judul, garis
+              impact, panah before→after, tombol Preview Live, dll).
+              Kosongkan/hapus field ini untuk pakai fallback merah --shu.
+   liveUrl     : link demo / web live (tombol ▶ Preview Live)
+   repoUrl     : link GitHub. Kosongkan ("") kalau repo tidak boleh publik
+                 (mis. proyek client) — tombol GitHub Repo otomatis hilang.
+   repoPrivate : true untuk menampilkan badge "Proyek Client — kode tertutup"
+                 di tempat tombol GitHub, HANYA berlaku saat repoUrl kosong.
+                 Kalau repoUrl kosong dan repoPrivate tidak diset, tidak ada
+                 apa pun yang ditampilkan di situ.
+   shotImg     : path screenshot proyek (opsional). Contoh: "assets/img/projects/safespace.png"
    ------------------------------------------------------ */
 const projects = [
   {
@@ -88,9 +109,10 @@ const projects = [
       { before: "0 fitur", after: "7 fitur selesai 100% dikerjakan solo" }
     ],
     stack: ["Node.js", "Express", "TypeScript", "Drizzle ORM", "Supabase", "OpenAPI"],
-    liveUrl: "#",
-    repoUrl: "#",
-    shotImg: ""
+    accent: "#3E6FA3",
+    liveUrl: "https://9npc-safespace.vercel.app/",
+    repoUrl: "https://github.com/orgs/Capstone-9NPC/repositories",
+    shotImg: "assets/img/projects/safespace.png" // TODO: screenshot belum diunggah, fallback watermark kanji tetap tampil
   },
   {
     id: "haiphysio",
@@ -129,10 +151,12 @@ const projects = [
       { before: "Kontrak API tidak jelas", after: "API spec modul Events terdefinisi — tim kerja paralel" },
       { before: "Manajemen user manual", after: "Modul User Management dengan role & akses terstruktur" }
     ],
-    stack: ["Node.js", "Express", "TypeScript", "API Specification", "PostgreSQL"],
-    liveUrl: "#",
-    repoUrl: "#",
-    shotImg: ""
+    stack: ["Bun", "Hono", "TypeScript", "PostgreSQL"],
+    accent: "#1F7A54",
+    liveUrl: "https://siera.veterantech.id/",
+    repoUrl: "",
+    repoPrivate: true,
+    shotImg: "assets/img/projects/siera.png" // TODO: screenshot belum diunggah, fallback watermark kanji tetap tampil
   },
   {
     id: "urbancycle",

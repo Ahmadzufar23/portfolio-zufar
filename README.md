@@ -45,16 +45,32 @@ mengikuti pola yang sudah ada, misalnya:
     { before: "Kondisi sebelum", after: "Hasil sesudah" }
   ],
   stack: ["Teknologi1", "Teknologi2"],
+  accent: "#3E6FA3",
   liveUrl: "https://link-demo-kamu.com",
   repoUrl: "https://github.com/username/repo",
+  repoPrivate: false,
   shotImg: "assets/img/projects/proyek-baru.png"
 }
 ```
 
 Taruh file screenshot proyek di `assets/img/projects/`, lalu isi
-`shotImg` dengan path relatifnya. Kalau `shotImg` dikosongkan (`""`),
-halaman detail otomatis menampilkan watermark kanji sebagai gantinya —
-tidak perlu ubah apa pun di HTML atau JS.
+`shotImg` dengan path relatifnya. Kalau `shotImg` dikosongkan (`""`)
+atau filenya belum ada, halaman detail otomatis menampilkan watermark
+kanji sebagai gantinya — tidak perlu ubah apa pun di HTML atau JS.
+
+`accent` (opsional) adalah kode hex warna aksen khusus proyek ini —
+dipakai di kata highlight judul, garis kotak impact, panah before→after,
+tombol Preview Live, dan border/teks "Buka Detail" di kartu grid. Kosongkan
+atau hapus field ini kalau proyek belum punya warna aksen; halaman detail
+dan kartunya otomatis jatuh ke merah `--shu` seperti default.
+
+`repoUrl` boleh dikosongkan (`""`) untuk proyek yang repo-nya tidak boleh
+publik (mis. proyek client) — tombol "GitHub Repo" otomatis hilang dari
+halaman detail. Kalau di situasi itu kamu juga set `repoPrivate: true`,
+tempat tombol tadi akan menampilkan badge kecil "Proyek Client — kode
+tertutup" sebagai gantinya. Kalau `repoUrl` kosong dan `repoPrivate` tidak
+diisi/`false`, tidak ada apa pun yang ditampilkan di situ — tombol Preview
+Live tidak terpengaruh sama sekali oleh field ini.
 
 Urutan objek dalam array `projects` menentukan urutan tampil kartu
 (nomor otomatis 一, 二, 三, ... mengikuti urutan ini).
@@ -118,6 +134,28 @@ const tools = [
 
 Urutan item dalam array menentukan urutan tampil di dalam grid
 masing-masing kelompok.
+
+### Ikon stack di halaman detail proyek
+
+Field `stack` tiap proyek (lihat bagian 1) juga tampil dengan ikon di
+halaman detail (overlay), bukan cuma teks. Ikonnya diambil dari peta
+`techIcons` di `js/data.js`, yang dibuat **otomatis** dari array `tools`
+di atas — nama tool (`nama`) jadi key, `deviconClass`/`iconImg`-nya
+dipakai ulang:
+
+```js
+const techIcons = {};
+tools.forEach(t => {
+  techIcons[t.nama] = { deviconClass: t.deviconClass, iconImg: t.iconImg };
+});
+```
+
+Artinya: kalau sebuah tool sudah ada di array `tools`, otomatis dapat
+ikon juga saat namanya dipakai di `stack` proyek manapun — tidak perlu
+daftar ikon terpisah. Kalau nama di `stack` tidak ketemu di `tools`
+(mis. `"OpenAPI"`, `"Jetpack Compose"`, label generik seperti
+`"Scope Definition"`), tampilannya otomatis jatuh ke teks biasa tanpa
+ikon — tidak error, tidak perlu ikon baru.
 
 ## 4. Mengubah warna
 

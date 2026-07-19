@@ -138,18 +138,23 @@
     <div class="ov-subrow">
       <span class="ov-kanji" id="ovKanjiWord"></span>
       <div class="ov-palette" aria-hidden="true">
-        <span style="background:#F6F2EA"></span>
-        <span style="background:#E3123B"></span>
-        <span style="background:#BC002D"></span>
-        <span style="background:#6E1420"></span>
-        <span style="background:#121212"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
 
     <div class="ov-grid">
       <div class="ov-shot" id="ovShot">
-        <span class="shot-kanji" id="ovShotKanji"></span>
-        <span class="shot-tag">PREVIEW · SCREENSHOT PROYEK</span>
+        <div class="ov-shot-bar" aria-hidden="true">
+          <span class="ov-shot-dots"><i></i><i></i><i></i></span>
+          <span class="ov-shot-url" id="ovShotUrl"></span>
+        </div>
+        <div class="ov-shot-body" id="ovShotBody">
+          <span class="shot-kanji" id="ovShotKanji"></span>
+        </div>
       </div>
 
       <div class="ov-about">
@@ -168,6 +173,7 @@
             <span class="play-ico">▶</span> Preview Live
           </a>
           <a class="btn-git" id="ovRepo" href="#" target="_blank" rel="noopener">GitHub Repo</a>
+          <span class="ov-repo-badge" id="ovRepoBadge" hidden>Proyek Client — kode tertutup</span>
         </div>
       </div>
     </div>
