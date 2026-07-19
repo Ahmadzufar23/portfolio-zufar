@@ -1,0 +1,15 @@
+:root{
+  --washi:#F6F2EA;      /* putih kertas washi */
+  --washi-deep:#EDE7DA;
+  --sumi:#121212;       /* hitam tinta sumi */
+  --sumi-soft:#1C1B19;
+  --shu:#BC002D;        /* merah hinomaru */
+  --shu-bright:#E3123B;
+  --ink-gray:#6E6A63;
+  --line:rgba(18,18,18,.14);
+  --line-light:rgba(246,242,234,.16);
+
+  --font-display:'Shippori Mincho B1', serif;
+  --font-body:'Zen Kaku Gothic New', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}

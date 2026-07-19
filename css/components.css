@@ -1,0 +1,89 @@
+/* ---------- tombol ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  font-weight:700;font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:14px 26px;border-radius:999px;transition:all .25s ease;cursor:pointer;border:none;
+}
+.btn-red{background:var(--shu);color:var(--washi);}
+.btn-red:hover{background:var(--sumi);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--sumi);border:1.5px solid var(--sumi);}
+.btn-ghost:hover{background:var(--sumi);color:var(--washi);transform:translateY(-2px);}
+
+/* ---------- social bar ---------- */
+.social-bar{
+  display:flex;gap:14px;flex-wrap:wrap;justify-content:center;
+  padding:0 72px 70px;
+}
+.social-chip{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:13px 24px;border:1.5px solid var(--line);border-radius:14px;
+  text-decoration:none;color:var(--sumi);font-weight:700;font-size:14px;
+  background:#fff;transition:all .25s ease;
+}
+.social-chip .dot{width:9px;height:9px;border-radius:50%;background:var(--shu);}
+.social-chip:hover{border-color:var(--shu);transform:translateY(-3px);box-shadow:0 12px 26px rgba(188,0,45,.14);}
+
+/* ---------- marquee ---------- */
+.marquee{
+  background:var(--sumi);color:var(--washi);overflow:hidden;white-space:nowrap;
+  padding:16px 0;border-top:3px solid var(--shu);border-bottom:3px solid var(--shu);
+}
+.marquee-track{display:inline-block;animation:scroll 26s linear infinite;}
+.marquee span{
+  font-family:var(--font-display);font-size:16px;letter-spacing:.24em;margin:0 28px;
+}
+.marquee .m-red{color:var(--shu-bright);}
+@keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@media (prefers-reduced-motion: reduce){
+  .marquee-track{animation:none;}
+  .hinomaru{animation:none;}
+}
+
+/* ---------- tools ---------- */
+.tools-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;
+}
+.tool{
+  background:#fff;border:1.5px solid var(--line);border-radius:18px;
+  padding:26px 16px;text-align:center;transition:all .25s ease;
+}
+.tool i{font-size:44px;display:block;margin-bottom:12px;}
+.tool .t-name{font-weight:700;font-size:14px;}
+.tool .t-role{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-gray);text-transform:uppercase;margin-top:2px;}
+.tool:hover{border-color:var(--shu);transform:translateY(-5px);box-shadow:0 16px 30px rgba(18,18,18,.08);}
+.tool:hover i{color:var(--shu) !important;}
+
+/* ---------- kartu proyek ---------- */
+.card{
+  background:#fff;border:1.5px solid var(--line);border-radius:22px;
+  padding:30px 28px;cursor:pointer;position:relative;overflow:hidden;
+  transition:all .3s ease;
+}
+.card::before{
+  content:attr(data-kanji);
+  position:absolute;right:14px;top:6px;
+  font-family:var(--font-display);font-size:86px;font-weight:800;
+  color:rgba(188,0,45,.07);line-height:1;pointer-events:none;
+  transition:color .3s ease;
+}
+.card:hover{border-color:var(--shu);transform:translateY(-6px);box-shadow:0 22px 44px rgba(18,18,18,.12);}
+.card:hover::before{color:rgba(188,0,45,.16);}
+.card-num{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;color:var(--shu);margin-bottom:14px;}
+.card h3{font-family:var(--font-display);font-weight:800;font-size:24px;margin-bottom:6px;}
+.card .role{font-size:13px;font-weight:700;color:var(--ink-gray);margin-bottom:14px;}
+.card .desc{font-size:14px;color:var(--ink-gray);margin-bottom:18px;min-height:64px;}
+.card .stack{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.card .stack span{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;
+  padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--sumi);
+}
+.card-open{
+  display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:13px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--shu);
+}
+.card-open .arr{transition:transform .25s ease;}
+.card:hover .card-open .arr{transform:translateX(6px);}
+
+.btn-play:focus-visible,.btn-git:focus-visible,.btn:focus-visible,.ov-back:focus-visible,.card:focus-visible{
+  outline:3px solid var(--shu-bright);outline-offset:3px;
+}

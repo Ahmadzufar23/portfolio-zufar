@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ahmad Zufar Ginting — Backend Developer & Project Manager</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/kamon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicon/2.15.1/devicon.min.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/overlay.css">
+</head>
+<body>
+
+<div class="rail left">アフマド・ズファル・ギンティン</div>
+<div class="rail right">武士道 — BUSHIDŌ</div>
+
+<!-- ======================= NAV ======================= -->
+<nav>
+  <a class="brand" href="#home">
+    <span class="brand-mark">侍</span>
+    <span class="brand-name">ZUFAR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home">Beranda</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#projects">Proyek</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- ======================= HERO ======================= -->
+<header class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow" id="heroEyebrow"></p>
+    <h1 id="heroName"></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-bio" id="heroBio"></p>
+  </div>
+
+  <div class="portrait-wrap">
+    <div class="hinomaru" aria-hidden="true"></div>
+    <div class="portrait" id="portrait"></div>
+    <div class="portrait-caption" id="portraitCaption"></div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat">
+      <div class="num">10+</div>
+      <div class="label">Proyek Selesai</div>
+    </div>
+    <div class="stat">
+      <div class="num">3.84</div>
+      <div class="label">IPK — Sistem Informasi</div>
+    </div>
+    <div class="stat">
+      <div class="num">2</div>
+      <div class="label">Jalur Karier — PM & Backend</div>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-red" href="#contact">Hubungi Aku →</a>
+      <a class="btn btn-ghost" href="#projects">Lihat Proyek</a>
+    </div>
+  </div>
+</header>
+
+<!-- social bar (ala lampiran 2) -->
+<div class="social-bar" id="socialBar"><!-- diisi oleh JS --></div>
+
+<!-- ======================= MARQUEE ======================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>武士道</span><span class="m-red">BACKEND DEVELOPMENT</span><span>侍</span><span>PROJECT MANAGEMENT</span><span class="m-red">一期一会</span><span>NODE.JS · TYPESCRIPT</span>
+    <span>武士道</span><span class="m-red">BACKEND DEVELOPMENT</span><span>侍</span><span>PROJECT MANAGEMENT</span><span class="m-red">一期一会</span><span>NODE.JS · TYPESCRIPT</span>
+  </div>
+</div>
+
+<!-- ======================= TOOLS ======================= -->
+<section id="tools">
+  <div class="section-head">
+    <span class="section-kanji">道具 — DŌGU</span>
+    <h2 class="section-title">Tools & Skills</h2>
+    <p class="section-sub">Senjata yang kupakai sehari-hari — dari membangun REST API sampai mengelola tim dan timeline proyek.</p>
+  </div>
+  <div class="tools-grid" id="toolsGrid"><!-- diisi oleh JS --></div>
+</section>
+
+<!-- ======================= PROJECTS ======================= -->
+<section class="projects" id="projects">
+  <div class="section-head">
+    <span class="section-kanji">作品 — SAKUHIN</span>
+    <h2 class="section-title">Proyek Pilihan</h2>
+    <p class="section-sub">Klik kartu untuk membuka halaman detail — lengkap dengan role, impact, stack, dan tombol preview langsung ke proyeknya.</p>
+  </div>
+  <div class="project-grid" id="projectGrid"><!-- diisi oleh JS --></div>
+</section>
+
+<!-- ======================= FOOTER / CONTACT ======================= -->
+<footer id="contact">
+  <span class="f-kanji">礼</span>
+  <h2>Mari Bangun Sesuatu.</h2>
+  <p>Terbuka untuk magang Project Manager, kolaborasi backend, atau sekadar ngobrol soal produk sambil kopi hitam.</p>
+  <a class="btn btn-red" id="footerEmail" href="#"></a>
+  <div class="f-line">© 2026 AHMAD ZUFAR GINTING — DIBANGUN DENGAN DISIPLIN BUSHIDŌ · JAKARTA</div>
+</footer>
+
+<!-- ======================= PROJECT DETAIL OVERLAY ======================= -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+  <div class="ov-inner">
+    <div class="ov-top">
+      <button class="ov-back" id="ovClose">← Kembali</button>
+      <span class="ov-brand">ZUFAR <span style="color:var(--shu-bright)">侍</span></span>
+    </div>
+
+    <div class="ov-meta">
+      <div><div class="m-label">Role —</div><div class="m-value" id="ovRole"></div></div>
+      <div><div class="m-label">Tahun —</div><div class="m-value" id="ovYear"></div></div>
+      <div><div class="m-label">Tipe —</div><div class="m-value" id="ovType"></div></div>
+      <div><div class="m-label">Status —</div><div class="m-value" id="ovStatus"></div></div>
+    </div>
+
+    <div class="ov-title-wrap">
+      <h2 class="ov-title" id="ovTitle"></h2>
+      <span class="ov-script" id="ovScript"></span>
+    </div>
+
+    <div class="ov-subrow">
+      <span class="ov-kanji" id="ovKanjiWord"></span>
+      <div class="ov-palette" aria-hidden="true">
+        <span style="background:#F6F2EA"></span>
+        <span style="background:#E3123B"></span>
+        <span style="background:#BC002D"></span>
+        <span style="background:#6E1420"></span>
+        <span style="background:#121212"></span>
+      </div>
+    </div>
+
+    <div class="ov-grid">
+      <div class="ov-shot" id="ovShot">
+        <span class="shot-kanji" id="ovShotKanji"></span>
+        <span class="shot-tag">PREVIEW · SCREENSHOT PROYEK</span>
+      </div>
+
+      <div class="ov-about">
+        <h4>About —</h4>
+        <p id="ovAbout"></p>
+
+        <div class="impact-box">
+          <div class="i-label">Impact — Before → After</div>
+          <div id="ovImpacts"></div>
+        </div>
+
+        <div class="ov-stack" id="ovStack"></div>
+
+        <div class="ov-actions">
+          <a class="btn-play" id="ovLive" href="#" target="_blank" rel="noopener">
+            <span class="play-ico">▶</span> Preview Live
+          </a>
+          <a class="btn-git" id="ovRepo" href="#" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
