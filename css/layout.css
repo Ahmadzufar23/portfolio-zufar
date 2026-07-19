@@ -81,6 +81,8 @@ nav{
   animation:breath 7s ease-in-out infinite;
 }
 @keyframes breath{0%,100%{transform:scale(1);}50%{transform:scale(1.035);}}
+/* dev toggle ?motion=on (lihat js/main.js) — override reduce-motion untuk pengujian */
+body.force-motion .hinomaru{animation:breath 7s ease-in-out infinite;}
 .portrait{
   position:relative;z-index:2;width:min(330px,74%);aspect-ratio:3/3.6;
   border-radius:170px 170px 26px 26px;overflow:hidden;

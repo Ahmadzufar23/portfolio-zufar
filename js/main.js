@@ -3,6 +3,13 @@
    Semua konten diambil dari js/data.js (site, tools, projects).
    ===================================================== */
 
+/* ---------- dev toggle: paksa animasi via ?motion=on ---------- */
+(function applyForceMotion(){
+  if (new URLSearchParams(location.search).get("motion") === "on") {
+    document.body.classList.add("force-motion");
+  }
+})();
+
 /* ---------- hero ---------- */
 (function renderHero(){
   document.getElementById("heroEyebrow").textContent = site.tagline;
@@ -31,18 +38,62 @@
   }
 })();
 
-/* ---------- social bar ---------- */
-(function renderSocialBar(){
-  const bar = document.getElementById("socialBar");
+/* ---------- hero social links ---------- */
+(function renderHeroSocial(){
+  const bar = document.getElementById("heroSocial");
   const links = [
-    { label: "GitHub", href: site.github, external: true },
-    { label: "LinkedIn", href: site.linkedin, external: true },
-    { label: "Instagram", href: site.instagram, external: true },
-    { label: "Email", href: `mailto:${site.email}`, external: false }
+    { label: "GitHub", href: site.github, external: true, icon: "devicon-github-original" },
+    { label: "LinkedIn", href: site.linkedin, external: true, icon: "devicon-linkedin-plain colored" },
+    { label: "Instagram", href: site.instagram, external: true, iconMask: "assets/img/icons/instagram.svg" },
+    { label: "Email", href: `mailto:${site.email}`, external: false, iconMask: "assets/img/icons/gmail.svg" }
   ];
+  function renderIcon(l){
+    if (l.icon) return `<i class="${l.icon}"></i>`;
+    if (l.iconMask) return `<span class="hero-social-icon" style="mask-image:url('${l.iconMask}');-webkit-mask-image:url('${l.iconMask}');"></span>`;
+    return "";
+  }
   bar.innerHTML = links.map(l => `
-    <a class="social-chip" href="${l.href}"${l.external ? ' target="_blank" rel="noopener"' : ""}><span class="dot"></span>${l.label}</a>
+    <a class="hero-social-link" href="${l.href}"${l.external ? ' target="_blank" rel="noopener"' : ""}>${renderIcon(l)}<span>${l.label}</span></a>
   `).join("");
+})();
+
+/* ---------- dropdown Unduh CV ---------- */
+(function setupCvDropdown(){
+  const dropdown = document.getElementById("cvDropdown");
+  const toggle = document.getElementById("cvToggle");
+  const menu = document.getElementById("cvMenu");
+  document.getElementById("cvBackendLink").href = site.cvBackend || "#";
+  document.getElementById("cvPmLink").href = site.cvPm || "#";
+
+  function outsideClick(e){
+    if(!dropdown.contains(e.target)) closeMenu(false);
+  }
+  function openMenu(){
+    menu.hidden = false;
+    toggle.setAttribute("aria-expanded", "true");
+    document.addEventListener("click", outsideClick);
+  }
+  function closeMenu(focusToggle){
+    menu.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+    document.removeEventListener("click", outsideClick);
+    if(focusToggle) toggle.focus();
+  }
+  toggle.addEventListener("click", e => {
+    e.stopPropagation();
+    if(menu.hidden) openMenu(); else closeMenu(false);
+  });
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape" && !menu.hidden) closeMenu(true);
+  });
+})();
+
+/* ---------- pita berjalan (marquee) ---------- */
+(function renderMarquee(){
+  const track = document.getElementById("marqueeTrack");
+  const group = marqueeItems.map(it => `<span${it.accent ? ' class="m-red"' : ""}>${it.text}</span>`).join("");
+  // digandakan agar animasi translateX(-50%) berputar mulus tanpa celah
+  track.innerHTML = group + group;
 })();
 
 /* ---------- footer ---------- */
@@ -52,16 +103,24 @@
   emailLink.textContent = site.email;
 })();
 
-/* ---------- tools grid ---------- */
+/* ---------- tools grid (dua kelompok: backend & pm) ---------- */
 (function renderTools(){
-  const grid = document.getElementById("toolsGrid");
-  grid.innerHTML = tools.map(t => `
-    <div class="tool">
-      <i class="${t.deviconClass}"></i>
-      <div class="t-name">${t.nama}</div>
-      <div class="t-role">${t.peran}</div>
-    </div>
-  `).join("");
+  function toolCard(t){
+    let icon = "";
+    if (t.deviconClass) icon = `<i class="${t.deviconClass}"></i>`;
+    else if (t.iconImg) icon = `<img class="tool-icon-img" src="${t.iconImg}" alt="${t.nama}">`;
+    return `
+      <div class="tool">
+        ${icon}
+        <div class="t-name">${t.nama}</div>
+        <div class="t-role">${t.peran}</div>
+      </div>
+    `;
+  }
+  document.getElementById("toolsBackend").innerHTML =
+    tools.filter(t => t.group === "backend").map(toolCard).join("");
+  document.getElementById("toolsManagement").innerHTML =
+    tools.filter(t => t.group === "pm").map(toolCard).join("");
 })();
 
 /* ---------- kartu proyek ---------- */

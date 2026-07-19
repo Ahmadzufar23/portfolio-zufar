@@ -9,19 +9,40 @@
 .btn-ghost{background:transparent;color:var(--sumi);border:1.5px solid var(--sumi);}
 .btn-ghost:hover{background:var(--sumi);color:var(--washi);transform:translateY(-2px);}
 
-/* ---------- social bar ---------- */
-.social-bar{
-  display:flex;gap:14px;flex-wrap:wrap;justify-content:center;
-  padding:0 72px 70px;
+/* ---------- hero social links ---------- */
+.hero-social{
+  display:flex;gap:20px;flex-wrap:wrap;align-items:center;
+  margin-top:16px;
 }
-.social-chip{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:13px 24px;border:1.5px solid var(--line);border-radius:14px;
-  text-decoration:none;color:var(--sumi);font-weight:700;font-size:14px;
-  background:#fff;transition:all .25s ease;
+.hero-social-link{
+  display:inline-flex;align-items:center;gap:7px;
+  text-decoration:none;color:var(--sumi);font-weight:700;font-size:12.5px;
+  letter-spacing:.04em;transition:color .2s ease;
 }
-.social-chip .dot{width:9px;height:9px;border-radius:50%;background:var(--shu);}
-.social-chip:hover{border-color:var(--shu);transform:translateY(-3px);box-shadow:0 12px 26px rgba(188,0,45,.14);}
+.hero-social-link i{font-size:16px;}
+.hero-social-icon{
+  width:16px;height:16px;display:inline-block;background-color:currentColor;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:center;mask-position:center;
+  -webkit-mask-size:contain;mask-size:contain;
+}
+.hero-social-link:hover{color:var(--shu);}
+
+/* ---------- dropdown Unduh CV ---------- */
+.cv-dropdown{position:relative;display:inline-block;}
+.cv-menu{
+  position:absolute;top:calc(100% + 8px);left:0;z-index:20;min-width:230px;
+  background:#fff;border:1.5px solid var(--line);border-radius:14px;
+  padding:8px;box-shadow:0 16px 30px rgba(18,18,18,.14);
+}
+.cv-menu[hidden]{display:none;}
+.cv-menu-item{
+  display:block;padding:11px 14px;border-radius:8px;text-decoration:none;
+  color:var(--sumi);font-weight:700;font-size:12.5px;letter-spacing:.03em;
+  transition:background .2s ease;
+}
+.cv-menu-item:hover{background:var(--washi-deep);}
+.cv-menu-item:focus-visible{outline:2px solid var(--shu-bright);outline-offset:2px;}
 
 /* ---------- marquee ---------- */
 .marquee{
@@ -38,8 +59,19 @@
   .marquee-track{animation:none;}
   .hinomaru{animation:none;}
 }
+/* dev toggle ?motion=on (lihat js/main.js) — override reduce-motion untuk pengujian */
+body.force-motion .marquee-track{animation:scroll 26s linear infinite;}
 
 /* ---------- tools ---------- */
+.tools-group{margin-bottom:40px;}
+.tools-group:last-child{margin-bottom:0;}
+.tools-group-label{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.22em;
+  color:var(--shu);text-transform:uppercase;margin-bottom:18px;
+}
+@media(min-width:761px){
+  .tools-group--right .tools-group-label{text-align:right;}
+}
 .tools-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;
 }
@@ -48,6 +80,7 @@
   padding:26px 16px;text-align:center;transition:all .25s ease;
 }
 .tool i{font-size:44px;display:block;margin-bottom:12px;}
+.tool .tool-icon-img{width:44px;height:44px;display:block;margin:0 auto 12px;object-fit:contain;}
 .tool .t-name{font-weight:700;font-size:14px;}
 .tool .t-role{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-gray);text-transform:uppercase;margin-top:2px;}
 .tool:hover{border-color:var(--shu);transform:translateY(-5px);box-shadow:0 16px 30px rgba(18,18,18,.08);}

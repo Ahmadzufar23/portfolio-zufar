@@ -10,7 +10,7 @@ Semua konten yang bisa diedit pemilik ada di satu file: `js/data.js`.
 ├── css/
 │   ├── tokens.css        (variabel warna & font)
 │   ├── layout.css        (reset, navbar, hero, section, footer, rail)
-│   ├── components.css    (tombol, chip, kartu proyek, marquee, social bar)
+│   ├── components.css    (tombol, kartu proyek, marquee, tools, hero social, dropdown CV)
 │   └── overlay.css        (halaman detail proyek)
 ├── js/
 │   ├── data.js           (KONTEN — edit di sini)
@@ -18,6 +18,7 @@ Semua konten yang bisa diedit pemilik ada di satu file: `js/data.js`.
 ├── assets/
 │   ├── img/               (foto profil, kamon.svg)
 │   ├── img/projects/      (screenshot tiap proyek)
+│   ├── img/icons/         (ikon Simple Icons untuk tool yang tak ada di devicon)
 │   └── cv/                (file CV/PDF)
 └── zufar-portfolio.html  (versi referensi/pembanding — jangan dihapus)
 ```
@@ -68,10 +69,10 @@ const site = {
   tagline: "Backend Developer × Project Manager",
   bio: "...",                 // boleh pakai <b>teks tebal</b>
   lokasi: "JAKARTA, INDONESIA",
-  email: "email@kamu.com",
-  github: "https://github.com/username-kamu",
-  linkedin: "https://linkedin.com/in/username-kamu",
-  instagram: "https://instagram.com/username-kamu",
+  email: "ahmadzufarginting07@gmail.com",
+  github: "https://github.com/Ahmadzufar23",
+  linkedin: "https://www.linkedin.com/in/ahmad-zufar-ginting-632b5a2b6/",
+  instagram: "https://www.instagram.com/ahmdzufarr/",
   cvBackend: "",               // path CV versi Backend, mis. "assets/cv/cv-backend.pdf"
   cvPm: "",                    // path CV versi Project Manager
   photoSrc: ""                 // path foto profil, mis. "assets/img/foto-zufar.jpg"
@@ -88,7 +89,37 @@ const site = {
   `instagram`, dan `email` — otomatis dipakai ulang di social bar
   (bagian atas) dan tombol email di footer.
 
-## 3. Mengubah warna
+## 3. Menambah/mengubah Tools & Skills
+
+Seksi Tools tampil sebagai dua grid berlabel ("BACKEND —" dan
+"MANAGEMENT —"), keduanya dirender dari satu array `tools` di
+`js/data.js`:
+
+```js
+const tools = [
+  { group: "backend", deviconClass: "devicon-nodejs-plain colored", nama: "Node.js", peran: "Backend Runtime" },
+  { group: "backend", iconImg: "assets/img/icons/drizzle.svg", nama: "Drizzle ORM", peran: "ORM / Query Builder" },
+  { group: "pm", iconImg: "assets/img/icons/notion.svg", nama: "Notion", peran: "Workspace & Docs" },
+  // ...
+];
+```
+
+- `group`: `"backend"` masuk grid BACKEND, `"pm"` masuk grid MANAGEMENT.
+- Ikon — pakai **salah satu** dari dua field berikut per item:
+  - `deviconClass`: nama class dari [devicon](https://devicon.dev/) untuk
+    tool yang tersedia di sana (mis. `"devicon-docker-plain colored"`).
+  - `iconImg`: path ke file SVG lokal di `assets/img/icons/` untuk tool
+    yang tidak ada di devicon. Unduh ikon resminya dari
+    [Simple Icons](https://simpleicons.org/) — file mentahnya polos
+    (tanpa warna), jadi tambahkan atribut `fill="#kodewarnabrand"` pada
+    tag `<svg>` sebelum disimpan supaya warnanya sesuai brand asli.
+  - Kalau keduanya dikosongkan, kartu tetap tampil tanpa ikon (nama saja).
+- `peran`: sub-label singkat di bawah nama tool.
+
+Urutan item dalam array menentukan urutan tampil di dalam grid
+masing-masing kelompok.
+
+## 4. Mengubah warna
 
 Semua warna diatur lewat variabel di `css/tokens.css`:
 
@@ -107,7 +138,7 @@ Ubah nilai hex di sana saja — seluruh halaman (navbar, tombol, kartu,
 overlay) otomatis ikut berubah karena semua file CSS memakai variabel
 yang sama.
 
-## 4. Deploy
+## 5. Deploy
 
 ### GitHub Pages
 1. Push seluruh isi folder ini ke repository GitHub.
@@ -123,3 +154,24 @@ yang sama.
 
 Karena tidak ada proses build, kedua platform hanya perlu men-serve
 file apa adanya.
+
+## 6. Menguji animasi saat mode reduce-motion aktif (dev toggle)
+
+Situs ini menghormati preferensi aksesibilitas `prefers-reduced-motion`
+milik pengunjung: kalau OS/browser diset "kurangi gerakan", animasi pita
+berjalan (`.marquee-track`) dan denyut hinomaru (`.hinomaru`) otomatis
+dimatikan. Ini disengaja dan tidak boleh dihapus.
+
+Kalau kamu sedang mengembangkan di perangkat yang settingnya sendiri
+"kurangi gerakan", tanpa perlu mengubah setelan OS, buka situs dengan
+parameter berikut untuk memaksa animasi tetap berjalan hanya di sesi
+browser itu:
+
+```
+index.html?motion=on
+```
+
+Ini menambahkan class `force-motion` ke `<body>` (lihat `js/main.js`)
+yang meng-override aturan reduce-motion khusus untuk pita berjalan dan
+hinomaru. Pengunjung biasa yang tidak memakai parameter ini tetap
+mendapat perilaku default yang menghormati preferensi mereka.

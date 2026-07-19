@@ -11,29 +11,58 @@ const site = {
        'terdokumentasi, lalu memastikan proyeknya sampai ke garis finis sebagai ' +
        'Project Manager. Disiplin seperti samurai: satu tebasan, tepat sasaran.',
   lokasi: "JAKARTA, INDONESIA",
-  email: "email@kamu.com",
-  github: "https://github.com/username-kamu",
-  linkedin: "https://linkedin.com/in/username-kamu",
-  instagram: "https://instagram.com/username-kamu",
-  cvBackend: "",
-  cvPm: "",
+  email: "ahmadzufarginting07@gmail.com",
+  github: "https://github.com/Ahmadzufar23",
+  linkedin: "https://www.linkedin.com/in/ahmad-zufar-ginting-632b5a2b6/",
+  instagram: "https://www.instagram.com/ahmdzufarr/",
+  cvBackend: "assets/cv/cv-backend.pdf", // TODO: ganti dengan file CV Backend Developer asli
+  cvPm: "assets/cv/cv-pm.pdf", // TODO: ganti dengan file CV Project Manager asli
   photoSrc: ""
 };
 
-/* ---------- Tools & Skills (grid #tools) ---------- */
+/* ---------- Pita berjalan (marquee di bawah hero) ----------
+   accent:true memakai warna aksen merah (class .m-red).
+   Urutan ini akan diulang oleh JS agar loop-nya mulus.
+   ------------------------------------------------------ */
+const marqueeItems = [
+  { text: "BACKEND DEVELOPMENT", accent: true },
+  { text: "侍", accent: false },
+  { text: "PROJECT MANAGEMENT", accent: false },
+  { text: "侍", accent: false }
+];
+
+/* ---------- Tools & Skills (dua grid di #tools) ----------
+   group: "backend" | "pm" — menentukan grid mana tempat kartu dirender.
+   Ikon: pakai salah satu dari dua field ini per item, tidak keduanya.
+     - deviconClass : class ikon dari devicon (sudah dimuat di index.html)
+     - iconImg      : path SVG lokal di assets/img/icons/ (dari Simple Icons,
+                       dipakai untuk tool yang tidak ada di devicon)
+   Kalau keduanya kosong, kartu tetap tampil tanpa ikon (nama saja).
+   ------------------------------------------------------ */
 const tools = [
-  { deviconClass: "devicon-nodejs-plain colored", nama: "Node.js", peran: "Backend Runtime" },
-  { deviconClass: "devicon-typescript-plain colored", nama: "TypeScript", peran: "Bahasa Utama" },
-  { deviconClass: "devicon-express-original", nama: "Express", peran: "Web Framework" },
-  { deviconClass: "devicon-postgresql-plain colored", nama: "PostgreSQL", peran: "Database" },
-  { deviconClass: "devicon-supabase-plain colored", nama: "Supabase", peran: "BaaS / DB Hosting" },
-  { deviconClass: "devicon-kotlin-plain colored", nama: "Kotlin", peran: "Android Dev" },
-  { deviconClass: "devicon-java-plain colored", nama: "Java", peran: "OOP Foundation" },
-  { deviconClass: "devicon-python-plain colored", nama: "Python", peran: "Data Science" },
-  { deviconClass: "devicon-git-plain colored", nama: "Git & GitHub", peran: "Version Control" },
-  { deviconClass: "devicon-docker-plain colored", nama: "Docker", peran: "Containerization" },
-  { deviconClass: "devicon-nextjs-original", nama: "Next.js", peran: "Frontend" },
-  { deviconClass: "devicon-notion-plain", nama: "Notion & PM Tools", peran: "Project Management" }
+  // — Backend —
+  { group: "backend", deviconClass: "devicon-nodejs-plain colored", nama: "Node.js", peran: "Backend Runtime" },
+  { group: "backend", deviconClass: "devicon-typescript-plain colored", nama: "TypeScript", peran: "Bahasa Utama" },
+  { group: "backend", deviconClass: "devicon-express-original", nama: "Express", peran: "Web Framework" },
+  { group: "backend", deviconClass: "devicon-postgresql-plain colored", nama: "PostgreSQL", peran: "Database" },
+  { group: "backend", iconImg: "assets/img/icons/supabase.svg", nama: "Supabase", peran: "BaaS / DB Hosting" },
+  { group: "backend", iconImg: "assets/img/icons/drizzle.svg", nama: "Drizzle ORM", peran: "ORM / Query Builder" },
+  { group: "backend", deviconClass: "devicon-docker-plain colored", nama: "Docker", peran: "Containerization" },
+  { group: "backend", deviconClass: "devicon-git-plain colored", nama: "Git & GitHub", peran: "Version Control" },
+  { group: "backend", deviconClass: "devicon-nextjs-original", nama: "Next.js", peran: "Frontend Framework" },
+  { group: "backend", deviconClass: "devicon-kotlin-plain colored", nama: "Kotlin", peran: "Android Dev" },
+  { group: "backend", deviconClass: "devicon-java-plain colored", nama: "Java", peran: "OOP Foundation" },
+  { group: "backend", deviconClass: "devicon-python-plain colored", nama: "Python", peran: "Data Science" },
+  { group: "backend", iconImg: "assets/img/icons/bun.svg", nama: "Bun", peran: "JS Runtime" },
+  { group: "backend", iconImg: "assets/img/icons/hono.svg", nama: "Hono", peran: "Web Framework" },
+
+  // — Management —
+  { group: "pm", iconImg: "assets/img/icons/notion.svg", nama: "Notion", peran: "Workspace & Docs" },
+  { group: "pm", iconImg: "assets/img/icons/googlecalendar.svg", nama: "Google Calendar", peran: "Jadwal & Timeline" },
+  { group: "pm", iconImg: "assets/img/icons/googlesheets.svg", nama: "Google Sheets", peran: "Tracking & Laporan" },
+  { group: "pm", iconImg: "assets/img/icons/figma.svg", nama: "Figma", peran: "Design & Handoff" },
+  { group: "pm", iconImg: "assets/img/icons/jira.svg", nama: "Jira", peran: "Backlog & Sprint" },
+  { group: "pm", iconImg: "assets/img/icons/trello.svg", nama: "Trello", peran: "Board Kanban" }
 ];
 
 /* ---------- Proyek ----------

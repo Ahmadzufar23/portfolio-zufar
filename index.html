@@ -40,6 +40,7 @@
     <h1 id="heroName"></h1>
     <div class="hero-divider"></div>
     <p class="hero-bio" id="heroBio"></p>
+    <div class="hero-social" id="heroSocial"><!-- diisi oleh JS --></div>
   </div>
 
   <div class="portrait-wrap">
@@ -62,21 +63,21 @@
       <div class="label">Jalur Karier — PM & Backend</div>
     </div>
     <div class="cta-row">
-      <a class="btn btn-red" href="#contact">Hubungi Aku →</a>
+      <div class="cv-dropdown" id="cvDropdown">
+        <button class="btn btn-red" id="cvToggle" aria-haspopup="true" aria-expanded="false">Unduh CV ▾</button>
+        <div class="cv-menu" id="cvMenu" role="menu" hidden>
+          <a class="cv-menu-item" id="cvBackendLink" role="menuitem" download>CV — Backend Developer</a>
+          <a class="cv-menu-item" id="cvPmLink" role="menuitem" download>CV — Project Manager</a>
+        </div>
+      </div>
       <a class="btn btn-ghost" href="#projects">Lihat Proyek</a>
     </div>
   </div>
 </header>
 
-<!-- social bar (ala lampiran 2) -->
-<div class="social-bar" id="socialBar"><!-- diisi oleh JS --></div>
-
 <!-- ======================= MARQUEE ======================= -->
 <div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>武士道</span><span class="m-red">BACKEND DEVELOPMENT</span><span>侍</span><span>PROJECT MANAGEMENT</span><span class="m-red">一期一会</span><span>NODE.JS · TYPESCRIPT</span>
-    <span>武士道</span><span class="m-red">BACKEND DEVELOPMENT</span><span>侍</span><span>PROJECT MANAGEMENT</span><span class="m-red">一期一会</span><span>NODE.JS · TYPESCRIPT</span>
-  </div>
+  <div class="marquee-track" id="marqueeTrack"><!-- diisi oleh JS --></div>
 </div>
 
 <!-- ======================= TOOLS ======================= -->
@@ -84,9 +85,15 @@
   <div class="section-head">
     <span class="section-kanji">道具 — DŌGU</span>
     <h2 class="section-title">Tools & Skills</h2>
-    <p class="section-sub">Senjata yang kupakai sehari-hari — dari membangun REST API sampai mengelola tim dan timeline proyek.</p>
   </div>
-  <div class="tools-grid" id="toolsGrid"><!-- diisi oleh JS --></div>
+  <div class="tools-group">
+    <div class="tools-group-label">BACKEND —</div>
+    <div class="tools-grid" id="toolsBackend"><!-- diisi oleh JS --></div>
+  </div>
+  <div class="tools-group tools-group--right">
+    <div class="tools-group-label">MANAGEMENT —</div>
+    <div class="tools-grid" id="toolsManagement"><!-- diisi oleh JS --></div>
+  </div>
 </section>
 
 <!-- ======================= PROJECTS ======================= -->
