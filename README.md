@@ -18,6 +18,7 @@ Semua konten yang bisa diedit pemilik ada di satu file: `js/data.js`.
 ├── assets/
 │   ├── img/               (foto profil, kamon.svg)
 │   ├── img/projects/      (screenshot tiap proyek)
+│   ├── img/experience/    (logo perusahaan di timeline Tentang Saya)
 │   ├── img/icons/         (ikon Simple Icons untuk tool yang tak ada di devicon)
 │   └── cv/                (file CV/PDF)
 └── zufar-portfolio.html  (versi referensi/pembanding — jangan dihapus)
@@ -84,6 +85,7 @@ const site = {
   nama: "Ahmad Zufar Ginting",
   tagline: "Backend Developer × Project Manager",
   bio: "...",                 // boleh pakai <b>teks tebal</b>
+  aboutText: "...",           // paragraf naratif singkat di section Tentang Saya (2-4 kalimat)
   lokasi: "JAKARTA, INDONESIA",
   email: "ahmadzufarginting07@gmail.com",
   github: "https://github.com/Ahmadzufar23",
@@ -91,19 +93,26 @@ const site = {
   instagram: "https://www.instagram.com/ahmdzufarr/",
   cvBackend: "",               // path CV versi Backend, mis. "assets/cv/cv-backend.pdf"
   cvPm: "",                    // path CV versi Project Manager
-  photoSrc: ""                 // path foto profil, mis. "assets/img/foto-zufar.jpg"
+  photoCutout: "",             // foto utama hero — PNG transparan (background sudah dihapus), tanpa bingkai
+  photoSrc: "",                // fallback foto hero kalau photoCutout belum ada — foto biasa (kotak, tanpa crop lengkung)
+  aboutPhoto: ""                // foto di section Tentang Saya (terpisah dari foto hero)
 };
 ```
 
-- **Foto profil**: taruh file foto di `assets/img/`, lalu isi `photoSrc`
-  dengan path-nya (mis. `"assets/img/foto-zufar.jpg"`). Kalau
-  dikosongkan, tampilan fallback 侍 tetap muncul seperti sekarang.
+- **Foto profil hero**: idealnya isi `photoCutout` dengan PNG transparan
+  (background sudah dihapus) — tampil sebagai cutout bebas tanpa bingkai
+  di depan splash tinta. Kalau file itu belum ada/gagal dimuat, otomatis
+  jatuh ke `photoSrc` (foto biasa, ditampilkan kotak siku tanpa bingkai
+  lengkung). Kalau keduanya kosong, fallback 侍 tetap muncul seperti
+  biasa. `aboutPhoto` foto terpisah, khusus untuk section Tentang Saya.
 - **CV**: taruh file PDF di `assets/cv/`, lalu isi `cvBackend` /
   `cvPm` dengan path-nya. Field ini disiapkan untuk tombol unduh CV
   bila suatu saat ingin ditambahkan ke tampilan.
 - **Link sosial & email**: cukup ganti nilai `github`, `linkedin`,
   `instagram`, dan `email` — otomatis dipakai ulang di social bar
   (bagian atas) dan tombol email di footer.
+- **Deskripsi diri**: `aboutText` adalah paragraf pengantar yang tampil
+  di section Tentang Saya, di atas timeline pengalaman.
 
 ## 3. Menambah/mengubah Tools & Skills
 
@@ -157,7 +166,37 @@ daftar ikon terpisah. Kalau nama di `stack` tidak ketemu di `tools`
 `"Scope Definition"`), tampilannya otomatis jatuh ke teks biasa tanpa
 ikon — tidak error, tidak perlu ikon baru.
 
-## 4. Mengubah warna
+## 4. Section Tentang Saya (deskripsi, timeline, foto)
+
+Section `#about` punya dua kolom: kiri berisi paragraf deskripsi diri
+(`site.aboutText`) diikuti timeline pengalaman horizontal, kanan berisi
+foto (`site.aboutPhoto`, lihat bagian 2) yang tingginya otomatis
+menyamai kolom kiri.
+
+Timeline pengalaman dirender dari array `experience` di `js/data.js`:
+
+```js
+const experience = [
+  {
+    company: "Nama Perusahaan",
+    role: "Peranmu di sana",
+    period: "Bulan Tahun — Sekarang",   // atau "Bulan Tahun — Bulan Tahun"
+    logo: "assets/img/experience/nama-file.png"
+  },
+  // ...
+];
+```
+
+- Urutan array = urutan tampil dari kiri ke kanan. Saat ini diurutkan
+  dari yang **terlama ke terbaru**.
+- `logo`: taruh file logo perusahaan di `assets/img/experience/`. Kalau
+  filenya belum ada/gagal dimuat, tampilan otomatis jatuh ke kotak
+  berisi inisial perusahaan (mis. "ZSN") — tidak perlu ubah apa pun di
+  HTML/JS.
+- Di layar sempit (mobile), timeline otomatis bertumpuk vertikal dan
+  foto pindah ke bawah deskripsi/timeline.
+
+## 5. Mengubah warna
 
 Semua warna diatur lewat variabel di `css/tokens.css`:
 
@@ -176,7 +215,7 @@ Ubah nilai hex di sana saja — seluruh halaman (navbar, tombol, kartu,
 overlay) otomatis ikut berubah karena semua file CSS memakai variabel
 yang sama.
 
-## 5. Deploy
+## 6. Deploy
 
 ### GitHub Pages
 1. Push seluruh isi folder ini ke repository GitHub.
@@ -193,23 +232,46 @@ yang sama.
 Karena tidak ada proses build, kedua platform hanya perlu men-serve
 file apa adanya.
 
-## 6. Menguji animasi saat mode reduce-motion aktif (dev toggle)
+## 7. Animasi
 
-Situs ini menghormati preferensi aksesibilitas `prefers-reduced-motion`
-milik pengunjung: kalau OS/browser diset "kurangi gerakan", animasi pita
-berjalan (`.marquee-track`) dan denyut hinomaru (`.hinomaru`) otomatis
-dimatikan. Ini disengaja dan tidak boleh dihapus.
+Atas keputusan sadar pemilik, semua animasi visual (pita berjalan
+`.marquee-track`, denyut hinomaru `.hinomaru`, reveal-on-scroll `.reveal`,
+efek hover) berjalan untuk semua pengunjung tanpa syarat — tidak ada
+gerbang `prefers-reduced-motion` dan tidak ada toggle `?motion=on` lagi.
 
-Kalau kamu sedang mengembangkan di perangkat yang settingnya sendiri
-"kurangi gerakan", tanpa perlu mengubah setelan OS, buka situs dengan
-parameter berikut untuk memaksa animasi tetap berjalan hanya di sesi
-browser itu:
+Hero mendapat animasi masuk begitu halaman siap (tanpa perlu scroll):
+eyebrow → nama → bio → sosial → stats → tombol muncul berurutan
+fade-up dengan stagger, foto dan hinomaru ikut fade-in. Section
+lainnya (About, Tools, Proyek, Footer) memakai reveal-on-scroll —
+elemen dengan class `.reveal` (opsional `data-delay="N"` untuk stagger)
+di-observe oleh `js/reveal.js` dan diberi class `.is-visible` setiap kali
+masuk viewport, dan class itu dilepas lagi saat elemen keluar viewport
+sepenuhnya — jadi animasinya replay tiap kali discroll ulang, bukan
+sekali seumur hidup halaman.
 
-```
-index.html?motion=on
-```
+Marquee (`.marquee-track`) dirender dua grup konten identik dan
+digeser `translateX(-50%)`; setiap `span` punya `margin-right` seragam
+(bukan `gap`/margin dua sisi) supaya jarak di titik sambungan grup
+persis sama dengan jarak antar item lain — ini yang membuat loop-nya
+benar-benar mulus tanpa lompatan di seam.
 
-Ini menambahkan class `force-motion` ke `<body>` (lihat `js/main.js`)
-yang meng-override aturan reduce-motion khusus untuk pita berjalan dan
-hinomaru. Pengunjung biasa yang tidak memakai parameter ini tetap
-mendapat perilaku default yang menghormati preferensi mereka.
+## 8. Tema visual "washi & tinta sumi-e"
+
+- **Tekstur kertas**: `body` dan `.projects` punya dua layar
+  `background-image` (noise SVG + speckle SVG, keduanya di
+  `css/tokens.css` sebagai `--washi-noise` / `--washi-speckle`)
+  di-blend `multiply` di atas warna washi. Sangat subtle — jangan
+  naikkan opacity di dalam SVG itu tanpa alasan kuat, tujuannya cuma
+  terasa sebagai serat kertas, bukan pola yang mencolok.
+- **Splash tinta hero**: SVG organik (`feTurbulence` + `feDisplacementMap`
+  pada blob path) di `.hero-splash`, ditaruh sebagai anak pertama
+  `.portrait-wrap` supaya tampil di belakang hinomaru + foto. Ini
+  pusat drama visual situs — jangan digandakan di section lain.
+- **Ink fleck**: aksen kecil di sudut About & Proyek, pakai `<symbol
+  id="inkFleck">` yang didefinisikan sekali di awal `<body>` lalu
+  dipakai ulang lewat `<use>` dengan class `.ink-fleck--*` untuk
+  posisi/rotasi berbeda tiap instance.
+- **Divider antar-section**: `.section-divider` (sapuan kuas horizontal,
+  `<symbol id="brushDivider">`) dipasang di antara About→Tools,
+  Tools→Proyek, dan Proyek→Footer. Hero→About tetap memakai marquee
+  sebagai satu-satunya pembatas — jangan tambah divider di situ.

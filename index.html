@@ -16,6 +16,25 @@
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="inkFleck" viewBox="0 0 140 140">
+      <filter id="fleckDistort" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="22" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <path filter="url(#fleckDistort)" d="M70,18 C96,14 118,34 122,60 C126,88 108,112 80,120 C54,128 26,114 18,88 C10,62 22,34 46,22 C54,18 62,18 70,18 Z"/>
+    </symbol>
+    <symbol id="brushDivider" viewBox="0 0 1200 36">
+      <filter id="dividerRough" x="-5%" y="-60%" width="110%" height="220%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.01 0.9" numOctaves="2" seed="9" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <path filter="url(#dividerRough)" d="M0,18 C200,10 400,24 600,16 C800,8 1000,22 1200,14 L1200,20 C1000,28 800,14 600,22 C400,30 200,16 0,24 Z"/>
+    </symbol>
+  </defs>
+</svg>
+
 <div class="rail left">アフマド・ズファル・ギンティン</div>
 <div class="rail right">武士道 — BUSHIDŌ</div>
 
@@ -27,6 +46,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#home">Beranda</a></li>
+    <li><a href="#about">Tentang</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#projects">Proyek</a></li>
     <li><a href="#contact">Kontak</a></li>
@@ -36,33 +56,58 @@
 <!-- ======================= HERO ======================= -->
 <header class="hero" id="home">
   <div class="hero-left">
-    <p class="hero-eyebrow" id="heroEyebrow"></p>
-    <h1 id="heroName"></h1>
+    <p class="hero-eyebrow reveal" data-delay="0" id="heroEyebrow"></p>
+    <h1 class="reveal" data-delay="1" id="heroName"></h1>
     <div class="hero-divider"></div>
-    <p class="hero-bio" id="heroBio"></p>
-    <div class="hero-social" id="heroSocial"><!-- diisi oleh JS --></div>
+    <p class="hero-bio reveal" data-delay="2" id="heroBio"></p>
+    <div class="hero-social reveal" data-delay="3" id="heroSocial"><!-- diisi oleh JS --></div>
   </div>
 
-  <div class="portrait-wrap">
+  <div class="portrait-wrap reveal" data-delay="2">
+    <svg class="hero-splash" aria-hidden="true" viewBox="0 0 660 300">
+      <defs>
+        <filter id="heroInkDistort" x="-25%" y="-25%" width="150%" height="150%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.02 0.035" numOctaves="2" seed="12" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="24" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="heroInkDistortSmall" x="-40%" y="-40%" width="180%" height="180%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.07" numOctaves="2" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <linearGradient id="heroInkGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:var(--aka-deep)"/>
+          <stop offset="52%" style="stop-color:var(--aka)"/>
+          <stop offset="100%" style="stop-color:var(--aka-deep)"/>
+        </linearGradient>
+      </defs>
+      <g filter="url(#heroInkDistort)" fill="url(#heroInkGrad)">
+        <path d="M40,180 C90,130 180,95 290,90 C410,84 510,100 590,140 C620,155 635,172 625,185 C580,215 470,228 350,222 C240,217 140,224 70,213 C50,208 32,198 40,180 Z"/>
+      </g>
+      <g filter="url(#heroInkDistortSmall)" fill="var(--aka)">
+        <path d="M60,205 C43,228 37,258 53,270 C62,252 64,228 71,208 Z" opacity=".8"/>
+        <path d="M607,165 C629,148 637,128 635,105 C620,122 600,138 579,153 Z" opacity=".75"/>
+        <path d="M33,255 C25,275 37,292 53,288 C46,272 40,264 33,255 Z" opacity=".6"/>
+      </g>
+    </svg>
     <div class="hinomaru" aria-hidden="true"></div>
     <div class="portrait" id="portrait"></div>
     <div class="portrait-caption" id="portraitCaption"></div>
   </div>
 
   <div class="hero-right">
-    <div class="stat">
+    <div class="stat reveal" data-delay="4">
       <div class="num">10+</div>
       <div class="label">Proyek Selesai</div>
     </div>
-    <div class="stat">
+    <div class="stat reveal" data-delay="4">
       <div class="num">3.84</div>
       <div class="label">IPK — Sistem Informasi</div>
     </div>
-    <div class="stat">
+    <div class="stat reveal" data-delay="4">
       <div class="num">2</div>
       <div class="label">Jalur Karier — PM & Backend</div>
     </div>
-    <div class="cta-row">
+    <div class="cta-row reveal" data-delay="5">
       <div class="cv-dropdown" id="cvDropdown">
         <button class="btn btn-red" id="cvToggle" aria-haspopup="true" aria-expanded="false">Unduh CV ▾</button>
         <div class="cv-menu" id="cvMenu" role="menu" hidden>
@@ -80,9 +125,30 @@
   <div class="marquee-track" id="marqueeTrack"><!-- diisi oleh JS --></div>
 </div>
 
+<!-- ======================= TENTANG SAYA ======================= -->
+<section class="about" id="about">
+  <svg class="ink-fleck ink-fleck--about-a" aria-hidden="true"><use href="#inkFleck"/></svg>
+  <svg class="ink-fleck ink-fleck--about-b" aria-hidden="true"><use href="#inkFleck"/></svg>
+  <div class="section-head reveal">
+    <span class="section-kanji">経歴 — KEIREKI</span>
+    <h2 class="section-title">Tentang Saya</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-content">
+      <p class="about-text reveal" id="aboutText"></p>
+      <div class="about-timeline" id="aboutTimeline"><!-- diisi oleh JS --></div>
+    </div>
+    <div class="about-photo reveal">
+      <div class="about-photo-frame" id="aboutPhoto"></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"><svg viewBox="0 0 1200 36" preserveAspectRatio="none"><use href="#brushDivider"/></svg></div>
+
 <!-- ======================= TOOLS ======================= -->
 <section id="tools">
-  <div class="section-head">
+  <div class="section-head reveal">
     <span class="section-kanji">道具 — DŌGU</span>
     <h2 class="section-title">Tools & Skills</h2>
   </div>
@@ -96,22 +162,26 @@
   </div>
 </section>
 
+<div class="section-divider" aria-hidden="true"><svg viewBox="0 0 1200 36" preserveAspectRatio="none"><use href="#brushDivider"/></svg></div>
+
 <!-- ======================= PROJECTS ======================= -->
 <section class="projects" id="projects">
-  <div class="section-head">
+  <svg class="ink-fleck ink-fleck--projects-a" aria-hidden="true"><use href="#inkFleck"/></svg>
+  <div class="section-head reveal">
     <span class="section-kanji">作品 — SAKUHIN</span>
     <h2 class="section-title">Proyek Pilihan</h2>
-    <p class="section-sub">Klik kartu untuk membuka halaman detail — lengkap dengan role, impact, stack, dan tombol preview langsung ke proyeknya.</p>
   </div>
   <div class="project-grid" id="projectGrid"><!-- diisi oleh JS --></div>
 </section>
 
+<div class="section-divider" aria-hidden="true"><svg viewBox="0 0 1200 36" preserveAspectRatio="none"><use href="#brushDivider"/></svg></div>
+
 <!-- ======================= FOOTER / CONTACT ======================= -->
 <footer id="contact">
-  <span class="f-kanji">礼</span>
-  <h2>Mari Bangun Sesuatu.</h2>
+  <span class="f-kanji reveal">礼 — REI</span>
+  <h2 class="reveal" data-delay="1">Mari Bangun Sesuatu.</h2>
   <p>Terbuka untuk magang Project Manager, kolaborasi backend, atau sekadar ngobrol soal produk sambil kopi hitam.</p>
-  <a class="btn btn-red" id="footerEmail" href="#"></a>
+  <a class="btn btn-red reveal" data-delay="2" id="footerEmail" href="#"></a>
   <div class="f-line">© 2026 AHMAD ZUFAR GINTING — DIBANGUN DENGAN DISIPLIN BUSHIDŌ · JAKARTA</div>
 </footer>
 
@@ -182,5 +252,6 @@
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
+<script src="js/reveal.js"></script>
 </body>
 </html>

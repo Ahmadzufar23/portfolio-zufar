@@ -10,6 +10,11 @@ const site = {
        '<b>Founder PT Zufar Solusi Nawasena</b>. Aku membangun backend yang rapi dan ' +
        'terdokumentasi, lalu memastikan proyeknya sampai ke garis finis sebagai ' +
        'Project Manager. Disiplin seperti samurai: satu tebasan, tepat sasaran.',
+  aboutText: "Saya Ahmad Zufar Ginting — backend developer dan project manager " +
+             "yang membangun sistem yang rapi lalu memastikan proyeknya sampai " +
+             "rilis. Menjalankan PT Zufar Solusi Nawasena sambil kuliah Sistem " +
+             "Informasi di UPN Veteran Jakarta, dan aktif di beberapa peran " +
+             "operasional dan teknis. Serius pada hasil, santai pada prosesnya.",
   lokasi: "JAKARTA, INDONESIA",
   email: "ahmadzufarginting07@gmail.com",
   github: "https://github.com/Ahmadzufar23",
@@ -17,7 +22,9 @@ const site = {
   instagram: "https://www.instagram.com/ahmdzufarr/",
   cvBackend: "assets/cv/cv-backend.pdf", // TODO: ganti dengan file CV Backend Developer asli
   cvPm: "assets/cv/cv-pm.pdf", // TODO: ganti dengan file CV Project Manager asli
-  photoSrc: ""
+  photoCutout: "assets/img/foto1-cutout.png", // foto hero utama — PNG transparan (cutout, tanpa background). Belum diunggah = otomatis pakai photoSrc di bawah.
+  photoSrc: "assets/img/foto1.jpg", // fallback foto hero kalau photoCutout belum ada — kosong = fallback kanji 侍
+  aboutPhoto: "assets/img/foto2.jpg" // foto section Tentang Saya — kosong = fallback kanji 侍
 };
 
 /* ---------- Pita berjalan (marquee di bawah hero) ----------
@@ -77,6 +84,33 @@ const techIcons = {};
 tools.forEach(t => {
   techIcons[t.nama] = { deviconClass: t.deviconClass, iconImg: t.iconImg };
 });
+
+/* ---------- Pengalaman (timeline horizontal di #about) ----------
+   Urutan array = urutan tampil (kiri ke kanan, terlama dulu).
+   logo: path PNG/SVG di assets/img/experience/ — TODO: file logo belum
+   diunggah, jadi fallback otomatis menampilkan inisial perusahaan
+   (lihat img.onerror di js/main.js).
+   ------------------------------------------------------ */
+const experience = [
+  {
+    company: "PT Zufar Solusi Nawasena",
+    role: "Founder & Director",
+    period: "Agustus 2023 — Sekarang",
+    logo: "assets/img/experience/zsn.png" // TODO: unggah logo PT Zufar Solusi Nawasena
+  },
+  {
+    company: "Veterantech",
+    role: "People Operations",
+    period: "Maret 2026 — Sekarang",
+    logo: "assets/img/experience/veterantech.png" // TODO: unggah logo Veterantech
+  },
+  {
+    company: "Hyungtang",
+    role: "Founder, Backend & PM",
+    period: "Mei 2026 — Sekarang",
+    logo: "assets/img/experience/hyungtang.png" // TODO: unggah logo Hyungtang
+  }
+];
 
 /* ---------- Proyek ----------
    accent   : kode hex warna aksen halaman detail proyek ini (judul, garis

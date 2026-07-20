@@ -1,10 +1,12 @@
 :root{
-  --washi:#F6F2EA;      /* putih kertas washi */
-  --washi-deep:#EDE7DA;
+  --washi:#FCFCFA;      /* putih kertas washi */
+  --washi-deep:#F4F4F0;
   --sumi:#121212;       /* hitam tinta sumi */
   --sumi-soft:#1C1B19;
   --shu:#BC002D;        /* merah hinomaru */
   --shu-bright:#E3123B;
+  --aka:#8A0F1F;        /* merah crimson dalam — sapuan kuas kering hero */
+  --aka-deep:#5C0A16;   /* tepi paling gelap sapuan kuas */
   --ink-gray:#6E6A63;
   --line:rgba(18,18,18,.14);
   --line-light:rgba(246,242,234,.16);
@@ -12,4 +14,7 @@
   --font-display:'Shippori Mincho B1', serif;
   --font-body:'Zen Kaku Gothic New', sans-serif;
   --font-mono:'IBM Plex Mono', monospace;
+
+  --ease:cubic-bezier(.4,0,.2,1);
+  --nav-h:76px;
 }

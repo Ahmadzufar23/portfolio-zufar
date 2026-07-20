@@ -1,3 +1,21 @@
+/* ---------- reveal-on-scroll (js/reveal.js menambah .is-visible sekali) ---------- */
+.reveal{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+
+/* ---------- aksen tinta sumi di sudut section (dekoratif, tidak mengganggu layout) ---------- */
+.ink-fleck{position:absolute;width:110px;height:110px;fill:var(--sumi);pointer-events:none;z-index:-1;}
+.ink-fleck--about-a{top:14px;right:22px;opacity:.07;transform:rotate(14deg);}
+.ink-fleck--about-b{bottom:6px;left:-22px;width:80px;height:80px;opacity:.06;transform:rotate(-26deg) scaleX(-1);}
+.ink-fleck--projects-a{top:10px;left:-14px;width:96px;height:96px;opacity:.07;transform:rotate(-10deg);}
+
+/* ---------- pembatas antar-section: sapuan kuas horizontal ---------- */
+.section-divider{width:100%;overflow:hidden;line-height:0;pointer-events:none;}
+.section-divider svg{width:100%;height:26px;display:block;}
+.section-divider use{fill:var(--sumi);opacity:.32;}
+
 /* ---------- tombol ---------- */
 .btn{
   display:inline-flex;align-items:center;gap:10px;text-decoration:none;
@@ -49,18 +67,16 @@
   background:var(--sumi);color:var(--washi);overflow:hidden;white-space:nowrap;
   padding:16px 0;border-top:3px solid var(--shu);border-bottom:3px solid var(--shu);
 }
-.marquee-track{display:inline-block;animation:scroll 26s linear infinite;}
+.marquee-track{
+  display:flex;align-items:baseline;width:max-content;
+  animation:scroll 26s linear infinite;
+}
 .marquee span{
-  font-family:var(--font-display);font-size:16px;letter-spacing:.24em;margin:0 28px;
+  font-family:var(--font-display);font-size:16px;letter-spacing:.24em;
+  flex:0 0 auto;margin-right:56px;
 }
 .marquee .m-red{color:var(--shu-bright);}
 @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-@media (prefers-reduced-motion: reduce){
-  .marquee-track{animation:none;}
-  .hinomaru{animation:none;}
-}
-/* dev toggle ?motion=on (lihat js/main.js) — override reduce-motion untuk pengujian */
-body.force-motion .marquee-track{animation:scroll 26s linear infinite;}
 
 /* ---------- tools ---------- */
 .tools-group{margin-bottom:40px;}
@@ -73,18 +89,66 @@ body.force-motion .marquee-track{animation:scroll 26s linear infinite;}
   .tools-group--right .tools-group-label{text-align:right;}
 }
 .tools-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;
 }
 .tool{
-  background:#fff;border:1.5px solid var(--line);border-radius:18px;
-  padding:26px 16px;text-align:center;transition:all .25s ease;
+  background:#fff;border:1.5px solid var(--line);border-radius:16px;
+  padding:16px 12px;text-align:center;transition:all .25s ease;
 }
-.tool i{font-size:44px;display:block;margin-bottom:12px;}
-.tool .tool-icon-img{width:44px;height:44px;display:block;margin:0 auto 12px;object-fit:contain;}
-.tool .t-name{font-weight:700;font-size:14px;}
-.tool .t-role{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-gray);text-transform:uppercase;margin-top:2px;}
+.tool i{font-size:36px;display:block;margin-bottom:8px;}
+.tool .tool-icon-img{width:36px;height:36px;display:block;margin:0 auto 8px;object-fit:contain;}
+.tool .t-name{font-weight:700;font-size:13px;}
+.tool .t-role{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--ink-gray);text-transform:uppercase;margin-top:2px;}
 .tool:hover{border-color:var(--shu);transform:translateY(-5px);box-shadow:0 16px 30px rgba(18,18,18,.08);}
 .tool:hover i{color:var(--shu) !important;}
+
+/* ---------- about — deskripsi + timeline horizontal + foto ---------- */
+.about-content{display:flex;flex-direction:column;gap:40px;min-width:0;}
+.about-text{font-size:15px;line-height:1.75;color:var(--ink-gray);max-width:56ch;}
+.about-text b{color:var(--sumi);}
+
+.about-timeline{display:flex;gap:26px;flex-wrap:wrap;}
+.about-exp-item{
+  flex:1 1 180px;min-width:150px;
+  border-top:3px solid var(--shu);padding-top:14px;
+}
+.about-exp-period{
+  display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;
+  color:var(--shu);text-transform:uppercase;
+}
+.about-exp-role{
+  display:block;font-family:var(--font-display);font-weight:800;font-size:15.5px;
+  margin-top:6px;line-height:1.3;
+}
+.about-exp-company{display:flex;align-items:center;gap:10px;margin-top:12px;}
+.about-exp-logo{
+  flex:0 0 auto;width:34px;height:34px;border-radius:9px;overflow:hidden;
+  background:#fff;border:1.5px solid var(--line);
+  display:grid;place-items:center;
+}
+.about-exp-logo img{width:100%;height:100%;object-fit:cover;display:block;}
+.about-exp-logo--fallback{
+  font-family:var(--font-display);font-weight:800;font-size:10.5px;color:var(--shu);
+}
+.about-exp-name{font-size:12.5px;font-weight:700;color:var(--ink-gray);}
+
+.about-photo-frame{
+  position:relative;width:320px;max-width:100%;height:420px;overflow:hidden;
+  border-radius:16px;
+  background:var(--sumi);
+  display:grid;place-items:center;
+}
+@media(max-width:900px){.about-photo-frame{margin:0 auto;}}
+.about-photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.about-photo-fallback{
+  color:var(--washi);text-align:center;font-family:var(--font-display);
+}
+.about-photo-fallback .kanji{font-size:64px;color:var(--shu-bright);display:block;line-height:1;}
+.about-photo-fallback span{font-size:11px;letter-spacing:.24em;color:rgba(246,242,234,.55);}
+
+@media(max-width:900px){
+  .about-timeline{flex-direction:column;gap:20px;}
+}
 
 /* ---------- kartu proyek ---------- */
 .card{
@@ -109,9 +173,6 @@ body.force-motion .marquee-track{animation:scroll 26s linear infinite;}
   transition:transform .4s ease;
 }
 .card:hover .card-thumb img{transform:scale(1.03);}
-@media(prefers-reduced-motion:reduce){
-  .card:hover .card-thumb img{transform:none;}
-}
 
 .card-body{padding:26px 28px 30px;display:flex;flex-direction:column;flex:1;}
 .card-num{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;color:var(--shu);margin-bottom:14px;}

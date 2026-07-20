@@ -3,12 +3,53 @@
    Semua konten diambil dari js/data.js (site, tools, projects).
    ===================================================== */
 
-/* ---------- dev toggle: paksa animasi via ?motion=on ---------- */
-(function applyForceMotion(){
-  if (new URLSearchParams(location.search).get("motion") === "on") {
-    document.body.classList.add("force-motion");
+/* ---------- foto dengan fallback kanji 侍 (dipakai hero & #about) ---------- */
+function renderPhoto(containerId, src, fallbackClass){
+  const el = document.getElementById(containerId);
+  const fallbackHtml = `
+    <div class="${fallbackClass}">
+      <span class="kanji">侍</span>
+      <span>FOTO ZUFAR DI SINI</span>
+    </div>`;
+  if (!src) { el.innerHTML = fallbackHtml; return; }
+  const img = document.createElement("img");
+  img.alt = site.nama;
+  img.onerror = () => { el.innerHTML = fallbackHtml; }; // file gagal dimuat — jatuh ke fallback kanji
+  img.src = src;
+  el.innerHTML = "";
+  el.appendChild(img);
+}
+
+/* ---------- foto hero: cutout (transparan, tanpa bingkai) dengan fallback bertingkat ---------- */
+function renderHeroPhoto(){
+  const el = document.getElementById("portrait");
+  const fallbackHtml = `
+    <div class="portrait-fallback">
+      <span class="kanji">侍</span>
+      <span>FOTO ZUFAR DI SINI</span>
+    </div>`;
+  el.classList.remove("portrait--cutout", "portrait--square");
+
+  function useSquarePhoto(){
+    if (!site.photoSrc) { el.innerHTML = fallbackHtml; return; }
+    el.classList.add("portrait--square");
+    const img = document.createElement("img");
+    img.alt = site.nama;
+    img.onerror = () => { el.classList.remove("portrait--square"); el.innerHTML = fallbackHtml; };
+    img.src = site.photoSrc;
+    el.innerHTML = "";
+    el.appendChild(img);
   }
-})();
+
+  if (!site.photoCutout) { useSquarePhoto(); return; }
+  el.classList.add("portrait--cutout");
+  const img = document.createElement("img");
+  img.alt = site.nama;
+  img.onerror = () => { el.classList.remove("portrait--cutout"); useSquarePhoto(); }; // cutout belum diunggah — jatuh ke foto persegi biasa
+  img.src = site.photoCutout;
+  el.innerHTML = "";
+  el.appendChild(img);
+}
 
 /* ---------- hero ---------- */
 (function renderHero(){
@@ -26,16 +67,13 @@
   document.getElementById("heroBio").innerHTML = site.bio;
   document.getElementById("portraitCaption").textContent = site.lokasi;
 
-  const portrait = document.getElementById("portrait");
-  if (site.photoSrc) {
-    portrait.innerHTML = `<img src="${site.photoSrc}" alt="${site.nama}">`;
-  } else {
-    portrait.innerHTML = `
-      <div class="portrait-fallback">
-        <span class="kanji">侍</span>
-        <span>FOTO ZUFAR DI SINI</span>
-      </div>`;
-  }
+  renderHeroPhoto();
+})();
+
+/* ---------- deskripsi + foto (#about) ---------- */
+(function renderAboutIntro(){
+  document.getElementById("aboutText").textContent = site.aboutText;
+  renderPhoto("aboutPhoto", site.aboutPhoto, "about-photo-fallback");
 })();
 
 /* ---------- hero social links ---------- */
@@ -105,12 +143,12 @@
 
 /* ---------- tools grid (dua kelompok: backend & pm) ---------- */
 (function renderTools(){
-  function toolCard(t){
+  function toolCard(t, i){
     let icon = "";
     if (t.deviconClass) icon = `<i class="${t.deviconClass}"></i>`;
     else if (t.iconImg) icon = `<img class="tool-icon-img" src="${t.iconImg}" alt="${t.nama}">`;
     return `
-      <div class="tool">
+      <div class="tool reveal" data-delay="${i % 6}">
         ${icon}
         <div class="t-name">${t.nama}</div>
         <div class="t-role">${t.peran}</div>
@@ -121,6 +159,26 @@
     tools.filter(t => t.group === "backend").map(toolCard).join("");
   document.getElementById("toolsManagement").innerHTML =
     tools.filter(t => t.group === "pm").map(toolCard).join("");
+})();
+
+/* ---------- timeline pengalaman horizontal (#about) ---------- */
+(function renderExperience(){
+  const track = document.getElementById("aboutTimeline");
+  function initials(name){
+    return name.split(/\s+/).map(w => w[0]).join("").slice(0,3).toUpperCase();
+  }
+  track.innerHTML = experience.map((e, i) => `
+    <div class="about-exp-item reveal" data-delay="${i}">
+      <span class="about-exp-period">${e.period}</span>
+      <span class="about-exp-role">${e.role}</span>
+      <div class="about-exp-company">
+        <div class="about-exp-logo">
+          <img src="${e.logo}" alt="${e.company}" onerror="this.remove();this.parentElement.classList.add('about-exp-logo--fallback');this.parentElement.textContent='${initials(e.company)}';">
+        </div>
+        <span class="about-exp-name">${e.company}</span>
+      </div>
+    </div>
+  `).join("");
 })();
 
 /* ---------- kartu proyek ---------- */
@@ -140,7 +198,8 @@ function cardStackItem(s){
 
 projects.forEach((p, i) => {
   const card = document.createElement("article");
-  card.className = "card";
+  card.className = "card reveal";
+  card.dataset.delay = i % 6;
   card.tabIndex = 0;
   card.setAttribute("role","button");
   card.setAttribute("aria-label","Buka detail proyek " + p.title);
