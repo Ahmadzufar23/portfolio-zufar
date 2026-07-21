@@ -16,25 +16,6 @@
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="inkFleck" viewBox="0 0 140 140">
-      <filter id="fleckDistort" x="-30%" y="-30%" width="160%" height="160%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
-        <feDisplacementMap in="SourceGraphic" in2="n" scale="22" xChannelSelector="R" yChannelSelector="G"/>
-      </filter>
-      <path filter="url(#fleckDistort)" d="M70,18 C96,14 118,34 122,60 C126,88 108,112 80,120 C54,128 26,114 18,88 C10,62 22,34 46,22 C54,18 62,18 70,18 Z"/>
-    </symbol>
-    <symbol id="brushDivider" viewBox="0 0 1200 36">
-      <filter id="dividerRough" x="-5%" y="-60%" width="110%" height="220%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.01 0.9" numOctaves="2" seed="9" result="n"/>
-        <feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/>
-      </filter>
-      <path filter="url(#dividerRough)" d="M0,18 C200,10 400,24 600,16 C800,8 1000,22 1200,14 L1200,20 C1000,28 800,14 600,22 C400,30 200,16 0,24 Z"/>
-    </symbol>
-  </defs>
-</svg>
-
 <div class="rail left">アフマド・ズファル・ギンティン</div>
 <div class="rail right">武士道 — BUSHIDŌ</div>
 
@@ -127,24 +108,22 @@
 
 <!-- ======================= TENTANG SAYA ======================= -->
 <section class="about" id="about">
-  <svg class="ink-fleck ink-fleck--about-a" aria-hidden="true"><use href="#inkFleck"/></svg>
-  <svg class="ink-fleck ink-fleck--about-b" aria-hidden="true"><use href="#inkFleck"/></svg>
-  <div class="section-head reveal">
-    <span class="section-kanji">経歴 — KEIREKI</span>
-    <h2 class="section-title">Tentang Saya</h2>
-  </div>
   <div class="about-grid">
-    <div class="about-content">
-      <p class="about-text reveal" id="aboutText"></p>
-      <div class="about-timeline" id="aboutTimeline"><!-- diisi oleh JS --></div>
+    <div class="about-left">
+      <div class="section-head reveal">
+        <span class="section-kanji">経歴 — KEIREKI</span>
+        <h2 class="section-title">Tentang Saya</h2>
+      </div>
+      <div class="about-content">
+        <p class="about-text reveal" id="aboutText"></p>
+        <div class="about-timeline" id="aboutTimeline"><!-- diisi oleh JS --></div>
+      </div>
     </div>
     <div class="about-photo reveal">
       <div class="about-photo-frame" id="aboutPhoto"></div>
     </div>
   </div>
 </section>
-
-<div class="section-divider" aria-hidden="true"><svg viewBox="0 0 1200 36" preserveAspectRatio="none"><use href="#brushDivider"/></svg></div>
 
 <!-- ======================= TOOLS ======================= -->
 <section id="tools">
@@ -162,19 +141,14 @@
   </div>
 </section>
 
-<div class="section-divider" aria-hidden="true"><svg viewBox="0 0 1200 36" preserveAspectRatio="none"><use href="#brushDivider"/></svg></div>
-
 <!-- ======================= PROJECTS ======================= -->
 <section class="projects" id="projects">
-  <svg class="ink-fleck ink-fleck--projects-a" aria-hidden="true"><use href="#inkFleck"/></svg>
   <div class="section-head reveal">
     <span class="section-kanji">作品 — SAKUHIN</span>
     <h2 class="section-title">Proyek Pilihan</h2>
   </div>
   <div class="project-grid" id="projectGrid"><!-- diisi oleh JS --></div>
 </section>
-
-<div class="section-divider" aria-hidden="true"><svg viewBox="0 0 1200 36" preserveAspectRatio="none"><use href="#brushDivider"/></svg></div>
 
 <!-- ======================= FOOTER / CONTACT ======================= -->
 <footer id="contact">

@@ -5,17 +5,6 @@
 }
 .reveal.is-visible{opacity:1;transform:translateY(0);}
 
-/* ---------- aksen tinta sumi di sudut section (dekoratif, tidak mengganggu layout) ---------- */
-.ink-fleck{position:absolute;width:110px;height:110px;fill:var(--sumi);pointer-events:none;z-index:-1;}
-.ink-fleck--about-a{top:14px;right:22px;opacity:.07;transform:rotate(14deg);}
-.ink-fleck--about-b{bottom:6px;left:-22px;width:80px;height:80px;opacity:.06;transform:rotate(-26deg) scaleX(-1);}
-.ink-fleck--projects-a{top:10px;left:-14px;width:96px;height:96px;opacity:.07;transform:rotate(-10deg);}
-
-/* ---------- pembatas antar-section: sapuan kuas horizontal ---------- */
-.section-divider{width:100%;overflow:hidden;line-height:0;pointer-events:none;}
-.section-divider svg{width:100%;height:26px;display:block;}
-.section-divider use{fill:var(--sumi);opacity:.32;}
-
 /* ---------- tombol ---------- */
 .btn{
   display:inline-flex;align-items:center;gap:10px;text-decoration:none;
@@ -132,13 +121,17 @@
 }
 .about-exp-name{font-size:12.5px;font-weight:700;color:var(--ink-gray);}
 
+.about-photo{height:100%;}
 .about-photo-frame{
-  position:relative;width:320px;max-width:100%;height:420px;overflow:hidden;
+  position:relative;width:320px;max-width:100%;height:100%;overflow:hidden;
   border-radius:16px;
   background:var(--sumi);
   display:grid;place-items:center;
 }
-@media(max-width:900px){.about-photo-frame{margin:0 auto;}}
+@media(max-width:900px){
+  .about-photo{height:auto;}
+  .about-photo-frame{height:420px;margin:0 auto;}
+}
 .about-photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
 .about-photo-fallback{
   color:var(--washi);text-align:center;font-family:var(--font-display);
