@@ -18,4 +18,11 @@
   --ease:cubic-bezier(.4,0,.2,1);
   --nav-h:76px;
   --scroll-offset:84px;
+
+  /* ---------- tema gelap (fase redesign — dipakai bertahap per section) ---------- */
+  --bg-dark:#0E0D0C;
+  --bg-dark-2:#161412;
+  --text-light:#F2EEE6;
+  --text-dim:#9A948B;
+  --line-dark:rgba(242,238,230,.12);
 }

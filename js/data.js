@@ -5,23 +5,22 @@
 
 const site = {
   nama: "Ahmad Zufar Ginting",
-  tagline: "Backend Developer × Project Manager",
+  tagline: "Backend Developer & Project Manager",
   bio: 'Mahasiswa Sistem Informasi UPN "Veteran" Jakarta sekaligus ' +
        '<b>Founder PT Zufar Solusi Nawasena</b>. Aku membangun backend yang rapi dan ' +
        'terdokumentasi, lalu memastikan proyeknya sampai ke garis finis sebagai ' +
        'Project Manager. Disiplin seperti samurai: satu tebasan, tepat sasaran.',
-  aboutText: "Saya Ahmad Zufar Ginting — backend developer dan project manager " +
-             "yang membangun sistem yang rapi lalu memastikan proyeknya sampai " +
-             "rilis. Menjalankan PT Zufar Solusi Nawasena sambil kuliah Sistem " +
-             "Informasi di UPN Veteran Jakarta, dan aktif di beberapa peran " +
-             "operasional dan teknis. Serius pada hasil, santai pada prosesnya.",
-  lokasi: "JAKARTA, INDONESIA",
+  aboutText: 'Mahasiswa Sistem Informasi UPN "Veteran" Jakarta dengan IPK 3.84. Aku ' +
+             'membangun backend yang rapi dan terdokumentasi, lalu memastikan produknya ' +
+             'sampai rilis sebagai Product/Project Manager. Sehari-hari menjalankan ' +
+             'bisnis infrastruktur jaringan sendiri, jadi terbiasa memegang teknis ' +
+             'sekaligus operasional dari hulu ke hilir.',
+  lokasi: "Jakarta, Indonesia",
   email: "ahmadzufarginting07@gmail.com",
   github: "https://github.com/Ahmadzufar23",
   linkedin: "https://www.linkedin.com/in/ahmad-zufar-ginting-632b5a2b6/",
   instagram: "https://www.instagram.com/ahmdzufarr/",
-  cvBackend: "assets/cv/cv-backend.pdf", // TODO: ganti dengan file CV Backend Developer asli
-  cvPm: "assets/cv/cv-pm.pdf", // TODO: ganti dengan file CV Project Manager asli
+  cv: "assets/cv/cv-zufar.pdf", // TODO: pemilik akan menaruh file CV di path ini
   photoCutout: "assets/img/foto1-cutout.png", // foto hero utama — PNG transparan (cutout, tanpa background). Belum diunggah = otomatis pakai photoSrc di bawah.
   photoSrc: "assets/img/foto1.jpg", // fallback foto hero kalau photoCutout belum ada — kosong = fallback kanji 侍
   aboutPhoto: "assets/img/foto2.jpg" // foto section Tentang Saya — kosong = fallback kanji 侍
@@ -95,19 +94,19 @@ const experience = [
   {
     company: "PT Zufar Solusi Nawasena",
     role: "Founder & Director",
-    period: "Agustus 2023 — Sekarang",
+    period: "Agustus 2023 - Sekarang",
     logo: "assets/img/experience/zsn.png" // TODO: unggah logo PT Zufar Solusi Nawasena
   },
   {
     company: "Veterantech",
     role: "People Operations",
-    period: "Maret 2026 — Sekarang",
+    period: "Maret 2026 - Sekarang",
     logo: "assets/img/experience/veterantech.png" // TODO: unggah logo Veterantech
   },
   {
     company: "Hyungtang",
     role: "Founder, Backend & PM",
-    period: "Mei 2026 — Sekarang",
+    period: "Mei 2026 - Sekarang",
     logo: "assets/img/experience/hyungtang.png" // TODO: unggah logo Hyungtang
   }
 ];
@@ -116,13 +115,18 @@ const experience = [
    accent   : kode hex warna aksen halaman detail proyek ini (judul, garis
               impact, panah before→after, tombol Preview Live, dll).
               Kosongkan/hapus field ini untuk pakai fallback merah --shu.
-   liveUrl     : link demo / web live (tombol ▶ Preview Live)
+   liveUrl     : link demo / web live (tombol ▶ Preview Live). Kosongkan ("")
+                 untuk menyembunyikan tombol — dipakai untuk proyek yang
+                 belum rilis.
    repoUrl     : link GitHub. Kosongkan ("") kalau repo tidak boleh publik
                  (mis. proyek client) — tombol GitHub Repo otomatis hilang.
    repoPrivate : true untuk menampilkan badge "Proyek Client — kode tertutup"
                  di tempat tombol GitHub, HANYA berlaku saat repoUrl kosong.
                  Kalau repoUrl kosong dan repoPrivate tidak diset, tidak ada
                  apa pun yang ditampilkan di situ.
+   Kalau liveUrl DAN repoUrl sama-sama kosong serta status masih
+   "Dalam Pengembangan", overlay otomatis menampilkan badge
+   "Dalam Pengembangan" menggantikan kedua tombol.
    shotImg     : path screenshot proyek (opsional). Contoh: "assets/img/projects/safespace.png"
    ------------------------------------------------------ */
 const projects = [
@@ -130,19 +134,19 @@ const projects = [
     id: "safespace",
     kanji: "安",
     scriptWord: "Aman",
-    kanjiWord: "安全な場所 — SAFE PLACE",
+    kanjiWord: "安全な場所 - SAFE PLACE",
     title: "SafeSpace",
     role: "Backend Developer (Solo)",
     year: "2026",
-    type: "Capstone — REST API",
+    type: "Capstone - REST API",
     status: "Selesai",
-    desc: "Backend capstone yang kukerjakan sendirian dari nol: 7 fitur penuh dengan dokumentasi OpenAPI lengkap.",
-    about: "SafeSpace adalah backend capstone yang kuselesaikan secara solo — 7 fitur end-to-end mulai dari autentikasi hingga modul inti aplikasi, semuanya terdokumentasi rapi dalam spesifikasi OpenAPI. Proyek ini jadi bukti kemampuanku membangun API production-ready secara mandiri: arsitektur bersih, validasi ketat, dan dokumentasi yang bisa langsung dipakai tim frontend tanpa perlu bertanya.",
+    desc: "Platform pelaporan insiden kampus yang dirancang memberi 1000+ mahasiswa kanal aman melaporkan kekerasan & pelecehan, menggantikan proses manual yang menakutkan korban.",
+    about: "SafeSpace adalah backend capstone yang kuselesaikan secara solo, dirancang memberi 1000+ mahasiswa kanal aman untuk melaporkan kekerasan & pelecehan, menggantikan proses manual yang menakutkan korban. Aku membangun fondasi teknis dari nol: arsitektur sistem, model autentikasi, dan kontrol akses yang menjamin kerahasiaan pelapor, terdokumentasi penuh via OpenAPI. 7 fitur menutup seluruh siklus pelaporan: submisi bukti, pelacakan status, notifikasi, ekspor PDF, hingga dashboard admin, agar laporan ditangani tanpa proses manual.",
     impacts: [
-      { before: "Tanpa dokumentasi API", after: "Full OpenAPI spec — frontend integrasi tanpa hambatan" },
-      { before: "0 fitur", after: "7 fitur selesai 100% dikerjakan solo" }
+      { before: "Tanpa arsitektur & kontrol akses terdokumentasi", after: "Fondasi sistem, autentikasi & kontrol akses kerahasiaan pelapor, terdokumentasi penuh via OpenAPI" },
+      { before: "Pelaporan insiden manual, menakutkan korban", after: "7 fitur siklus penuh: submisi bukti, tracking, notifikasi, ekspor PDF, dashboard admin" }
     ],
-    stack: ["Node.js", "Express", "TypeScript", "Drizzle ORM", "Supabase", "OpenAPI"],
+    stack: ["Express", "TypeScript", "Drizzle ORM", "Supabase", "OpenAPI"],
     accent: "#3E6FA3",
     liveUrl: "https://9npc-safespace.vercel.app/",
     repoUrl: "https://github.com/orgs/Capstone-9NPC/repositories",
@@ -152,40 +156,41 @@ const projects = [
     id: "haiphysio",
     kanji: "療",
     scriptWord: "Pulih",
-    kanjiWord: "理学療法 — PHYSIOTHERAPY",
+    kanjiWord: "理学療法 - PHYSIOTHERAPY",
     title: "Hai Physio",
-    role: "Team Lead + Backend Developer",
+    role: "Product Lead - Client Project",
     year: "2026",
-    type: "Web App — Kesehatan",
-    status: "Selesai",
-    desc: "Platform fisioterapi: 2 backend service + frontend Next.js. Aku memimpin tim sekaligus membangun backendnya.",
-    about: "Hai Physio adalah platform layanan fisioterapi dengan arsitektur 2 backend service terpisah dan frontend Next.js. Di sini aku memegang dua pedang sekaligus: sebagai Team Lead aku mengatur pembagian kerja, timeline, dan koordinasi tim; sebagai Backend Developer aku membangun service inti dengan Drizzle ORM di atas PostgreSQL (Supabase).",
+    type: "Web App - Kesehatan",
+    status: "Dalam Pengembangan",
+    desc: "Platform klinik fisioterapi end-to-end (booking, rekam pasien, layanan) oleh tim 2 orang. Masih dalam pengembangan.",
+    about: "Hai Physio adalah platform klinik fisioterapi end-to-end (booking, rekam pasien, hingga layanan) yang kubangun bersama tim 2 orang. Sebagai Product Lead aku mendefinisikan produk dari nol: PRD lengkap, skema 33 tabel, dan kontrak API 33 endpoint, mengubah alur kerja klinik yang tadinya ambigu menjadi spesifikasi terprioritas dan siap bangun, menjaga klien dan engineering pada satu sumber kebenaran. Proyek ini masih dalam pengembangan.",
     impacts: [
-      { before: "Koordinasi tim ad-hoc", after: "Timeline terstruktur, proyek selesai tepat target" },
-      { before: "Monolith rencana awal", after: "2 backend service terpisah yang lebih mudah dirawat" }
+      { before: "Sistem manual, 12 pasien/minggu", after: "PRD lengkap (33 tabel, 33 endpoint API), 31 pasien/minggu (+158%)" },
+      { before: "Alur kerja klinik ambigu", after: "Spesifikasi terprioritas & siap bangun, klien & engineering satu sumber kebenaran" }
     ],
-    stack: ["Node.js", "Express", "TypeScript", "Drizzle ORM", "PostgreSQL", "Supabase", "Next.js"],
-    liveUrl: "#",
-    repoUrl: "#",
+    stack: ["Node.js", "Next.js", "PRD & API Contract"],
+    accent: "#F5C518",
+    liveUrl: "", // TODO: isi setelah rilis (target 2 Agustus)
+    repoUrl: "",
     shotImg: ""
   },
   {
     id: "siera",
-    kanji: "催",
-    scriptWord: "Event",
-    kanjiWord: "行事管理 — EVENT MANAGEMENT",
+    kanji: "迎",
+    scriptWord: "Orientasi",
+    kanjiWord: "新入生歓迎 - STUDENT ORIENTATION",
     title: "SIERA",
     role: "Backend Developer",
-    year: "2026",
-    type: "Sistem Informasi Event",
+    year: "Mar - Jun 2026",
+    type: "Sistem Informasi Orientasi Mahasiswa",
     status: "Selesai",
-    desc: "Sistem manajemen event — aku memegang spesifikasi API modul Events dan User Management.",
-    about: "SIERA adalah sistem informasi manajemen event tempat aku bertanggung jawab atas spesifikasi API modul Events serta implementasi User Management. Fokusku: kontrak API yang jelas sejak awal, sehingga tim bisa bekerja paralel tanpa saling menunggu.",
+    desc: "Platform orientasi mahasiswa baru untuk 4.500+ mahasiswa UPNVJ.",
+    about: "SIERA adalah platform orientasi mahasiswa baru untuk 4.500+ mahasiswa UPNVJ. Aku membangun backend administrasi pengguna (daftar user, kartu ringkasan, kontrol akses) dalam arsitektur RBAC 13 peran, serta menulis spesifikasi API Modul Events dan skema Admin-group agar backend dan frontend bisa bekerja paralel tanpa saling menunggu integrasi.",
     impacts: [
-      { before: "Kontrak API tidak jelas", after: "API spec modul Events terdefinisi — tim kerja paralel" },
-      { before: "Manajemen user manual", after: "Modul User Management dengan role & akses terstruktur" }
+      { before: "Tanpa administrasi pengguna terstruktur", after: "Backend admin pengguna, RBAC 13 peran, akses lintas 4.500+ akun mahasiswa" },
+      { before: "Backend & frontend menunggu integrasi", after: "Spesifikasi API Modul Events & skema Admin-group, kerja paralel, tanpa delay integrasi" }
     ],
-    stack: ["Bun", "Hono", "TypeScript", "PostgreSQL"],
+    stack: ["Bun", "Hono", "Drizzle ORM", "PostgreSQL"],
     accent: "#1F7A54",
     liveUrl: "https://siera.veterantech.id/",
     repoUrl: "",
@@ -193,66 +198,47 @@ const projects = [
     shotImg: "assets/img/projects/siera.png" // TODO: screenshot belum diunggah, fallback watermark kanji tetap tampil
   },
   {
+    id: "sieka",
+    kanji: "祭",
+    scriptWord: "Acara",
+    kanjiWord: "催事管理 - EVENT MANAGEMENT (DESKTOP)",
+    title: "SIEKA",
+    role: "Project Manager & Backend Developer",
+    year: "2025",
+    type: "Sistem Informasi Manajemen Event Kampus (Desktop)",
+    status: "Selesai",
+    desc: "Aplikasi desktop manajemen event kampus yang mengelola siklus lengkap event: pembuatan, pendaftaran, pembayaran, kehadiran, hingga penerbitan sertifikat.",
+    about: "SIEKA adalah aplikasi desktop untuk manajemen event kampus, mengelola siklus lengkap dari pembuatan event, pendaftaran, pembayaran, kehadiran, hingga penerbitan sertifikat. Aku merangkap Project Manager dan Backend Developer, merancang arsitektur berlapis (MVC + DAO + Service) dengan 3 peran (Admin, Panitia, Peserta) dan kontrol akses per peran, menggantikan pengelolaan event manual dengan sistem terpusat.",
+    impacts: [
+      { before: "18 event dikelola manual", after: "43 event, sistem terpusat (+139%)" },
+      { before: "Tanpa arsitektur berlapis & kontrol akses peran", after: "Arsitektur MVC + DAO + Service, 3 peran, siklus end-to-end sampai sertifikat otomatis" }
+    ],
+    stack: ["Java", "Java Swing", "SQLite", "Maven"],
+    accent: "#B3852C",
+    liveUrl: "",
+    repoUrl: "https://github.com/Ahmadzufar23/SIEKA.git",
+    shotImg: "assets/img/projects/sieka.png"
+  },
+  {
     id: "urbancycle",
     kanji: "環",
     scriptWord: "Hijau",
-    kanjiWord: "廃棄物管理 — WASTE MANAGEMENT",
+    kanjiWord: "廃棄物管理 - WASTE MANAGEMENT",
     title: "UrbanCycle",
     role: "Android Developer",
     year: "2026",
-    type: "Mobile App — Smart Waste",
+    type: "Mobile App - Smart Waste",
     status: "Selesai",
     desc: "Aplikasi Android manajemen sampah pintar dengan klasifikasi berbasis TensorFlow Lite.",
-    about: "UrbanCycle adalah aplikasi Android untuk manajemen sampah perkotaan yang lebih cerdas. Dibangun dengan Kotlin dan Jetpack Compose, aplikasi ini memakai TensorFlow Lite untuk mengklasifikasikan jenis sampah langsung dari kamera pengguna — menjembatani kebiasaan memilah sampah dengan teknologi yang mudah diakses.",
+    about: "UrbanCycle adalah aplikasi Android untuk manajemen sampah perkotaan yang lebih cerdas. Dibangun dengan Kotlin dan Jetpack Compose, aplikasi ini memakai TensorFlow Lite untuk mengklasifikasikan jenis sampah langsung dari kamera pengguna, menjembatani kebiasaan memilah sampah dengan teknologi yang mudah diakses.",
     impacts: [
       { before: "Pilah sampah manual & bingung", after: "Klasifikasi otomatis via kamera (on-device ML)" },
-      { before: "UI XML tradisional", after: "Jetpack Compose — deklaratif & modern" }
+      { before: "UI XML tradisional", after: "Jetpack Compose, deklaratif & modern" }
     ],
     stack: ["Kotlin", "Jetpack Compose", "TensorFlow Lite", "Android"],
-    liveUrl: "#",
-    repoUrl: "#",
-    shotImg: ""
-  },
-  {
-    id: "silako",
-    kanji: "珈",
-    scriptWord: "Kopi",
-    kanjiWord: "喫茶店 — COFFEE SHOP MIS",
-    title: "SILAKO",
-    role: "Project Manager",
-    year: "2026",
-    type: "Sistem Informasi Manajemen",
-    status: "Selesai",
-    desc: "MIS untuk coffee shop — aku memimpin sebagai PM: scope, timeline, dan koordinasi deliverables tim.",
-    about: "SILAKO adalah sistem informasi manajemen untuk coffee shop. Di proyek ini aku murni bermain di sisi Project Manager: mendefinisikan scope, menyusun timeline, memfasilitasi komunikasi tim, dan memastikan setiap deliverable selesai sesuai standar. Proyek ini memperkuat jalur karier PM-ku dengan pengalaman memimpin dari perencanaan sampai serah terima.",
-    impacts: [
-      { before: "Scope melebar tanpa kendali", after: "Scope terkunci, deliverable jelas per milestone" },
-      { before: "Progres tim tidak terlihat", after: "Tracking rutin — semua anggota tahu prioritasnya" }
-    ],
-    stack: ["Project Management", "Scope Definition", "Timeline Planning", "Team Coordination"],
-    liveUrl: "#",
-    repoUrl: "#",
-    shotImg: ""
-  },
-  {
-    id: "advika",
-    kanji: "智",
-    scriptWord: "Cerdas",
-    kanjiWord: "学業助言 — ACADEMIC ADVISOR AI",
-    title: "AdviKa",
-    role: "Android Developer",
-    year: "2026",
-    type: "Mobile App — AI",
-    status: "Dalam Pengembangan",
-    desc: "Penasihat akademik berbasis AI di Android — Kotlin + Gemini API untuk membantu mahasiswa mengambil keputusan studi.",
-    about: "AdviKa adalah aplikasi Android penasihat akademik bertenaga AI. Dibangun dengan Kotlin dan terintegrasi dengan Gemini API, AdviKa membantu mahasiswa merencanakan studi, memahami mata kuliah, dan mengambil keputusan akademik dengan rekomendasi yang dipersonalisasi.",
-    impacts: [
-      { before: "Konsultasi akademik terbatas jam dosen", after: "Advisor AI tersedia 24/7 di genggaman" },
-      { before: "Saran generik", after: "Rekomendasi personal via Gemini API" }
-    ],
-    stack: ["Kotlin", "Android", "Gemini API", "AI Integration"],
-    liveUrl: "#",
-    repoUrl: "#",
-    shotImg: ""
+    accent: "#3E6B4F",
+    liveUrl: "",
+    repoUrl: "https://github.com/Ahmadzufar23/UrbanCycle.git",
+    shotImg: "assets/img/projects/urbancycle.png" // TODO: screenshot belum diunggah, fallback watermark kanji tetap tampil
   }
 ];

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ahmad Zufar Ginting — Backend Developer & Project Manager</title>
+<title>Ahmad Zufar Ginting - Backend Developer & Project Manager</title>
 <link rel="icon" type="image/svg+xml" href="assets/img/kamon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,9 +15,6 @@
 <link rel="stylesheet" href="css/overlay.css">
 </head>
 <body>
-
-<div class="rail left">アフマド・ズファル・ギンティン</div>
-<div class="rail right">武士道 — BUSHIDŌ</div>
 
 <!-- ======================= NAV ======================= -->
 <nav>
@@ -37,65 +34,34 @@
 <!-- ======================= HERO ======================= -->
 <header class="hero" id="home">
   <div class="hero-left">
-    <p class="hero-eyebrow reveal" data-delay="0" id="heroEyebrow"></p>
-    <h1 class="reveal" data-delay="1" id="heroName"></h1>
+    <p class="hero-eyebrow" id="heroEyebrow"></p>
+    <h1 id="heroName"></h1>
     <div class="hero-divider"></div>
-    <p class="hero-bio reveal" data-delay="2" id="heroBio"></p>
-    <div class="hero-social reveal" data-delay="3" id="heroSocial"><!-- diisi oleh JS --></div>
+    <p class="hero-bio" id="heroBio"></p>
+    <div class="hero-social" id="heroSocial"><!-- diisi oleh JS --></div>
   </div>
 
-  <div class="portrait-wrap reveal" data-delay="2">
-    <svg class="hero-splash" aria-hidden="true" viewBox="0 0 660 300">
-      <defs>
-        <filter id="heroInkDistort" x="-25%" y="-25%" width="150%" height="150%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.02 0.035" numOctaves="2" seed="12" result="n"/>
-          <feDisplacementMap in="SourceGraphic" in2="n" scale="24" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-        <filter id="heroInkDistortSmall" x="-40%" y="-40%" width="180%" height="180%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.07" numOctaves="2" seed="7" result="n"/>
-          <feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-        <linearGradient id="heroInkGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:var(--aka-deep)"/>
-          <stop offset="52%" style="stop-color:var(--aka)"/>
-          <stop offset="100%" style="stop-color:var(--aka-deep)"/>
-        </linearGradient>
-      </defs>
-      <g filter="url(#heroInkDistort)" fill="url(#heroInkGrad)">
-        <path d="M40,180 C90,130 180,95 290,90 C410,84 510,100 590,140 C620,155 635,172 625,185 C580,215 470,228 350,222 C240,217 140,224 70,213 C50,208 32,198 40,180 Z"/>
-      </g>
-      <g filter="url(#heroInkDistortSmall)" fill="var(--aka)">
-        <path d="M60,205 C43,228 37,258 53,270 C62,252 64,228 71,208 Z" opacity=".8"/>
-        <path d="M607,165 C629,148 637,128 635,105 C620,122 600,138 579,153 Z" opacity=".75"/>
-        <path d="M33,255 C25,275 37,292 53,288 C46,272 40,264 33,255 Z" opacity=".6"/>
-      </g>
-    </svg>
+  <div class="portrait-wrap">
     <div class="hinomaru" aria-hidden="true"></div>
     <div class="portrait" id="portrait"></div>
     <div class="portrait-caption" id="portraitCaption"></div>
   </div>
 
   <div class="hero-right">
-    <div class="stat reveal" data-delay="4">
+    <div class="stat">
       <div class="num">10+</div>
-      <div class="label">Proyek Selesai</div>
+      <div class="label">Proyek selesai</div>
     </div>
-    <div class="stat reveal" data-delay="4">
+    <div class="stat">
       <div class="num">3.84</div>
-      <div class="label">IPK — Sistem Informasi</div>
+      <div class="label">IPK, Sistem Informasi</div>
     </div>
-    <div class="stat reveal" data-delay="4">
+    <div class="stat">
       <div class="num">2</div>
-      <div class="label">Jalur Karier — PM & Backend</div>
+      <div class="label">Jalur karier: PM & Backend</div>
     </div>
-    <div class="cta-row reveal" data-delay="5">
-      <div class="cv-dropdown" id="cvDropdown">
-        <button class="btn btn-red" id="cvToggle" aria-haspopup="true" aria-expanded="false">Unduh CV ▾</button>
-        <div class="cv-menu" id="cvMenu" role="menu" hidden>
-          <a class="cv-menu-item" id="cvBackendLink" role="menuitem" download>CV — Backend Developer</a>
-          <a class="cv-menu-item" id="cvPmLink" role="menuitem" download>CV — Project Manager</a>
-        </div>
-      </div>
+    <div class="cta-row">
+      <a class="btn btn-red" id="cvLink" href="#" download>Unduh CV</a>
       <a class="btn btn-ghost" href="#projects">Lihat Proyek</a>
     </div>
   </div>
@@ -111,7 +77,7 @@
   <div class="about-grid">
     <div class="about-left">
       <div class="section-head reveal">
-        <span class="section-kanji">経歴 — KEIREKI</span>
+        <span class="section-kanji">経歴</span>
         <h2 class="section-title">Tentang Saya</h2>
       </div>
       <div class="about-content">
@@ -128,15 +94,15 @@
 <!-- ======================= TOOLS ======================= -->
 <section id="tools">
   <div class="section-head reveal">
-    <span class="section-kanji">道具 — DŌGU</span>
+    <span class="section-kanji">道具</span>
     <h2 class="section-title">Tools & Skills</h2>
   </div>
   <div class="tools-group">
-    <div class="tools-group-label">BACKEND —</div>
+    <div class="tools-group-label">Backend</div>
     <div class="tools-grid" id="toolsBackend"><!-- diisi oleh JS --></div>
   </div>
   <div class="tools-group tools-group--right">
-    <div class="tools-group-label">MANAGEMENT —</div>
+    <div class="tools-group-label">Management</div>
     <div class="tools-grid" id="toolsManagement"><!-- diisi oleh JS --></div>
   </div>
 </section>
@@ -144,7 +110,7 @@
 <!-- ======================= PROJECTS ======================= -->
 <section class="projects" id="projects">
   <div class="section-head reveal">
-    <span class="section-kanji">作品 — SAKUHIN</span>
+    <span class="section-kanji">作品</span>
     <h2 class="section-title">Proyek Pilihan</h2>
   </div>
   <div class="project-grid" id="projectGrid"><!-- diisi oleh JS --></div>
@@ -152,11 +118,13 @@
 
 <!-- ======================= FOOTER / CONTACT ======================= -->
 <footer id="contact">
-  <span class="f-kanji reveal">礼 — REI</span>
+  <span class="f-kanji reveal">礼</span>
   <h2 class="reveal" data-delay="1">Mari Bangun Sesuatu.</h2>
-  <p>Terbuka untuk magang Project Manager, kolaborasi backend, atau sekadar ngobrol soal produk sambil kopi hitam.</p>
+  <p>Terbuka untuk kolaborasi backend maupun peran Project Manager.</p>
   <a class="btn btn-red reveal" data-delay="2" id="footerEmail" href="#"></a>
-  <div class="f-line">© 2026 AHMAD ZUFAR GINTING — DIBANGUN DENGAN DISIPLIN BUSHIDŌ · JAKARTA</div>
+  <a class="btn btn-ghost reveal" data-delay="3" id="footerCv" href="#" download>Unduh CV</a>
+  <div class="footer-social reveal" data-delay="4" id="footerSocial"><!-- diisi oleh JS --></div>
+  <div class="f-line">© 2026 Ahmad Zufar Ginting · Dibangun dengan disiplin bushidō · Jakarta</div>
 </footer>
 
 <!-- ======================= PROJECT DETAIL OVERLAY ======================= -->
@@ -217,15 +185,19 @@
             <span class="play-ico">▶</span> Preview Live
           </a>
           <a class="btn-git" id="ovRepo" href="#" target="_blank" rel="noopener">GitHub Repo</a>
-          <span class="ov-repo-badge" id="ovRepoBadge" hidden>Proyek Client — kode tertutup</span>
+          <span class="ov-repo-badge" id="ovRepoBadge" hidden>Proyek Client, kode tertutup</span>
+          <span class="ov-repo-badge" id="ovDevBadge" hidden>Dalam Pengembangan, rilis segera</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script src="js/reveal.js"></script>
+<script src="js/hero-motion.js"></script>
 </body>
 </html>

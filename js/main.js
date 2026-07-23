@@ -76,54 +76,31 @@ function renderHeroPhoto(){
   renderPhoto("aboutPhoto", site.aboutPhoto, "about-photo-fallback");
 })();
 
-/* ---------- hero social links ---------- */
-(function renderHeroSocial(){
-  const bar = document.getElementById("heroSocial");
-  const links = [
-    { label: "GitHub", href: site.github, external: true, icon: "devicon-github-original" },
-    { label: "LinkedIn", href: site.linkedin, external: true, icon: "devicon-linkedin-plain colored" },
-    { label: "Instagram", href: site.instagram, external: true, iconMask: "assets/img/icons/instagram.svg" },
-    { label: "Email", href: `mailto:${site.email}`, external: false, iconMask: "assets/img/icons/gmail.svg" }
-  ];
-  function renderIcon(l){
-    if (l.icon) return `<i class="${l.icon}"></i>`;
-    if (l.iconMask) return `<span class="hero-social-icon" style="mask-image:url('${l.iconMask}');-webkit-mask-image:url('${l.iconMask}');"></span>`;
-    return "";
-  }
-  bar.innerHTML = links.map(l => `
-    <a class="hero-social-link" href="${l.href}"${l.external ? ' target="_blank" rel="noopener"' : ""}>${renderIcon(l)}<span>${l.label}</span></a>
-  `).join("");
-})();
+/* ---------- link sosial (dipakai hero & footer) ---------- */
+const socialLinks = {
+  github: { label: "GitHub", href: site.github, external: true, icon: "devicon-github-original" },
+  linkedin: { label: "LinkedIn", href: site.linkedin, external: true, icon: "devicon-linkedin-plain colored" },
+  instagram: { label: "Instagram", href: site.instagram, external: true, iconMask: "assets/img/icons/instagram.svg" },
+  email: { label: "Email", href: `mailto:${site.email}`, external: false, iconMask: "assets/img/icons/gmail.svg" }
+};
+function renderSocialIcon(l){
+  if (l.icon) return `<i class="${l.icon}"></i>`;
+  if (l.iconMask) return `<span class="hero-social-icon" style="mask-image:url('${l.iconMask}');-webkit-mask-image:url('${l.iconMask}');"></span>`;
+  return "";
+}
+function renderSocialLinks(containerId, order){
+  const bar = document.getElementById(containerId);
+  if (!bar) return;
+  bar.innerHTML = order.map(key => {
+    const l = socialLinks[key];
+    return `<a class="hero-social-link" href="${l.href}"${l.external ? ' target="_blank" rel="noopener"' : ""}>${renderSocialIcon(l)}<span>${l.label}</span></a>`;
+  }).join("");
+}
+renderSocialLinks("heroSocial", ["github", "linkedin", "instagram", "email"]);
 
-/* ---------- dropdown Unduh CV ---------- */
-(function setupCvDropdown(){
-  const dropdown = document.getElementById("cvDropdown");
-  const toggle = document.getElementById("cvToggle");
-  const menu = document.getElementById("cvMenu");
-  document.getElementById("cvBackendLink").href = site.cvBackend || "#";
-  document.getElementById("cvPmLink").href = site.cvPm || "#";
-
-  function outsideClick(e){
-    if(!dropdown.contains(e.target)) closeMenu(false);
-  }
-  function openMenu(){
-    menu.hidden = false;
-    toggle.setAttribute("aria-expanded", "true");
-    document.addEventListener("click", outsideClick);
-  }
-  function closeMenu(focusToggle){
-    menu.hidden = true;
-    toggle.setAttribute("aria-expanded", "false");
-    document.removeEventListener("click", outsideClick);
-    if(focusToggle) toggle.focus();
-  }
-  toggle.addEventListener("click", e => {
-    e.stopPropagation();
-    if(menu.hidden) openMenu(); else closeMenu(false);
-  });
-  document.addEventListener("keydown", e => {
-    if(e.key === "Escape" && !menu.hidden) closeMenu(true);
-  });
+/* ---------- tombol Unduh CV ---------- */
+(function setupCvLink(){
+  document.getElementById("cvLink").href = site.cv || "#";
 })();
 
 /* ---------- pita berjalan (marquee) ---------- */
@@ -139,6 +116,8 @@ function renderHeroPhoto(){
   const emailLink = document.getElementById("footerEmail");
   emailLink.href = `mailto:${site.email}`;
   emailLink.textContent = site.email;
+  document.getElementById("footerCv").href = site.cv || "#";
+  renderSocialLinks("footerSocial", ["linkedin", "github", "instagram", "email"]);
 })();
 
 /* ---------- tools grid (dua kelompok: backend & pm) ---------- */
@@ -203,7 +182,7 @@ projects.forEach((p, i) => {
   card.tabIndex = 0;
   card.setAttribute("role","button");
   card.setAttribute("aria-label","Buka detail proyek " + p.title);
-  card.style.setProperty("--accent", p.accent || "var(--shu)");
+  card.style.setProperty("--accent", p.accent || "var(--shu-bright)");
   card.innerHTML = `
     <div class="card-thumb">
       <span class="card-thumb-kanji">${p.kanji}</span>
@@ -263,7 +242,13 @@ function openProject(p){
     return `<span>${iconHtml}${s}</span>`;
   }).join("");
 
-  document.getElementById("ovLive").href = p.liveUrl || "#";
+  const liveBtn = document.getElementById("ovLive");
+  if (p.liveUrl) {
+    liveBtn.href = p.liveUrl;
+    liveBtn.hidden = false;
+  } else {
+    liveBtn.hidden = true;
+  }
 
   const repoBtn = document.getElementById("ovRepo");
   const repoBadge = document.getElementById("ovRepoBadge");
@@ -275,6 +260,9 @@ function openProject(p){
     repoBtn.hidden = true;
     repoBadge.hidden = !p.repoPrivate;
   }
+
+  document.getElementById("ovDevBadge").hidden =
+    !(!p.liveUrl && !p.repoUrl && !p.repoPrivate && p.status === "Dalam Pengembangan");
 
   document.getElementById("ovShotUrl").textContent =
     (p.liveUrl && p.liveUrl !== "#") ? p.liveUrl.replace(/^https?:\/\//i, "").replace(/\/$/, "") : "—";

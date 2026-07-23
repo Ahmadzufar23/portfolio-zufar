@@ -70,8 +70,14 @@ publik (mis. proyek client) — tombol "GitHub Repo" otomatis hilang dari
 halaman detail. Kalau di situasi itu kamu juga set `repoPrivate: true`,
 tempat tombol tadi akan menampilkan badge kecil "Proyek Client — kode
 tertutup" sebagai gantinya. Kalau `repoUrl` kosong dan `repoPrivate` tidak
-diisi/`false`, tidak ada apa pun yang ditampilkan di situ — tombol Preview
-Live tidak terpengaruh sama sekali oleh field ini.
+diisi/`false`, tidak ada apa pun yang ditampilkan di situ.
+
+`liveUrl` juga boleh dikosongkan (`""`) untuk proyek yang belum rilis —
+tombol "Preview Live" otomatis hilang. Kalau `liveUrl` DAN `repoUrl`
+sama-sama kosong serta `status` masih `"Dalam Pengembangan"`, halaman
+detail otomatis menampilkan badge "Dalam Pengembangan" menggantikan kedua
+tombol tadi. Isi `liveUrl` nanti begitu proyeknya rilis — tombol Preview
+Live akan otomatis muncul lagi.
 
 Urutan objek dalam array `projects` menentukan urutan tampil kartu
 (nomor otomatis 一, 二, 三, ... mengikuti urutan ini).
@@ -91,8 +97,7 @@ const site = {
   github: "https://github.com/Ahmadzufar23",
   linkedin: "https://www.linkedin.com/in/ahmad-zufar-ginting-632b5a2b6/",
   instagram: "https://www.instagram.com/ahmdzufarr/",
-  cvBackend: "",               // path CV versi Backend, mis. "assets/cv/cv-backend.pdf"
-  cvPm: "",                    // path CV versi Project Manager
+  cv: "",                       // path file CV, mis. "assets/cv/cv-zufar.pdf"
   photoCutout: "",             // foto utama hero — PNG transparan (background sudah dihapus), tanpa bingkai
   photoSrc: "",                // fallback foto hero kalau photoCutout belum ada — foto biasa (kotak, tanpa crop lengkung)
   aboutPhoto: ""                // foto di section Tentang Saya (terpisah dari foto hero)
@@ -105,9 +110,8 @@ const site = {
   jatuh ke `photoSrc` (foto biasa, ditampilkan kotak siku tanpa bingkai
   lengkung). Kalau keduanya kosong, fallback 侍 tetap muncul seperti
   biasa. `aboutPhoto` foto terpisah, khusus untuk section Tentang Saya.
-- **CV**: taruh file PDF di `assets/cv/`, lalu isi `cvBackend` /
-  `cvPm` dengan path-nya. Field ini disiapkan untuk tombol unduh CV
-  bila suatu saat ingin ditambahkan ke tampilan.
+- **CV**: taruh file PDF di `assets/cv/`, lalu isi `cv` dengan path-nya.
+  Dipakai oleh satu tombol "Unduh CV" yang tampil di hero & footer.
 - **Link sosial & email**: cukup ganti nilai `github`, `linkedin`,
   `instagram`, dan `email` — otomatis dipakai ulang di social bar
   (bagian atas) dan tombol email di footer.

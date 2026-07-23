@@ -148,4 +148,4 @@
   color:rgba(246,242,234,.55);border:1px solid var(--line-light);
   border-radius:8px;padding:10px 16px;
 }
-.btn-git[hidden],.ov-repo-badge[hidden]{display:none;}
+.btn-play[hidden],.btn-git[hidden],.ov-repo-badge[hidden]{display:none;}

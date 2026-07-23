@@ -2,34 +2,23 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
-  background-color:var(--washi);
-  color:var(--sumi);
+  background-color:var(--bg-dark);
+  color:var(--text-light);
   font-family:var(--font-body);
   overflow-x:hidden;
   line-height:1.6;
 }
 ::selection{background:var(--shu);color:var(--washi);}
 
-/* ---------- vertical bushido rails ---------- */
-.rail{
-  position:fixed;top:50%;transform:translateY(-50%);
-  writing-mode:vertical-rl;letter-spacing:.6em;
-  font-family:var(--font-display);font-size:12px;color:var(--ink-gray);
-  z-index:5;user-select:none;pointer-events:none;
-}
-.rail.left{left:18px;}
-.rail.right{right:18px;color:var(--shu);}
-@media(max-width:900px){.rail{display:none;}}
-
 /* ---------- nav ---------- */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:50;
   display:flex;align-items:center;justify-content:space-between;
   padding:18px 56px;
-  background:rgba(246,242,234,.85);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
+  background:rgba(14,13,12,.75);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line-dark);
 }
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--sumi);}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text-light);}
 .brand-mark{
   width:34px;height:34px;border-radius:50%;background:var(--shu);
   display:grid;place-items:center;color:var(--washi);
@@ -38,7 +27,7 @@ nav{
 .brand-name{font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:.08em;}
 .nav-links{display:flex;gap:34px;list-style:none;}
 .nav-links a{
-  text-decoration:none;color:var(--sumi);font-size:13.5px;font-weight:700;
+  text-decoration:none;color:var(--text-light);font-size:13.5px;font-weight:700;
   letter-spacing:.12em;text-transform:uppercase;position:relative;
 }
 .nav-links a::after{
@@ -51,50 +40,53 @@ nav{
   .nav-links{display:none;}
 }
 
-/* ---------- hero ---------- */
+/* ---------- hero (tema gelap — percontohan fase redesign) ---------- */
 .hero{
   min-height:calc(100vh - var(--nav-h));margin-top:var(--nav-h);position:relative;
-  display:grid;grid-template-columns:1.05fr .9fr 1.05fr;
+  display:grid;grid-template-columns:.95fr 1.3fr .95fr;
   align-items:center;gap:24px;
   padding:40px 72px;
   scroll-margin-top:var(--scroll-offset);
+  background:var(--bg-dark);color:var(--text-light);
 }
+.hero-left,.hero-right{position:relative;z-index:1;}
 .hero-eyebrow{
-  font-family:var(--font-mono);font-size:12px;letter-spacing:.28em;
-  color:var(--shu);text-transform:uppercase;margin-bottom:18px;
+  font-family:var(--font-body);font-size:14.5px;font-weight:700;letter-spacing:.02em;
+  color:var(--shu-bright);margin-bottom:18px;
 }
 .hero h1{
-  font-family:var(--font-display);font-weight:800;
+  font-family:var(--font-display);font-weight:800;color:var(--text-light);
   font-size:clamp(44px,5vw,72px);line-height:1.08;letter-spacing:.01em;
 }
-.hero h1 .red{color:var(--shu);}
-.hero-divider{width:88px;height:3px;background:var(--sumi);margin:26px 0;position:relative;}
-.hero-divider::after{content:"";position:absolute;right:-14px;top:-3.5px;width:10px;height:10px;border-radius:50%;background:var(--shu);}
-.hero-bio{font-size:15px;color:var(--ink-gray);max-width:400px;}
-.hero-bio b{color:var(--sumi);}
+.hero h1 .red{color:var(--shu-bright);}
+.hero-divider{width:88px;height:3px;background:var(--shu);margin:26px 0;position:relative;}
+.hero-divider::after{content:"";position:absolute;right:-14px;top:-3.5px;width:10px;height:10px;border-radius:50%;background:var(--shu-bright);}
+.hero-bio{font-size:15px;color:var(--text-dim);max-width:400px;}
+.hero-bio b{color:var(--text-light);}
+.hero .hero-social-link{color:var(--text-light);}
+.hero .hero-social-link:hover{color:var(--shu-bright);}
+.hero .btn-ghost{color:var(--text-light);border-color:var(--text-light);}
+.hero .btn-ghost:hover{background:var(--text-light);color:var(--bg-dark);}
 
 /* center portrait + hinomaru */
-.portrait-wrap{position:relative;display:grid;place-items:center;min-height:480px;}
-.hero-splash{
-  position:absolute;width:min(440px,108%);aspect-ratio:660/300;
-  opacity:.95;pointer-events:none;
-  filter:drop-shadow(0 20px 46px rgba(90,10,20,.32));
-}
+.portrait-wrap{position:relative;display:grid;place-items:center;min-height:680px;overflow:visible;}
+/* hinomaru: lingkaran merah flat bersih di belakang foto, tanpa glow/gradient/blur */
 .hinomaru{
-  position:absolute;width:min(440px,90%);aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle at 32% 28%, var(--shu-bright), var(--shu) 62%);
-  box-shadow:0 30px 80px rgba(188,0,45,.35);
-  animation:breath 7s ease-in-out infinite;
+  position:absolute;width:min(560px,62%);aspect-ratio:1;border-radius:50%;
+  background:var(--aka);
+  z-index:1;
+  pointer-events:none;
 }
-@keyframes breath{0%,100%{transform:scale(1);}50%{transform:scale(1.035);}}
 /* foto hero: cutout PNG transparan tanpa bingkai (default) atau fallback persegi bersih tanpa bingkai lengkung */
 .portrait{
-  position:relative;z-index:2;width:min(370px,78%);
+  position:relative;z-index:2;width:min(760px,94%);
   display:grid;place-items:center;
 }
 .portrait--cutout img{
   width:100%;height:auto;display:block;object-fit:contain;
   filter:drop-shadow(0 22px 44px rgba(18,18,18,.4));
+  -webkit-mask-image:linear-gradient(to bottom, #000 92%, rgba(0,0,0,0) 100%);
+  mask-image:linear-gradient(to bottom, #000 92%, rgba(0,0,0,0) 100%);
 }
 .portrait--square{
   aspect-ratio:3/3.6;overflow:hidden;background:var(--sumi);
@@ -111,8 +103,9 @@ nav{
 .portrait-fallback span{font-size:12px;letter-spacing:.3em;color:rgba(246,242,234,.55);}
 .portrait-caption{
   position:absolute;bottom:6px;z-index:3;
-  font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;
-  background:var(--sumi);color:var(--washi);padding:7px 16px;border-radius:999px;
+  font-family:var(--font-body);font-size:12.5px;font-weight:600;letter-spacing:.02em;
+  background:var(--bg-dark-2);color:var(--text-light);border:1px solid var(--line-dark);
+  padding:7px 16px;border-radius:999px;
 }
 
 /* right column stats */
@@ -123,7 +116,7 @@ nav{
   font-family:var(--font-display);font-weight:800;
   font-size:clamp(38px,3.8vw,56px);line-height:1;
 }
-.stat .label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.2em;color:var(--ink-gray);text-transform:uppercase;margin-top:4px;}
+.stat .label{font-family:var(--font-body);font-size:13.5px;font-weight:500;letter-spacing:.01em;color:var(--text-dim);margin-top:4px;}
 .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;}
 
 /* ---------- sections ---------- */
@@ -131,24 +124,27 @@ section{padding:32px 72px 96px;scroll-margin-top:var(--scroll-offset);}
 @media(max-width:760px){section{padding:28px 22px 70px;}}
 .section-head{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:52px;}
 .section-kanji{
-  font-family:var(--font-mono);font-size:12px;color:var(--shu);
-  letter-spacing:.32em;text-transform:uppercase;
+  font-family:var(--font-mono);font-size:15px;color:var(--shu-bright);
+  letter-spacing:.06em;
 }
 .section-title{
   font-family:var(--font-display);font-weight:800;
   font-size:clamp(30px,3.6vw,46px);letter-spacing:.01em;
 }
 
+/* ---------- tools section ---------- */
+#tools{background:var(--bg-dark);color:var(--text-light);}
+
 /* ---------- projects section ---------- */
 .projects{
   position:relative;z-index:0;
-  background-color:var(--washi-deep);
-  border-top:1px solid var(--line);
+  background-color:var(--bg-dark);color:var(--text-light);
+  border-top:1px solid var(--line-dark);
 }
 .project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;}
 
 /* ---------- about (tentang saya) ---------- */
-.about{position:relative;z-index:0;padding-top:32px;padding-bottom:56px;}
+.about{position:relative;z-index:0;padding-top:32px;padding-bottom:56px;background:var(--bg-dark);color:var(--text-light);}
 .about-grid{
   max-width:1100px;margin:0 auto;
   display:grid;grid-template-columns:1fr 320px;gap:64px;align-items:stretch;
@@ -159,15 +155,21 @@ section{padding:32px 72px 96px;scroll-margin-top:var(--scroll-offset);}
 
 /* ---------- footer ---------- */
 footer{
-  background:var(--sumi);color:var(--washi);
+  background:var(--bg-dark);color:var(--text-light);
   padding:36px 72px 40px;text-align:center;
   scroll-margin-top:var(--scroll-offset);
+  border-top:1px solid var(--line-dark);
 }
-footer .f-kanji{font-family:var(--font-mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--shu-bright);display:block;margin-bottom:14px;}
-footer h2{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,3vw,40px);margin-bottom:14px;}
-footer p{color:rgba(246,242,234,.6);font-size:14.5px;max-width:520px;margin:0 auto 30px;}
-footer .f-line{margin-top:56px;padding-top:22px;border-top:1px solid var(--line-light);
-  font-family:var(--font-mono);font-size:11.5px;letter-spacing:.18em;color:rgba(246,242,234,.4);}
+footer .f-kanji{font-family:var(--font-mono);font-size:15px;letter-spacing:.06em;color:var(--shu-bright);display:block;margin-bottom:14px;}
+footer h2{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,3vw,40px);margin-bottom:14px;color:var(--text-light);}
+footer p{color:var(--text-dim);font-size:14.5px;max-width:520px;margin:0 auto 30px;}
+footer .f-line{margin-top:56px;padding-top:22px;border-top:1px solid var(--line-dark);
+  font-family:var(--font-mono);font-size:11.5px;letter-spacing:.04em;color:var(--text-dim);}
+footer .btn-ghost{color:var(--text-light);border-color:var(--text-light);margin-left:14px;}
+footer .btn-ghost:hover{background:var(--text-light);color:var(--bg-dark);}
+.footer-social{display:flex;gap:24px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:34px;}
+.footer-social .hero-social-link{color:var(--text-light);}
+.footer-social .hero-social-link:hover{color:var(--shu-bright);}
 
 @media(max-width:1020px){
   .hero{grid-template-columns:1fr;text-align:center;padding-top:40px;gap:44px;}
