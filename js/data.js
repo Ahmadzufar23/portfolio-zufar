@@ -20,7 +20,7 @@ const site = {
   github: "https://github.com/Ahmadzufar23",
   linkedin: "https://www.linkedin.com/in/ahmad-zufar-ginting-632b5a2b6/",
   instagram: "https://www.instagram.com/ahmdzufarr/",
-  cv: "assets/cv/cv-zufar.pdf", // TODO: pemilik akan menaruh file CV di path ini
+  cv: "https://drive.google.com/file/d/1nmCSU3lHqquY1qwov8OBiKu8MckIF5j6/view?usp=sharing", // link Google Drive CV
   photoCutout: "assets/img/foto1-cutout.png", // foto hero utama — PNG transparan (cutout, tanpa background). Belum diunggah = otomatis pakai photoSrc di bawah.
   photoSrc: "assets/img/foto1.jpg", // fallback foto hero kalau photoCutout belum ada — kosong = fallback kanji 侍
   aboutPhoto: "assets/img/foto2.jpg" // foto section Tentang Saya — kosong = fallback kanji 侍
