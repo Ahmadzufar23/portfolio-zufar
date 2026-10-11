@@ -9,12 +9,15 @@ Semua konten yang bisa diedit pemilik ada di satu file: `js/data.js`.
 ├── index.html            (markup halaman)
 ├── css/
 │   ├── tokens.css        (variabel warna & font)
-│   ├── layout.css        (reset, navbar, hero, section, footer, rail)
-│   ├── components.css    (tombol, kartu proyek, marquee, tools, hero social, dropdown CV)
+│   ├── layout.css        (pola tradisional, reset, navbar, hero, section, footer)
+│   ├── components.css    (reveal tebasan, tombol, marquee, tools, timeline, kartu proyek, katana scroll, sakura)
 │   └── overlay.css        (halaman detail proyek)
 ├── js/
 │   ├── data.js           (KONTEN — edit di sini)
-│   └── main.js           (render + interaksi, jangan diedit kecuali menambah fitur)
+│   ├── main.js           (render + interaksi, jangan diedit kecuali menambah fitur)
+│   ├── reveal.js         (animasi muncul saat discroll)
+│   ├── hero-motion.js    (animasi masuk hero, GSAP)
+│   └── ambience.js       (efek dekoratif: kelopak sakura & katana penunjuk scroll)
 ├── assets/
 │   ├── img/               (foto profil, kamon.svg)
 │   ├── img/projects/      (screenshot tiap proyek)
@@ -202,22 +205,28 @@ const experience = [
 
 ## 5. Mengubah warna
 
-Semua warna diatur lewat variabel di `css/tokens.css`:
+Semua warna diatur lewat variabel di `css/tokens.css`. Paletnya diambil
+dari warna tradisional Jepang:
 
 ```css
 :root{
-  --washi:#F6F2EA;      /* putih kertas washi (background) */
-  --sumi:#121212;       /* hitam tinta sumi (teks utama) */
-  --shu:#BC002D;        /* merah hinomaru (aksen utama) */
-  --shu-bright:#E3123B; /* merah terang (hover/aksen overlay) */
-  --ink-gray:#6E6A63;   /* abu-abu untuk teks sekunder */
+  --washi:#EDE6D6;      /* kinari — kertas washi mentah */
+  --sumi:#15120F;       /* tinta sumi hangat */
+  --shu:#B8321F;        /* shu-iro — vermilion torii (aksen utama) */
+  --shu-bright:#DE5A36; /* vermilion terang untuk teks kecil/hover */
+  --aka:#9B2B1A;        /* bengara — matahari tinta di hero */
+  --kincha:#B98A3E;     /* emas kusam — tsuba, garis halus, nomor bab */
+  --ai:#2E3F5C;         /* nila — ombak seigaiha di footer */
+  --sakura:#E3B5AE;     /* kelopak sakura di hero */
   ...
 }
 ```
 
-Ubah nilai hex di sana saja — seluruh halaman (navbar, tombol, kartu,
-overlay) otomatis ikut berubah karena semua file CSS memakai variabel
-yang sama.
+Ubah nilai hex di sana saja — seluruh halaman otomatis ikut berubah.
+**Pengecualian:** pola ombak seigaiha (`--pat-seigaiha-marquee` dan
+`--pat-seigaiha-footer` di awal `css/layout.css`) menyimpan warnanya
+langsung di dalam SVG, jadi kalau `--sumi`, `--bg-dark`, atau `--ai`
+diubah, samakan juga hex di dua pola itu.
 
 ## 6. Deploy
 
@@ -238,44 +247,56 @@ file apa adanya.
 
 ## 7. Animasi
 
-Atas keputusan sadar pemilik, semua animasi visual (pita berjalan
-`.marquee-track`, denyut hinomaru `.hinomaru`, reveal-on-scroll `.reveal`,
-efek hover) berjalan untuk semua pengunjung tanpa syarat — tidak ada
-gerbang `prefers-reduced-motion` dan tidak ada toggle `?motion=on` lagi.
+Atas keputusan sadar pemilik, animasi dekoratif (pita berjalan, ensō
+berputar, kelopak sakura, reveal-on-scroll, efek hover) berjalan untuk
+semua pengunjung tanpa gerbang `prefers-reduced-motion`. Pengecualian:
+animasi masuk hero (`js/hero-motion.js`) dilewati kalau pengunjung
+mengaktifkan reduced motion — elemen hero langsung tampil.
 
-Hero mendapat animasi masuk begitu halaman siap (tanpa perlu scroll):
-eyebrow → nama → bio → sosial → stats → tombol muncul berurutan
-fade-up dengan stagger, foto dan hinomaru ikut fade-in. Section
-lainnya (About, Tools, Proyek, Footer) memakai reveal-on-scroll —
-elemen dengan class `.reveal` (opsional `data-delay="N"` untuk stagger)
-di-observe oleh `js/reveal.js` dan diberi class `.is-visible` setiap kali
-masuk viewport, dan class itu dilepas lagi saat elemen keluar viewport
-sepenuhnya — jadi animasinya replay tiap kali discroll ulang, bukan
-sekali seumur hidup halaman.
+- **Hero** (`js/hero-motion.js`, GSAP, sekali saat load): eyebrow → nama
+  → katana "dicabut" dari kiri (nukitsuke) → bio → sosial → stats →
+  tombol; matahari tinta merembes membesar, foto & ensō menyusul.
+- **Reveal "tebasan katana"** (`.reveal` di `css/components.css`):
+  elemen terbuka dari kiri dengan tepi miring lewat `clip-path`, bukan
+  fade biasa. `js/reveal.js` menambah `.is-visible` saat masuk viewport
+  dan melepasnya saat keluar sepenuhnya, jadi animasinya replay.
+  Status tersembunyi sengaja menyisakan celah 2px — Chrome ikut
+  menghitung `clip-path` di IntersectionObserver, jadi area kosong total
+  membuat elemen tidak pernah terdeteksi. Jangan ubah jadi 0.
+- **Kilatan bilah** melintas di kepala section saat muncul, dan kilatan
+  diagonal menyapu thumbnail kartu proyek saat hover.
+- **Katana penunjuk scroll** (`js/ambience.js`, desktop saja): bilah
+  tercabut dari sarung di tepi kanan sesuai progres scroll; cap kanji
+  di atasnya otomatis mengikuti `.section-kanji` section yang sedang
+  dibaca.
+- **Marquee** (`.marquee-track`) dirender dua grup konten identik dan
+  digeser `translateX(-50%)`; setiap `span` punya `margin-right` seragam
+  supaya loop-nya mulus tanpa lompatan di seam. Item marquee yang isinya
+  kanji saja otomatis tampil sebagai lambang mon bulat.
 
-Marquee (`.marquee-track`) dirender dua grup konten identik dan
-digeser `translateX(-50%)`; setiap `span` punya `margin-right` seragam
-(bukan `gap`/margin dua sisi) supaya jarak di titik sambungan grup
-persis sama dengan jarak antar item lain — ini yang membuat loop-nya
-benar-benar mulus tanpa lompatan di seam.
+## 8. Tema visual "samurai & sumi-e"
 
-## 8. Tema visual "washi & tinta sumi-e"
-
-- **Tekstur kertas**: `body` dan `.projects` punya dua layar
-  `background-image` (noise SVG + speckle SVG, keduanya di
-  `css/tokens.css` sebagai `--washi-noise` / `--washi-speckle`)
-  di-blend `multiply` di atas warna washi. Sangat subtle — jangan
-  naikkan opacity di dalam SVG itu tanpa alasan kuat, tujuannya cuma
-  terasa sebagai serat kertas, bukan pola yang mencolok.
-- **Splash tinta hero**: SVG organik (`feTurbulence` + `feDisplacementMap`
-  pada blob path) di `.hero-splash`, ditaruh sebagai anak pertama
-  `.portrait-wrap` supaya tampil di belakang hinomaru + foto. Ini
-  pusat drama visual situs — jangan digandakan di section lain.
-- **Ink fleck**: aksen kecil di sudut About & Proyek, pakai `<symbol
-  id="inkFleck">` yang didefinisikan sekali di awal `<body>` lalu
-  dipakai ulang lewat `<use>` dengan class `.ink-fleck--*` untuk
-  posisi/rotasi berbeda tiap instance.
-- **Divider antar-section**: `.section-divider` (sapuan kuas horizontal,
-  `<symbol id="brushDivider">`) dipasang di antara About→Tools,
-  Tools→Proyek, dan Proyek→Footer. Hero→About tetap memakai marquee
-  sebagai satu-satunya pembatas — jangan tambah divider di situ.
+- **Pola tradisional** (variabel di awal `css/layout.css`):
+  asanoha (daun rami) samar di hero & overlay, seigaiha (ombak) di
+  marquee dan dasar footer, serta serat kertas washi halus di atas
+  seluruh halaman (`body::after`).
+- **Filter SVG** didefinisikan sekali di awal `<body>` (`<svg class="sr-defs">`):
+  `#inkEdge` (tepi tinta matahari hero), `#dryBrush` (sapuan kuas
+  kering untuk ensō & pemisah), `#stampEdge` (tepi cap hanko).
+- **Hero**: matahari bengara bertepi tinta, ensō (lingkaran zen) yang
+  berputar pelan, katana SVG sebagai pemisah di bawah nama, tulisan
+  vertikal di tepi kiri (teksnya di `decor.heroVertical`, `js/data.js`),
+  nomor kanji 一 二 三 di stats (counter CSS `cjk-decimal`), dan
+  kelopak sakura gugur.
+- **Kepala section**: kanji `.section-kanji` tampil sebagai cap hanko
+  vertikal, judul otomatis diberi nomor bab 第一章, 第二章 … (counter
+  CSS — urutan mengikuti urutan section di HTML).
+- **Pemisah antar-section**: `.brush-divider` (sapuan kuas `<symbol id="brushStroke">`
+  + mon kecil di tengah) di antara About→Tools, Tools→Proyek, dan
+  Proyek→Footer. Hero→About tetap memakai marquee.
+- **Tentang Saya**: timeline dengan simpul berlian (hishi), foto sebagai
+  gulungan kakejiku dengan cap merah di pojok (kanjinya di
+  `decor.photoSeal`, `js/data.js` — kosongkan untuk menyembunyikan).
+- **Tools**: kartu dengan siku kagi-kakko 「 」 yang memanjang saat hover.
+- **Tombol**: sudut terpotong (chamfer) lewat `mask`, bukan
+  `clip-path`, supaya tidak bentrok dengan reveal.

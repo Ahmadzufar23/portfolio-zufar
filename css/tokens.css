@@ -1,28 +1,44 @@
+/* =====================================================
+   TOKEN WARNA & TIPOGRAFI
+   Palet diambil dari warna tradisional Jepang (dentō-shoku),
+   bukan merah/hitam generik: kertas kinari, tinta sumi yang
+   hangat, vermilion shu seperti gerbang torii, bengara (merah
+   oksida) untuk matahari hero, kincha (emas kusam) untuk logam
+   tsuba, dan ai (nila) untuk ombak seigaiha di footer.
+   ===================================================== */
 :root{
-  --washi:#FCFCFA;      /* putih kertas washi */
-  --washi-deep:#F4F4F0;
-  --sumi:#121212;       /* hitam tinta sumi */
-  --sumi-soft:#1C1B19;
-  --shu:#BC002D;        /* merah hinomaru */
-  --shu-bright:#E3123B;
-  --aka:#8A0F1F;        /* merah crimson dalam — sapuan kuas kering hero */
-  --aka-deep:#5C0A16;   /* tepi paling gelap sapuan kuas */
-  --ink-gray:#6E6A63;
-  --line:rgba(18,18,18,.14);
-  --line-light:rgba(246,242,234,.16);
+  --washi:#EDE6D6;      /* kinari — kertas washi mentah (teks terang di overlay/marquee) */
+  --washi-deep:#E2D8C3;
+  --sumi:#15120F;       /* tinta sumi hangat (latar overlay) */
+  --sumi-soft:#1F1A16;
+  --shu:#B8321F;        /* shu-iro — vermilion torii (aksen utama) */
+  --shu-bright:#DE5A36; /* vermilion terang untuk teks kecil/hover (kontras AA di latar gelap) */
+  --aka:#9B2B1A;        /* bengara — matahari tinta di hero */
+  --aka-deep:#5A1A10;
+  --kincha:#B98A3E;     /* emas kusam — tsuba, habaki, garis halus */
+  --kincha-dim:rgba(185,138,62,.35);
+  --ai:#2E3F5C;         /* ai-iro — nila, ombak seigaiha footer */
+  --hagane:#C9C4BA;     /* baja bilah katana */
+  --sakura:#E3B5AE;     /* kelopak sakura yang gugur di hero */
+  --ink-gray:#7A7166;
+  --line:rgba(21,18,15,.14);
+  --line-light:rgba(237,230,214,.16);
 
   --font-display:'Shippori Mincho B1', serif;
   --font-body:'Zen Kaku Gothic New', sans-serif;
   --font-mono:'IBM Plex Mono', monospace;
+  --font-brush:'Yuji Syuku', 'Shippori Mincho B1', serif; /* kaligrafi kuas — hanya untuk kanji dekoratif */
 
   --ease:cubic-bezier(.4,0,.2,1);
+  --ease-slash:cubic-bezier(.77,0,.18,1); /* tarikan pedang: diam → cepat → berhenti tegas */
   --nav-h:76px;
   --scroll-offset:84px;
+  --cut:12px;           /* potongan sudut (chamfer) tombol & kartu */
 
-  /* ---------- tema gelap (fase redesign — dipakai bertahap per section) ---------- */
-  --bg-dark:#0E0D0C;
-  --bg-dark-2:#161412;
-  --text-light:#F2EEE6;
-  --text-dim:#9A948B;
-  --line-dark:rgba(242,238,230,.12);
+  /* ---------- tema gelap ---------- */
+  --bg-dark:#12100E;
+  --bg-dark-2:#1B1714;
+  --text-light:#EDE6D6;
+  --text-dim:#A39886;
+  --line-dark:rgba(237,230,214,.12);
 }

@@ -1,30 +1,77 @@
-/* ---------- reveal-on-scroll (js/reveal.js menambah .is-visible sekali) ---------- */
+/* ---------- reveal-on-scroll: "tebasan katana" ----------
+   js/reveal.js menambah/melepas .is-visible. Elemen terbuka dari kiri
+   dengan tepi miring seperti bekas tebasan, bukan fade biasa.
+   Margin -40px di polygon supaya bayangan hover tidak ikut terpotong.
+   Status tersembunyi sengaja menyisakan celah 2px di dalam elemen:
+   Chrome menghitung clip-path saat IntersectionObserver, jadi area
+   kosong total membuat elemen tidak pernah "terlihat" (opacity 0
+   tetap menyembunyikan celah itu). */
 .reveal{
-  opacity:0;transform:translateY(14px);
-  transition:opacity .5s var(--ease), transform .5s var(--ease);
+  opacity:0;
+  clip-path:polygon(-40px -40px,2px -40px,2px calc(100% + 40px),-40px calc(100% + 40px));
+  transition:clip-path .85s var(--ease-slash), opacity .35s ease;
 }
-.reveal.is-visible{opacity:1;transform:translateY(0);}
+.reveal.is-visible{
+  opacity:1;
+  clip-path:polygon(-40px -40px,calc(100% + 80px) -40px,calc(100% + 40px) calc(100% + 40px),-80px calc(100% + 40px));
+}
+/* kilatan bilah yang melintas di kepala section saat muncul */
+.section-head{position:relative;}
+.section-head::after{
+  content:"";position:absolute;left:-4%;top:52%;width:108%;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--shu-bright) 30%,var(--washi) 70%,transparent);
+  transform:rotate(-7deg) scaleX(0);transform-origin:left center;opacity:0;
+}
+.section-head.is-visible::after{animation:bladeFlash .9s var(--ease-slash) .15s both;}
+@keyframes bladeFlash{
+  0%{transform:rotate(-7deg) scaleX(0);opacity:1;}
+  55%{transform:rotate(-7deg) scaleX(1);opacity:1;}
+  100%{transform:rotate(-7deg) scaleX(1) translateX(6%);opacity:0;}
+}
 
-/* ---------- tombol ---------- */
+/* ---------- tombol: sudut terpotong (chamfer) seperti ujung tsuba ---------- */
 .btn{
+  position:relative;isolation:isolate;overflow:hidden;
   display:inline-flex;align-items:center;gap:10px;text-decoration:none;
-  font-weight:700;font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;
-  padding:14px 26px;border-radius:999px;transition:all .25s ease;cursor:pointer;border:none;
+  font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  padding:15px 28px;border:none;cursor:pointer;
+  /* sudut dipotong lewat mask (bukan clip-path) supaya tidak bentrok dengan
+     clip-path animasi .reveal yang juga dipakai sebagian tombol */
+  --chamfer:linear-gradient(135deg,transparent calc(var(--cut) * .7071),#000 0) left / 50.5% 100% no-repeat,
+            linear-gradient(315deg,transparent calc(var(--cut) * .7071),#000 0) right / 50.5% 100% no-repeat;
+  -webkit-mask:var(--chamfer);mask:var(--chamfer);
+  transition:color .35s ease, transform .25s ease;
 }
+.btn:hover{transform:translateY(-2px);}
+/* merah: sapuan washi masuk dari kiri saat hover */
 .btn-red{background:var(--shu);color:var(--washi);}
-.btn-red:hover{background:var(--sumi);transform:translateY(-2px);}
-.btn-ghost{background:transparent;color:var(--sumi);border:1.5px solid var(--sumi);}
-.btn-ghost:hover{background:var(--sumi);color:var(--washi);transform:translateY(-2px);}
+.btn-red::after{
+  content:"";position:absolute;inset:0;z-index:-1;background:var(--washi);
+  transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease-slash);
+}
+.btn-red:hover{color:var(--sumi);}
+.btn-red:hover::after{transform:scaleX(1);transform-origin:left;}
+/* ghost: "bingkai" = latar tombol, isi = ::before yang sedikit lebih kecil */
+.btn-ghost{background:rgba(237,230,214,.55);color:var(--text-light);}
+.btn-ghost::before{
+  content:"";position:absolute;inset:1.5px;z-index:-1;background:var(--bg-dark);
+  --chamfer:linear-gradient(135deg,transparent calc((var(--cut) - 1px) * .7071),#000 0) left / 50.5% 100% no-repeat,
+            linear-gradient(315deg,transparent calc((var(--cut) - 1px) * .7071),#000 0) right / 50.5% 100% no-repeat;
+  -webkit-mask:var(--chamfer);mask:var(--chamfer);
+  transition:background .35s ease;
+}
+.btn-ghost:hover{color:var(--bg-dark);}
+.btn-ghost:hover::before{background:var(--text-light);}
 
 /* ---------- hero social links ---------- */
 .hero-social{
   display:flex;gap:20px;flex-wrap:wrap;align-items:center;
-  margin-top:16px;
+  margin-top:18px;
 }
 .hero-social-link{
   display:inline-flex;align-items:center;gap:7px;
-  text-decoration:none;color:var(--sumi);font-weight:700;font-size:12.5px;
-  letter-spacing:.04em;transition:color .2s ease;
+  text-decoration:none;color:var(--text-light);font-weight:700;font-size:12.5px;
+  letter-spacing:.06em;transition:color .2s ease;
 }
 .hero-social-link i{font-size:16px;}
 .hero-social-icon{
@@ -33,76 +80,114 @@
   -webkit-mask-position:center;mask-position:center;
   -webkit-mask-size:contain;mask-size:contain;
 }
-.hero-social-link:hover{color:var(--shu);}
+.hero-social-link:hover{color:var(--shu-bright);}
 
 /* ---------- dropdown Unduh CV ---------- */
 .cv-dropdown{position:relative;display:inline-block;}
 .cv-menu{
   position:absolute;top:calc(100% + 8px);left:0;z-index:20;min-width:230px;
-  background:#fff;border:1.5px solid var(--line);border-radius:14px;
-  padding:8px;box-shadow:0 16px 30px rgba(18,18,18,.14);
+  background:var(--bg-dark-2);border:1px solid var(--kincha-dim);border-radius:4px;
+  padding:8px;box-shadow:0 16px 30px rgba(0,0,0,.4);
 }
 .cv-menu[hidden]{display:none;}
 .cv-menu-item{
-  display:block;padding:11px 14px;border-radius:8px;text-decoration:none;
-  color:var(--sumi);font-weight:700;font-size:12.5px;letter-spacing:.03em;
+  display:block;padding:11px 14px;border-radius:3px;text-decoration:none;
+  color:var(--text-light);font-weight:700;font-size:12.5px;letter-spacing:.03em;
   transition:background .2s ease;
 }
-.cv-menu-item:hover{background:var(--washi-deep);}
+.cv-menu-item:hover{background:rgba(237,230,214,.06);}
 .cv-menu-item:focus-visible{outline:2px solid var(--shu-bright);outline-offset:2px;}
 
-/* ---------- marquee ---------- */
+/* ---------- marquee: obi (sabuk kimono) dengan ombak seigaiha ---------- */
 .marquee{
-  background:var(--sumi);color:var(--washi);overflow:hidden;white-space:nowrap;
-  padding:16px 0;border-top:3px solid var(--shu);border-bottom:3px solid var(--shu);
+  position:relative;
+  background-color:var(--sumi);background-image:var(--pat-seigaiha-marquee);background-size:40px 20px;
+  color:var(--washi);overflow:hidden;white-space:nowrap;
+  padding:20px 0;border-top:3px solid var(--shu);border-bottom:3px solid var(--shu);
 }
+.marquee::before,.marquee::after{
+  content:"";position:absolute;left:0;right:0;height:1px;background:var(--kincha);opacity:.6;
+}
+.marquee::before{top:5px;}
+.marquee::after{bottom:5px;}
 .marquee-track{
-  display:flex;align-items:baseline;width:max-content;
-  animation:scroll 26s linear infinite;
+  display:flex;align-items:center;width:max-content;
+  animation:scroll 30s linear infinite;
 }
 .marquee span{
-  font-family:var(--font-display);font-size:16px;letter-spacing:.24em;
+  font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:.28em;
   flex:0 0 auto;margin-right:56px;
+  text-shadow:0 0 12px var(--sumi),0 0 4px var(--sumi);
 }
 .marquee .m-red{color:var(--shu-bright);}
+.marquee .m-kanji{
+  font-family:var(--font-brush);font-size:24px;letter-spacing:0;line-height:1;
+  color:var(--washi);background:var(--shu);
+  width:38px;height:38px;display:inline-grid;place-items:center;border-radius:50%;
+  box-shadow:0 0 0 2px var(--sumi),0 0 0 3px var(--kincha);
+}
 @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-/* ---------- tools ---------- */
-.tools-group{margin-bottom:40px;}
+/* ---------- tools: kartu dengan siku kagi-kakko 「 」 ---------- */
+.tools-group{margin-bottom:44px;}
 .tools-group:last-child{margin-bottom:0;}
 .tools-group-label{
-  font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;
-  color:var(--shu-bright);margin-bottom:18px;
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--kincha);margin-bottom:20px;
 }
+.tools-group-label::before{content:"";width:9px;height:9px;background:var(--shu);transform:rotate(45deg);flex:0 0 auto;}
+.tools-group-label::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--kincha-dim),transparent);}
 @media(min-width:761px){
-  .tools-group--right .tools-group-label{text-align:right;}
+  .tools-group--right .tools-group-label{flex-direction:row-reverse;}
+  .tools-group--right .tools-group-label::after{background:linear-gradient(270deg,var(--kincha-dim),transparent);}
 }
 .tools-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;
 }
 .tool{
-  background:var(--bg-dark-2);border:1px solid var(--line-dark);border-radius:16px;
-  padding:16px 12px;text-align:center;transition:all .25s ease;
+  position:relative;
+  background:var(--bg-dark-2);border:1px solid var(--line-dark);border-radius:3px;
+  padding:18px 12px 16px;text-align:center;
+  transition:transform .3s var(--ease), border-color .3s ease, box-shadow .3s ease;
 }
+.tool::before,.tool::after{
+  content:"";position:absolute;width:12px;height:12px;pointer-events:none;
+  transition:width .35s var(--ease-slash),height .35s var(--ease-slash),border-color .3s ease;
+}
+.tool::before{top:-1px;left:-1px;border-top:2px solid var(--kincha);border-left:2px solid var(--kincha);}
+.tool::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--kincha);border-right:2px solid var(--kincha);}
 .tool i{font-size:36px;display:block;margin-bottom:8px;color:var(--text-light);}
 .tool .tool-icon-img{
   width:36px;height:36px;display:block;margin:0 auto 8px;object-fit:contain;
-  background:var(--text-light);border-radius:8px;padding:5px;box-sizing:border-box;
+  background:var(--text-light);border-radius:4px;padding:5px;box-sizing:border-box;
 }
 .tool .t-name{font-weight:700;font-size:13px;color:var(--text-light);}
 .tool .t-role{font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;color:var(--text-dim);margin-top:2px;}
-.tool:hover{border-color:var(--shu);transform:translateY(-5px);box-shadow:0 16px 30px rgba(188,0,45,.2);}
-.tool:hover i{color:var(--shu) !important;}
+.tool:hover{border-color:rgba(184,50,31,.45);transform:translateY(-5px);box-shadow:0 16px 30px rgba(0,0,0,.45);}
+.tool:hover::before,.tool:hover::after{width:28px;height:28px;border-color:var(--shu-bright);}
+.tool:hover i{color:var(--shu-bright) !important;}
 
 /* ---------- about — deskripsi + timeline horizontal + foto ---------- */
 .about-content{display:flex;flex-direction:column;gap:40px;min-width:0;}
-.about-text{font-size:15px;line-height:1.75;color:var(--text-dim);max-width:56ch;}
+.about-text{font-size:15px;line-height:1.85;color:var(--text-dim);max-width:56ch;}
 .about-text b{color:var(--text-light);}
 
 .about-timeline{display:flex;gap:26px;flex-wrap:wrap;}
+/* tiap pengalaman: garis tinta + simpul berlian (hishi) */
 .about-exp-item{
+  position:relative;
   flex:1 1 180px;min-width:150px;
-  border-top:3px solid var(--shu);padding-top:14px;
+  padding-top:20px;
+}
+.about-exp-item::before{
+  content:"";position:absolute;left:0;right:0;top:4px;height:2px;
+  background:linear-gradient(90deg,var(--shu),var(--shu) 40%,var(--kincha-dim));
+}
+.about-exp-item::after{
+  content:"";position:absolute;left:0;top:0;width:10px;height:10px;
+  background:var(--shu-bright);transform:rotate(45deg);
+  box-shadow:0 0 0 3px var(--bg-dark);
 }
 .about-exp-period{
   display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;
@@ -114,8 +199,8 @@
 }
 .about-exp-company{display:flex;align-items:center;gap:10px;margin-top:12px;}
 .about-exp-logo{
-  flex:0 0 auto;width:34px;height:34px;border-radius:9px;overflow:hidden;
-  background:#fff;border:1px solid var(--line-dark);padding:4px;box-sizing:border-box;
+  flex:0 0 auto;width:34px;height:34px;border-radius:4px;overflow:hidden;
+  background:#fff;border:1px solid var(--kincha-dim);padding:4px;box-sizing:border-box;
   display:grid;place-items:center;
 }
 .about-exp-logo img{width:100%;height:100%;object-fit:contain;display:block;}
@@ -124,63 +209,98 @@
 }
 .about-exp-name{font-size:12.5px;font-weight:700;color:var(--text-dim);}
 
-.about-photo{height:100%;}
+/* foto: gulungan kakejiku — batang kayu atas & bawah, cap merah di sudut */
+.about-photo{height:100%;position:relative;padding:12px 0;}
+.about-photo::before,.about-photo::after{
+  content:"";position:absolute;left:-12px;right:-12px;height:11px;z-index:2;border-radius:6px;
+  background:linear-gradient(90deg,var(--kincha) 0 12px,var(--sumi-soft) 12px calc(100% - 12px),var(--kincha) calc(100% - 12px));
+  box-shadow:0 4px 10px rgba(0,0,0,.5), inset 0 1px 0 rgba(237,230,214,.12);
+}
+.about-photo::before{top:3px;}
+.about-photo::after{bottom:3px;}
 .about-photo-frame{
   position:relative;width:320px;max-width:100%;height:100%;overflow:hidden;
-  border-radius:16px;
-  background:var(--bg-dark-2);border:1px solid var(--line-dark);
-  box-shadow:0 20px 50px rgba(0,0,0,.5);
+  border-radius:2px;
+  background:var(--bg-dark-2);border:1px solid var(--kincha-dim);
+  box-shadow:0 20px 50px rgba(0,0,0,.55);
   display:grid;place-items:center;
 }
+.about-photo-frame[data-seal]::after{
+  content:attr(data-seal);
+  position:absolute;right:14px;bottom:16px;z-index:2;
+  font-family:var(--font-brush);font-size:20px;line-height:1;color:var(--washi);
+  background:var(--shu);padding:7px 7px 8px;border-radius:4px;transform:rotate(-6deg);
+  box-shadow:inset 0 0 0 2px var(--shu),inset 0 0 0 3px rgba(237,230,214,.7);
+  filter:url(#stampEdge);
+}
 @media(max-width:900px){
-  .about-photo{height:auto;}
+  .about-photo{height:auto;width:320px;max-width:calc(100% - 24px);margin:0 auto;}
   .about-photo-frame{height:420px;margin:0 auto;}
 }
 .about-photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
 .about-photo-fallback{
   color:var(--washi);text-align:center;font-family:var(--font-display);
 }
-.about-photo-fallback .kanji{font-size:64px;color:var(--shu-bright);display:block;line-height:1;}
-.about-photo-fallback span{font-size:11px;letter-spacing:.24em;color:rgba(246,242,234,.55);}
+.about-photo-fallback .kanji{font-family:var(--font-brush);font-size:64px;color:var(--shu-bright);display:block;line-height:1;}
+.about-photo-fallback span{font-size:11px;letter-spacing:.24em;color:rgba(237,230,214,.55);}
 
 @media(max-width:900px){
-  .about-timeline{flex-direction:column;gap:20px;}
+  .about-timeline{flex-direction:column;gap:22px;}
 }
 
 /* ---------- kartu proyek ---------- */
 .card{
-  background:var(--bg-dark-2);border:1px solid var(--line-dark);border-radius:22px;
+  background:var(--bg-dark-2);border:1px solid var(--line-dark);border-radius:4px;
   cursor:pointer;position:relative;overflow:hidden;
   display:flex;flex-direction:column;height:100%;
   color:var(--text-light);
-  transition:all .3s ease;
+  transition:transform .35s var(--ease), border-color .3s ease, box-shadow .35s ease;
 }
-.card:hover{border-color:var(--accent, var(--shu));transform:translateY(-6px);box-shadow:0 22px 44px rgba(0,0,0,.5);}
+/* kasagi: balok atas warna aksen proyek yang ditarik saat hover */
+.card::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:3px;z-index:3;
+  background:var(--accent, var(--shu));
+  transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease-slash);
+}
+.card:hover{border-color:color-mix(in srgb, var(--accent, var(--shu)) 55%, transparent);transform:translateY(-6px);box-shadow:0 22px 44px rgba(0,0,0,.55);}
+.card:hover::before{transform:scaleX(1);}
 
 .card-thumb{
   position:relative;aspect-ratio:16/10;overflow:hidden;flex:0 0 auto;
-  background:color-mix(in srgb, var(--accent, var(--shu)) 78%, var(--sumi) 22%);
+  background:color-mix(in srgb, var(--accent, var(--shu)) 70%, var(--sumi) 30%);
 }
+/* kilatan tebasan diagonal yang menyapu thumbnail saat hover */
+.card-thumb::after{
+  content:"";position:absolute;top:-50%;bottom:-50%;left:-60%;width:28%;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(237,230,214,.35) 48%,rgba(255,255,255,.75) 50%,rgba(237,230,214,.35) 52%,transparent);
+  transform:rotate(18deg);
+}
+.card:hover .card-thumb::after{animation:thumbSlash .75s var(--ease-slash);}
+@keyframes thumbSlash{from{left:-60%;}to{left:130%;}}
 .card-thumb-kanji{
   position:absolute;inset:0;display:grid;place-items:center;
-  font-family:var(--font-display);font-weight:800;font-size:120px;line-height:1;
-  color:rgba(246,242,234,.22);pointer-events:none;
+  font-family:var(--font-brush);font-size:130px;line-height:1;
+  color:rgba(237,230,214,.22);pointer-events:none;
 }
 .card-thumb img{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
-  transition:transform .4s ease;
+  transition:transform .5s ease;
 }
-.card:hover .card-thumb img{transform:scale(1.03);}
+.card:hover .card-thumb img{transform:scale(1.04);}
 
 .card-body{padding:26px 28px 30px;display:flex;flex-direction:column;flex:1;}
-.card-num{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--shu-bright);margin-bottom:14px;}
+.card-num{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--kincha);margin-bottom:14px;
+}
+.card-num::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--kincha-dim),transparent);}
 .card h3{font-family:var(--font-display);font-weight:800;font-size:24px;margin-bottom:6px;color:var(--text-light);}
 .card .role{font-size:13px;font-weight:700;color:var(--text-dim);margin-bottom:14px;}
 .card .desc{font-size:14px;color:var(--text-dim);margin-bottom:18px;}
 .card .stack{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
 .card .stack .stack-text{
   font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;
-  padding:5px 11px;border:1px solid var(--line-dark);border-radius:999px;color:var(--text-light);
+  padding:5px 11px;border:1px solid var(--line-dark);border-radius:2px;color:var(--text-light);
 }
 .card .stack .stack-icon{
   display:inline-flex;align-items:center;justify-content:center;
@@ -189,16 +309,69 @@
 .card .stack .stack-icon i{font-size:22px;line-height:1;color:var(--text-light);}
 .card .stack .stack-icon img{
   width:22px;height:22px;object-fit:contain;display:block;
-  background:var(--text-light);border-radius:6px;padding:3px;box-sizing:border-box;
+  background:var(--text-light);border-radius:3px;padding:3px;box-sizing:border-box;
 }
 .card-open{
-  display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:13px;
-  letter-spacing:.02em;color:var(--accent, var(--shu-bright));
+  display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:12.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent, var(--shu-bright));
   margin-top:auto;
 }
-.card-open .arr{transition:transform .25s ease;}
-.card:hover .card-open .arr{transform:translateX(6px);}
+.card-open .arr{transition:transform .35s var(--ease-slash);}
+.card:hover .card-open .arr{transform:translateX(8px);}
 
 .btn-play:focus-visible,.btn-git:focus-visible,.btn:focus-visible,.ov-back:focus-visible,.card:focus-visible{
   outline:3px solid var(--accent, var(--shu-bright));outline-offset:3px;
+}
+
+/* ---------- penunjuk scroll: katana yang tercabut dari sarungnya ----------
+   Dibuat oleh js/ambience.js. Bilah (--progress 0→1) memanjang mengikuti
+   scroll; kanji di atasnya = cap section yang sedang dibaca. */
+.katana-progress{
+  position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:40;
+  display:flex;flex-direction:column;align-items:center;pointer-events:none;
+}
+.kp-label{
+  font-family:var(--font-brush);font-size:15px;line-height:1.15;color:var(--washi);
+  writing-mode:vertical-rl;background:var(--shu);padding:7px 4px;border-radius:3px;
+  margin-bottom:12px;min-height:44px;text-align:center;
+  transition:opacity .3s ease;
+}
+.kp-kashira{width:9px;height:5px;background:var(--kincha);border-radius:2px 2px 0 0;}
+.kp-tsuka{
+  width:7px;height:52px;
+  background:
+    repeating-linear-gradient(45deg,transparent 0 3px,var(--sumi) 3px 5px),
+    repeating-linear-gradient(-45deg,transparent 0 3px,var(--sumi) 3px 5px),
+    var(--washi-deep);
+  border-left:1px solid var(--sumi);border-right:1px solid var(--sumi);
+}
+.kp-tsuba{width:20px;height:6px;border-radius:50%;background:var(--kincha);box-shadow:0 0 0 1px var(--sumi);}
+.kp-habaki{width:6px;height:7px;background:var(--kincha);}
+.kp-saya{
+  position:relative;width:5px;height:min(34vh,300px);
+  background:rgba(237,230,214,.09);border-radius:0 0 3px 3px;overflow:hidden;
+}
+.kp-blade{
+  position:absolute;left:0;right:0;top:0;height:100%;
+  background:linear-gradient(90deg,var(--hagane) 0 55%,#fff 55% 70%,var(--hagane) 70%);
+  clip-path:polygon(0 0,100% 0,100% 97%,0 100%);
+  transform:scaleY(var(--progress,0));transform-origin:top;
+}
+@media(max-width:1020px){.katana-progress{display:none;}}
+
+/* ---------- kelopak sakura gugur (hero) — dibuat oleh js/ambience.js ---------- */
+.petals{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;}
+.petal{
+  position:absolute;top:-40px;left:var(--x);
+  width:var(--s);height:calc(var(--s) * .72);
+  background:var(--sakura);opacity:var(--o,.7);
+  border-radius:150% 0 150% 0;
+  animation:petalFall var(--d) linear var(--delay) infinite;
+}
+@keyframes petalFall{
+  0%  {transform:translate(0,0) rotate(0deg);}
+  25% {transform:translate(calc(var(--drift) * .4),28vh) rotate(calc(var(--rot) * .3));}
+  50% {transform:translate(calc(var(--drift) * -.1),55vh) rotate(calc(var(--rot) * .55));}
+  75% {transform:translate(calc(var(--drift) * .7),82vh) rotate(calc(var(--rot) * .8));}
+  100%{transform:translate(var(--drift),112vh) rotate(var(--rot));}
 }

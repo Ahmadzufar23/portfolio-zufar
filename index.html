@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/img/kamon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&family=Yuji+Syuku&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicon/2.15.1/devicon.min.css">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/layout.css">
@@ -15,6 +15,48 @@
 <link rel="stylesheet" href="css/overlay.css">
 </head>
 <body>
+
+<!-- ======================= DEFINISI SVG (filter & simbol dekoratif) =======================
+     Dipakai ulang lewat url(#id) / <use href="#id">. Tidak tampil sendiri. -->
+<svg class="sr-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- tepi tinta tidak rata untuk matahari hero -->
+    <filter id="inkEdge" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="3" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- sapuan kuas kering: tepi bergerigi + serat kosong memanjang -->
+    <filter id="dryBrush" x="-5%" y="-30%" width="110%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.5" numOctaves="2" seed="8" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.7" numOctaves="1" seed="2" result="streak"/>
+      <feColorMatrix in="streak" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 1.9" result="sm"/>
+      <feComposite in="d" in2="sm" operator="in"/>
+    </filter>
+    <!-- cap hanko: tepi sedikit bergetar + bintik tinta tidak menempel -->
+    <filter id="stampEdge" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="5" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="11" result="spots"/>
+      <feColorMatrix in="spots" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -4 3.1" result="sm"/>
+      <feComposite in="d" in2="sm" operator="in"/>
+    </filter>
+    <!-- gradasi baja bilah katana -->
+    <linearGradient id="bladeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" class="k-stop-hi"/>
+      <stop offset=".5" class="k-stop-mid"/>
+      <stop offset="1" class="k-stop-lo"/>
+    </linearGradient>
+    <!-- belah ketupat samegawa di sela lilitan gagang -->
+    <pattern id="ito" x="5" y="8.5" width="8" height="11" patternUnits="userSpaceOnUse">
+      <path class="k-ito" d="M1 5.5 L4 2.2 L7 5.5 L4 8.8Z"/>
+    </pattern>
+  </defs>
+  <!-- sapuan kuas horizontal untuk pemisah antar-section -->
+  <symbol id="brushStroke" viewBox="0 0 600 40" preserveAspectRatio="none">
+    <path d="M2 24 C40 14 120 10 260 12 C400 14 520 13 598 19 C560 23 470 27 330 28 C200 29 90 31 2 24Z" fill="currentColor" filter="url(#dryBrush)"/>
+  </symbol>
+</svg>
 
 <!-- ======================= NAV ======================= -->
 <nav>
@@ -33,16 +75,37 @@
 
 <!-- ======================= HERO ======================= -->
 <header class="hero" id="home">
+  <div class="hero-vertical" id="heroVertical" aria-hidden="true"><!-- diisi oleh JS dari decor.heroVertical --></div>
   <div class="hero-left">
     <p class="hero-eyebrow" id="heroEyebrow"></p>
     <h1 id="heroName"></h1>
-    <div class="hero-divider"></div>
+    <div class="hero-divider" aria-hidden="true">
+      <!-- katana: kashira, tsuka berlilit, tsuba, habaki, bilah dengan hamon -->
+      <svg viewBox="0 0 260 28">
+        <rect class="k-kin" x="0" y="9" width="6" height="10" rx="2"/>
+        <rect class="k-tsuka" x="5" y="8.5" width="64" height="11" rx="2"/>
+        <rect fill="url(#ito)" x="5" y="8.5" width="64" height="11"/>
+        <ellipse class="k-kin" cx="72" cy="14" rx="3.6" ry="12"/>
+        <rect class="k-kin" x="76" y="9.5" width="8" height="9"/>
+        <path class="k-blade" d="M84 9.5 C140 9.5 200 8 246 3.4 L258 2.2 C252 7 246 9.8 238 11.4 C190 16.5 140 18.5 84 18.5Z"/>
+        <path class="k-hamon" d="M88 15.6 Q96 13.9 104 15.4 T120 15.1 T136 14.7 T152 14.1 T168 13.4 T184 12.5 T200 11.4 T216 10 T232 8.6"/>
+        <path class="k-shinogi" d="M84 12.2 C140 12.2 200 10.6 242 6.6"/>
+      </svg>
+    </div>
     <p class="hero-bio" id="heroBio"></p>
     <div class="hero-social" id="heroSocial"><!-- diisi oleh JS --></div>
   </div>
 
   <div class="portrait-wrap">
-    <div class="hinomaru" aria-hidden="true"></div>
+    <div class="enso" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <path d="M148 16.86 A96 96 0 1 1 83.33 5.46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" filter="url(#dryBrush)"/>
+        <path d="M152.2 25.46 A91 91 0 1 1 54.5 21.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
+      </svg>
+    </div>
+    <div class="hinomaru" aria-hidden="true">
+      <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="92" fill="currentColor" filter="url(#inkEdge)"/></svg>
+    </div>
     <div class="portrait" id="portrait"></div>
     <div class="portrait-caption" id="portraitCaption"></div>
   </div>
@@ -91,6 +154,8 @@
   </div>
 </section>
 
+<div class="brush-divider" aria-hidden="true"><svg><use href="#brushStroke"/></svg><span class="bd-mark"></span><svg><use href="#brushStroke"/></svg></div>
+
 <!-- ======================= TOOLS ======================= -->
 <section id="tools">
   <div class="section-head reveal">
@@ -107,6 +172,8 @@
   </div>
 </section>
 
+<div class="brush-divider" aria-hidden="true"><svg><use href="#brushStroke"/></svg><span class="bd-mark"></span><svg><use href="#brushStroke"/></svg></div>
+
 <!-- ======================= PROJECTS ======================= -->
 <section class="projects" id="projects">
   <div class="section-head reveal">
@@ -116,6 +183,8 @@
   <div class="project-grid" id="projectGrid"><!-- diisi oleh JS --></div>
 </section>
 
+<div class="brush-divider" aria-hidden="true"><svg><use href="#brushStroke"/></svg><span class="bd-mark"></span><svg><use href="#brushStroke"/></svg></div>
+
 <!-- ======================= FOOTER / CONTACT ======================= -->
 <footer id="contact">
   <span class="f-kanji reveal">礼</span>
@@ -124,6 +193,7 @@
   <a class="btn btn-red reveal" data-delay="2" id="footerEmail" href="#"></a>
   <a class="btn btn-ghost reveal" data-delay="3" id="footerCv" href="#" target="_blank" rel="noopener">Unduh CV</a>
   <div class="footer-social reveal" data-delay="4" id="footerSocial"><!-- diisi oleh JS --></div>
+  <div class="f-waves" aria-hidden="true"></div>
   <div class="f-line">© 2026 Ahmad Zufar Ginting · Dibangun dengan disiplin bushidō · Jakarta</div>
 </footer>
 
@@ -199,5 +269,6 @@
 <script src="js/main.js"></script>
 <script src="js/reveal.js"></script>
 <script src="js/hero-motion.js"></script>
+<script src="js/ambience.js"></script>
 </body>
 </html>

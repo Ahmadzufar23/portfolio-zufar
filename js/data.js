@@ -26,6 +26,16 @@ const site = {
   aboutPhoto: "assets/img/foto2.jpg" // foto section Tentang Saya — kosong = fallback kanji 侍
 };
 
+/* ---------- Teks dekoratif bernuansa Jepang ----------
+   heroVertical : tulisan vertikal (tategaki) di tepi kiri hero, desktop saja.
+   photoSeal    : 1–2 kanji di cap merah (hanko) pojok foto Tentang Saya.
+                  Kosongkan ("") untuk menyembunyikan cap.
+   ------------------------------------------------------ */
+const decor = {
+  heroVertical: "武士道 ・ 一刀入魂",
+  photoSeal: "侍"
+};
+
 /* ---------- Pita berjalan (marquee di bawah hero) ----------
    accent:true memakai warna aksen merah (class .m-red).
    Urutan ini akan diulang oleh JS agar loop-nya mulus.

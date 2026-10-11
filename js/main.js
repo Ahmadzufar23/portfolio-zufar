@@ -66,6 +66,7 @@ function renderHeroPhoto(){
 
   document.getElementById("heroBio").innerHTML = site.bio;
   document.getElementById("portraitCaption").textContent = site.lokasi;
+  document.getElementById("heroVertical").textContent = decor.heroVertical || "";
 
   renderHeroPhoto();
 })();
@@ -74,6 +75,7 @@ function renderHeroPhoto(){
 (function renderAboutIntro(){
   document.getElementById("aboutText").textContent = site.aboutText;
   renderPhoto("aboutPhoto", site.aboutPhoto, "about-photo-fallback");
+  if (decor.photoSeal) document.getElementById("aboutPhoto").dataset.seal = decor.photoSeal; // cap hanko di pojok foto
 })();
 
 /* ---------- link sosial (dipakai hero & footer) ---------- */
@@ -106,7 +108,11 @@ renderSocialLinks("heroSocial", ["github", "linkedin", "instagram", "email"]);
 /* ---------- pita berjalan (marquee) ---------- */
 (function renderMarquee(){
   const track = document.getElementById("marqueeTrack");
-  const group = marqueeItems.map(it => `<span${it.accent ? ' class="m-red"' : ""}>${it.text}</span>`).join("");
+  const isKanji = t => /^[\u3400-\u9fff]+$/.test(t); // item kanji tunggal tampil sebagai lambang mon bulat
+  const group = marqueeItems.map(it => {
+    const cls = [it.accent ? "m-red" : "", isKanji(it.text) ? "m-kanji" : ""].filter(Boolean).join(" ");
+    return `<span${cls ? ` class="${cls}"` : ""}>${it.text}</span>`;
+  }).join("");
   // digandakan agar animasi translateX(-50%) berputar mulus tanpa celah
   track.innerHTML = group + group;
 })();
