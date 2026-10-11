@@ -210,6 +210,20 @@
   font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--shu);
 }
 .about-exp-name{font-size:13.5px;font-weight:700;line-height:1.35;color:var(--text-dim);}
+/* label jenis pengalaman (Full-time, Organisasi, ...) — tag kecil di samping periode */
+.about-exp-meta{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;}
+.about-exp-type{
+  font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--kincha);border:1px solid var(--kincha-dim);border-radius:2px;padding:2px 6px;
+}
+/* perusahaan yang punya url: seluruh baris logo + nama jadi link ke web-nya */
+a.about-exp-company{text-decoration:none;}
+a.about-exp-company .about-exp-logo{transition:border-color .25s,transform .25s;}
+a.about-exp-company .ext{color:var(--shu-bright);margin-left:4px;font-weight:400;transition:transform .25s;display:inline-block;}
+a.about-exp-company:hover .about-exp-name,
+a.about-exp-company:focus-visible .about-exp-name{color:var(--text-light);}
+a.about-exp-company:hover .about-exp-logo{border-color:var(--shu-bright);transform:translateY(-2px);}
+a.about-exp-company:hover .ext{transform:translate(2px,-2px);}
 
 /* foto: gulungan kakejiku — batang kayu atas & bawah, cap merah di sudut */
 .about-photo{height:100%;position:relative;padding:12px 0;}

@@ -176,18 +176,27 @@ renderSocialLinks("heroSocial", ["github", "linkedin", "instagram", "email"]);
   function initials(name){
     return name.split(/\s+/).map(w => w[0]).join("").slice(0,3).toUpperCase();
   }
-  track.innerHTML = experience.map((e, i) => `
+  track.innerHTML = experience.map((e, i) => {
+    // punya url → baris logo + nama jadi link (tab baru) dengan tanda ↗
+    const tag = e.url ? "a" : "div";
+    const linkAttrs = e.url
+      ? ` href="${e.url}" target="_blank" rel="noopener" aria-label="Kunjungi situs ${e.company}"`
+      : "";
+    return `
     <div class="about-exp-item reveal" data-delay="${i}">
-      <span class="about-exp-period">${e.period}</span>
+      <div class="about-exp-meta">
+        <span class="about-exp-period">${e.period}</span>
+        ${e.type ? `<span class="about-exp-type">${e.type}</span>` : ""}
+      </div>
       <span class="about-exp-role">${e.role}</span>
-      <div class="about-exp-company">
+      <${tag} class="about-exp-company"${linkAttrs}>
         <div class="about-exp-logo">
           <img src="${e.logo}" alt="${e.company}" onerror="this.remove();this.parentElement.classList.add('about-exp-logo--fallback');this.parentElement.textContent='${initials(e.company)}';">
         </div>
-        <span class="about-exp-name">${e.company}</span>
-      </div>
-    </div>
-  `).join("");
+        <span class="about-exp-name">${e.company}${e.url ? '<span class="ext" aria-hidden="true">↗</span>' : ""}</span>
+      </${tag}>
+    </div>`;
+  }).join("");
 })();
 
 /* ---------- kartu proyek ---------- */

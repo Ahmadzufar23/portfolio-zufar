@@ -128,6 +128,10 @@ tools.forEach(t => {
 /* ---------- Pengalaman (timeline horizontal di #about) ----------
    Urutan array = urutan tampil (kiri ke kanan, terlama dulu).
    period: pakai tanda – (en dash) di antara dua tanggal, bukan "-".
+   type  : label jenis kecil di samping periode, mis. "Full-time",
+           "Organisasi", "Tim Independen". Kosongkan untuk menyembunyikan.
+   url   : situs resmi perusahaan/organisasi. Kalau diisi, logo + nama jadi
+           link (tab baru) dengan tanda ↗. Kosongkan ("") kalau belum ada.
    logo: path PNG/SVG di assets/img/experience/. Kalau file tidak ada,
    otomatis tampil inisial perusahaan (lihat img.onerror di js/main.js).
    ------------------------------------------------------ */
@@ -136,24 +140,32 @@ const experience = [
     company: "PT Zufar Solusi Nawasena",
     role: "Founder & Director",
     period: "Agustus 2023 – Sekarang",
+    type: "Perusahaan Sendiri",
+    url: "", // TODO: isi alamat situs PT Zufar Solusi Nawasena
     logo: "assets/img/experience/zsn.png"
   },
   {
     company: "Veterantech",
     role: "People Operations",
     period: "Maret 2026 – Sekarang",
+    type: "Organisasi",
+    url: "https://veterantech.id/",
     logo: "assets/img/experience/veterantech.png"
   },
   {
     company: "Hyungtang",
     role: "Founder, Backend Developer & PM",
     period: "Mei 2026 – Sekarang",
+    type: "Tim Independen",
+    url: "",
     logo: "assets/img/experience/hyungtang.png"
   },
   {
     company: "PT Prismatama Cipta Teknologi",
     role: "Fullstack Developer",
     period: "September 2026 – Sekarang",
+    type: "Full-time",
+    url: "", // TODO: isi alamat company profile PT Prismatama Cipta Teknologi
     logo: "assets/img/experience/pct.png"
   }
 ];

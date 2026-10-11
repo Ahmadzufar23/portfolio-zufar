@@ -188,6 +188,8 @@ const experience = [
     company: "Nama Perusahaan",
     role: "Peranmu di sana",
     period: "Bulan Tahun – Sekarang",   // atau "Bulan Tahun – Bulan Tahun" (tanda –, bukan -)
+    type: "Full-time",                  // label kecil: "Organisasi", "Tim Independen", dst.
+    url: "https://situs-perusahaan.com", // kosongkan "" kalau tidak ada situs
     logo: "assets/img/experience/nama-file.png"
   },
   // ...
@@ -200,6 +202,10 @@ const experience = [
   filenya belum ada/gagal dimuat, tampilan otomatis jatuh ke kotak
   berisi inisial perusahaan (mis. "ZSN") — tidak perlu ubah apa pun di
   HTML/JS.
+- `type`: label jenis pengalaman yang tampil sebagai tag kecil di samping
+  periode. Kosongkan untuk menyembunyikan.
+- `url`: kalau diisi, logo + nama perusahaan jadi link ke situsnya (buka
+  di tab baru, ada tanda ↗). Kalau kosong, tampil sebagai teks biasa.
 - Di layar sempit (mobile), timeline otomatis bertumpuk vertikal dan
   foto pindah ke bawah deskripsi/timeline.
 
