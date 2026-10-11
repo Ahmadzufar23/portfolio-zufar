@@ -6,15 +6,14 @@
 const site = {
   nama: "Ahmad Zufar Ginting",
   tagline: "Backend Developer & Project Manager",
-  bio: 'Mahasiswa Sistem Informasi UPN "Veteran" Jakarta sekaligus ' +
-       '<b>Founder PT Zufar Solusi Nawasena</b>. Aku membangun backend yang rapi dan ' +
-       'terdokumentasi, lalu memastikan proyeknya sampai ke garis finis sebagai ' +
-       'Project Manager. Disiplin seperti samurai: satu tebasan, tepat sasaran.',
-  aboutText: 'Mahasiswa Sistem Informasi UPN "Veteran" Jakarta dengan IPK 3.84. Aku ' +
-             'membangun backend yang rapi dan terdokumentasi, lalu memastikan produknya ' +
-             'sampai rilis sebagai Product/Project Manager. Sehari-hari menjalankan ' +
-             'bisnis infrastruktur jaringan sendiri, jadi terbiasa memegang teknis ' +
-             'sekaligus operasional dari hulu ke hilir.',
+  bio: 'Mahasiswa Sistem Informasi UPN "Veteran" Jakarta dan pendiri ' +
+       '<b>PT Zufar Solusi Nawasena</b>. Saya fokus di backend dan terbiasa ' +
+       'memimpin proyek dari perencanaan sampai rilis.',
+  aboutText: 'Mahasiswa Sistem Informasi UPN "Veteran" Jakarta dengan IPK 3,84. Saya ' +
+             'membangun backend dengan Node.js dan TypeScript, dan beberapa kali memegang ' +
+             'peran Project Manager di proyek kampus maupun klien. Sejak 2023 saya juga ' +
+             'menjalankan usaha infrastruktur jaringan sendiri, jadi terbiasa mengurus ' +
+             'sisi teknis dan operasional sekaligus.',
   lokasi: "Jakarta, Indonesia",
   email: "ahmadzufarginting07@gmail.com",
   github: "https://github.com/Ahmadzufar23",
@@ -24,6 +23,38 @@ const site = {
   photoCutout: "assets/img/foto1-cutout.png", // foto hero utama — PNG transparan (cutout, tanpa background). Belum diunggah = otomatis pakai photoSrc di bawah.
   photoSrc: "assets/img/foto1.jpg", // fallback foto hero kalau photoCutout belum ada — kosong = fallback kanji 侍
   aboutPhoto: "assets/img/foto2.jpg" // foto section Tentang Saya — kosong = fallback kanji 侍
+};
+
+/* ---------- Statistik di sisi kanan hero ----------
+   num   : angka besar (pakai koma untuk desimal, mis. "3,84").
+   label : keterangan kecil di bawah angka.
+   ------------------------------------------------------ */
+const stats = [
+  { num: "10+", label: "Proyek selesai" },
+  { num: "3,84", label: "IPK Sistem Informasi" },
+  { num: "2", label: "Fokus karier: Backend & PM" }
+];
+
+/* ---------- Teks antarmuka (label, tombol, footer) ----------
+   Teks kecil yang bukan milik satu proyek/pengalaman tertentu.
+   ------------------------------------------------------ */
+const ui = {
+  toolsBackend: "Backend",
+  toolsPm: "Manajemen Proyek",
+  contactTitle: "Mari Berkolaborasi.",
+  contactText: "Terbuka untuk peran Backend Developer maupun Project Manager. Silakan hubungi saya lewat email.",
+  footerLine: "© 2026 Ahmad Zufar Ginting · Jakarta",
+  // halaman detail proyek (overlay)
+  labelRole: "Peran",
+  labelYear: "Tahun",
+  labelType: "Jenis",
+  labelStatus: "Status",
+  labelAbout: "Tentang Proyek",
+  labelImpact: "Dampak: sebelum → sesudah",
+  btnLive: "Lihat Situs",
+  btnRepo: "Kode di GitHub",
+  badgePrivate: "Proyek klien, kode tidak dipublikasikan",
+  badgeDev: "Masih dalam pengembangan"
 };
 
 /* ---------- Teks dekoratif bernuansa Jepang ----------
@@ -96,33 +127,33 @@ tools.forEach(t => {
 
 /* ---------- Pengalaman (timeline horizontal di #about) ----------
    Urutan array = urutan tampil (kiri ke kanan, terlama dulu).
-   logo: path PNG/SVG di assets/img/experience/ — TODO: file logo belum
-   diunggah, jadi fallback otomatis menampilkan inisial perusahaan
-   (lihat img.onerror di js/main.js).
+   period: pakai tanda – (en dash) di antara dua tanggal, bukan "-".
+   logo: path PNG/SVG di assets/img/experience/. Kalau file tidak ada,
+   otomatis tampil inisial perusahaan (lihat img.onerror di js/main.js).
    ------------------------------------------------------ */
 const experience = [
   {
     company: "PT Zufar Solusi Nawasena",
     role: "Founder & Director",
-    period: "Agustus 2023 - Sekarang",
-    logo: "assets/img/experience/zsn.png" // TODO: unggah logo PT Zufar Solusi Nawasena
+    period: "Agustus 2023 – Sekarang",
+    logo: "assets/img/experience/zsn.png"
   },
   {
     company: "Veterantech",
     role: "People Operations",
-    period: "Maret 2026 - Sekarang",
-    logo: "assets/img/experience/veterantech.png" // TODO: unggah logo Veterantech
+    period: "Maret 2026 – Sekarang",
+    logo: "assets/img/experience/veterantech.png"
   },
   {
     company: "Hyungtang",
-    role: "Founder, Backend & PM",
-    period: "Mei 2026 - Sekarang",
-    logo: "assets/img/experience/hyungtang.png" // TODO: unggah logo Hyungtang
+    role: "Founder, Backend Developer & PM",
+    period: "Mei 2026 – Sekarang",
+    logo: "assets/img/experience/hyungtang.png"
   },
   {
     company: "PT Prismatama Cipta Teknologi",
     role: "Fullstack Developer",
-    period: "September 2026 - Sekarang",
+    period: "September 2026 – Sekarang",
     logo: "assets/img/experience/pct.png"
   }
 ];
@@ -136,7 +167,7 @@ const experience = [
                  belum rilis.
    repoUrl     : link GitHub. Kosongkan ("") kalau repo tidak boleh publik
                  (mis. proyek client) — tombol GitHub Repo otomatis hilang.
-   repoPrivate : true untuk menampilkan badge "Proyek Client — kode tertutup"
+   repoPrivate : true untuk menampilkan badge ui.badgePrivate
                  di tempat tombol GitHub, HANYA berlaku saat repoUrl kosong.
                  Kalau repoUrl kosong dan repoPrivate tidak diset, tidak ada
                  apa pun yang ditampilkan di situ.
@@ -150,17 +181,17 @@ const projects = [
     id: "safespace",
     kanji: "安",
     scriptWord: "Aman",
-    kanjiWord: "安全な場所 - SAFE PLACE",
+    kanjiWord: "安全な場所 · SAFE PLACE",
     title: "SafeSpace",
     role: "Backend Developer (Solo)",
     year: "2026",
-    type: "Capstone - REST API",
+    type: "Capstone · REST API",
     status: "Selesai",
-    desc: "Platform pelaporan insiden kampus yang dirancang memberi 1000+ mahasiswa kanal aman melaporkan kekerasan & pelecehan, menggantikan proses manual yang menakutkan korban.",
-    about: "SafeSpace adalah backend capstone yang kuselesaikan secara solo, dirancang memberi 1000+ mahasiswa kanal aman untuk melaporkan kekerasan & pelecehan, menggantikan proses manual yang menakutkan korban. Aku membangun fondasi teknis dari nol: arsitektur sistem, model autentikasi, dan kontrol akses yang menjamin kerahasiaan pelapor, terdokumentasi penuh via OpenAPI. 7 fitur menutup seluruh siklus pelaporan: submisi bukti, pelacakan status, notifikasi, ekspor PDF, hingga dashboard admin, agar laporan ditangani tanpa proses manual.",
+    desc: "Backend platform pelaporan kekerasan dan pelecehan di kampus, dirancang untuk melayani 1.000+ mahasiswa.",
+    about: "SafeSpace adalah backend platform pelaporan kekerasan dan pelecehan di kampus, proyek capstone yang saya kerjakan sendiri. Saya merancang arsitektur, autentikasi, dan kontrol akses agar identitas pelapor tetap rahasia, lalu mendokumentasikan seluruh API dengan OpenAPI. Ada 7 fitur, mulai dari unggah bukti dan pelacakan status sampai ekspor PDF dan dashboard admin.",
     impacts: [
-      { before: "Tanpa arsitektur & kontrol akses terdokumentasi", after: "Fondasi sistem, autentikasi & kontrol akses kerahasiaan pelapor, terdokumentasi penuh via OpenAPI" },
-      { before: "Pelaporan insiden manual, menakutkan korban", after: "7 fitur siklus penuh: submisi bukti, tracking, notifikasi, ekspor PDF, dashboard admin" }
+      { before: "Laporan insiden diproses manual", after: "Alur laporan lengkap dalam 7 fitur, dari unggah bukti sampai dashboard admin" },
+      { before: "Kerahasiaan pelapor sulit dijaga", after: "Autentikasi dan kontrol akses per peran, seluruh API terdokumentasi dengan OpenAPI" }
     ],
     stack: ["Express", "TypeScript", "Drizzle ORM", "Supabase", "OpenAPI"],
     accent: "#3E6FA3",
@@ -172,21 +203,21 @@ const projects = [
     id: "haiphysio",
     kanji: "療",
     scriptWord: "Pulih",
-    kanjiWord: "理学療法 - PHYSIOTHERAPY",
+    kanjiWord: "理学療法 · PHYSIOTHERAPY",
     title: "Hai Physio",
-    role: "Product Lead - Client Project",
+    role: "Product Lead · Proyek Klien",
     year: "2026",
-    type: "Web App - Kesehatan",
+    type: "Web App · Kesehatan",
     status: "Dalam Pengembangan",
-    desc: "Platform klinik fisioterapi end-to-end (booking, rekam pasien, layanan) oleh tim 2 orang. Masih dalam pengembangan.",
-    about: "Hai Physio adalah platform klinik fisioterapi end-to-end (booking, rekam pasien, hingga layanan) yang kubangun bersama tim 2 orang. Sebagai Product Lead aku mendefinisikan produk dari nol: PRD lengkap, skema 33 tabel, dan kontrak API 33 endpoint, mengubah alur kerja klinik yang tadinya ambigu menjadi spesifikasi terprioritas dan siap bangun, menjaga klien dan engineering pada satu sumber kebenaran. Proyek ini masih dalam pengembangan.",
+    desc: "Platform klinik fisioterapi untuk booking, rekam medis pasien, dan layanan. Dikerjakan tim 2 orang, masih dalam pengembangan.",
+    about: "Hai Physio adalah platform klinik fisioterapi untuk booking, rekam medis pasien, dan layanan, yang saya kerjakan bersama tim 2 orang. Sebagai Product Lead, saya menyusun PRD, merancang skema database 33 tabel, dan menulis kontrak API untuk 33 endpoint. Dokumen ini menjadi acuan bersama antara klien dan tim engineering. Proyek masih dalam pengembangan.",
     impacts: [
-      { before: "Sistem manual, 12 pasien/minggu", after: "PRD lengkap (33 tabel, 33 endpoint API), 31 pasien/minggu (+158%)" },
-      { before: "Alur kerja klinik ambigu", after: "Spesifikasi terprioritas & siap bangun, klien & engineering satu sumber kebenaran" }
+      { before: "Alur kerja klinik belum terdokumentasi", after: "PRD lengkap dengan prioritas fitur yang jelas" },
+      { before: "Belum ada acuan teknis bersama", after: "Skema 33 tabel dan kontrak 33 endpoint API sebagai acuan klien dan engineering" }
     ],
-    stack: ["Node.js", "Next.js", "PRD & API Contract"],
+    stack: ["Node.js", "Next.js", "PRD & Kontrak API"],
     accent: "#F5C518",
-    liveUrl: "", // TODO: isi setelah rilis (target 2 Agustus)
+    liveUrl: "", // isi setelah rilis
     repoUrl: "",
     shotImg: ""
   },
@@ -194,17 +225,17 @@ const projects = [
     id: "siera",
     kanji: "迎",
     scriptWord: "Orientasi",
-    kanjiWord: "新入生歓迎 - STUDENT ORIENTATION",
+    kanjiWord: "新入生歓迎 · STUDENT ORIENTATION",
     title: "SIERA",
     role: "Backend Developer",
-    year: "Mar - Jun 2026",
+    year: "Mar–Jun 2026",
     type: "Sistem Informasi Orientasi Mahasiswa",
     status: "Selesai",
-    desc: "Platform orientasi mahasiswa baru untuk 4.500+ mahasiswa UPNVJ.",
-    about: "SIERA adalah platform orientasi mahasiswa baru untuk 4.500+ mahasiswa UPNVJ. Aku membangun backend administrasi pengguna (daftar user, kartu ringkasan, kontrol akses) dalam arsitektur RBAC 13 peran, serta menulis spesifikasi API Modul Events dan skema Admin-group agar backend dan frontend bisa bekerja paralel tanpa saling menunggu integrasi.",
+    desc: "Platform orientasi mahasiswa baru UPNVJ yang dipakai 4.500+ mahasiswa.",
+    about: "SIERA adalah platform orientasi mahasiswa baru UPNVJ untuk 4.500+ mahasiswa. Saya membangun backend administrasi pengguna, termasuk daftar pengguna, kartu ringkasan, dan kontrol akses berbasis 13 peran (RBAC). Saya juga menulis spesifikasi API untuk modul Events dan skema Admin-group, sehingga tim backend dan frontend bisa bekerja paralel.",
     impacts: [
-      { before: "Tanpa administrasi pengguna terstruktur", after: "Backend admin pengguna, RBAC 13 peran, akses lintas 4.500+ akun mahasiswa" },
-      { before: "Backend & frontend menunggu integrasi", after: "Spesifikasi API Modul Events & skema Admin-group, kerja paralel, tanpa delay integrasi" }
+      { before: "Data pengguna belum dikelola terpusat", after: "Backend administrasi pengguna dengan RBAC 13 peran untuk 4.500+ akun" },
+      { before: "Frontend harus menunggu backend selesai", after: "Spesifikasi API modul Events dan Admin-group, kedua tim bisa bekerja paralel" }
     ],
     stack: ["Bun", "Hono", "Drizzle ORM", "PostgreSQL"],
     accent: "#1F7A54",
@@ -217,17 +248,17 @@ const projects = [
     id: "sieka",
     kanji: "祭",
     scriptWord: "Acara",
-    kanjiWord: "催事管理 - EVENT MANAGEMENT (DESKTOP)",
+    kanjiWord: "催事管理 · EVENT MANAGEMENT",
     title: "SIEKA",
     role: "Project Manager & Backend Developer",
     year: "2025",
     type: "Sistem Informasi Manajemen Event Kampus (Desktop)",
     status: "Selesai",
-    desc: "Aplikasi desktop manajemen event kampus yang mengelola siklus lengkap event: pembuatan, pendaftaran, pembayaran, kehadiran, hingga penerbitan sertifikat.",
-    about: "SIEKA adalah aplikasi desktop untuk manajemen event kampus, mengelola siklus lengkap dari pembuatan event, pendaftaran, pembayaran, kehadiran, hingga penerbitan sertifikat. Aku merangkap Project Manager dan Backend Developer, merancang arsitektur berlapis (MVC + DAO + Service) dengan 3 peran (Admin, Panitia, Peserta) dan kontrol akses per peran, menggantikan pengelolaan event manual dengan sistem terpusat.",
+    desc: "Aplikasi desktop untuk mengelola event kampus, mulai dari pendaftaran, pembayaran, dan kehadiran sampai penerbitan sertifikat.",
+    about: "SIEKA adalah aplikasi desktop untuk mengelola event kampus, mulai dari pembuatan event, pendaftaran, pembayaran, dan kehadiran sampai penerbitan sertifikat. Saya merangkap Project Manager dan Backend Developer. Saya merancang arsitektur berlapis (MVC, DAO, dan Service) dengan tiga peran pengguna, yaitu Admin, Panitia, dan Peserta, masing-masing dengan hak akses sendiri.",
     impacts: [
-      { before: "18 event dikelola manual", after: "43 event, sistem terpusat (+139%)" },
-      { before: "Tanpa arsitektur berlapis & kontrol akses peran", after: "Arsitektur MVC + DAO + Service, 3 peran, siklus end-to-end sampai sertifikat otomatis" }
+      { before: "18 event dikelola manual", after: "43 event dikelola dalam satu sistem (+139%)" },
+      { before: "Pendaftaran sampai sertifikat diurus terpisah", after: "Satu alur dari pendaftaran sampai sertifikat otomatis, dengan hak akses per peran" }
     ],
     stack: ["Java", "Java Swing", "SQLite", "Maven"],
     accent: "#B3852C",
@@ -239,17 +270,16 @@ const projects = [
     id: "urbancycle",
     kanji: "環",
     scriptWord: "Hijau",
-    kanjiWord: "廃棄物管理 - WASTE MANAGEMENT",
+    kanjiWord: "廃棄物管理 · WASTE MANAGEMENT",
     title: "UrbanCycle",
     role: "Android Developer",
     year: "2026",
-    type: "Mobile App - Smart Waste",
+    type: "Aplikasi Android · Pengelolaan Sampah",
     status: "Selesai",
-    desc: "Aplikasi Android manajemen sampah pintar dengan klasifikasi berbasis TensorFlow Lite.",
-    about: "UrbanCycle adalah aplikasi Android untuk manajemen sampah perkotaan yang lebih cerdas. Dibangun dengan Kotlin dan Jetpack Compose, aplikasi ini memakai TensorFlow Lite untuk mengklasifikasikan jenis sampah langsung dari kamera pengguna, menjembatani kebiasaan memilah sampah dengan teknologi yang mudah diakses.",
+    desc: "Aplikasi Android untuk membantu memilah sampah, dengan klasifikasi jenis sampah lewat kamera menggunakan TensorFlow Lite.",
+    about: "UrbanCycle adalah aplikasi Android untuk membantu pengguna memilah sampah. Aplikasi ini dibangun dengan Kotlin dan Jetpack Compose, dan memakai model TensorFlow Lite untuk mengenali jenis sampah langsung dari kamera. Klasifikasi berjalan di perangkat, tanpa perlu mengirim foto ke server.",
     impacts: [
-      { before: "Pilah sampah manual & bingung", after: "Klasifikasi otomatis via kamera (on-device ML)" },
-      { before: "UI XML tradisional", after: "Jetpack Compose, deklaratif & modern" }
+      { before: "Pengguna sering ragu menentukan jenis sampah", after: "Klasifikasi otomatis dari kamera, diproses langsung di perangkat" }
     ],
     stack: ["Kotlin", "Jetpack Compose", "TensorFlow Lite", "Android"],
     accent: "#3E6B4F",

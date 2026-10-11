@@ -1,6 +1,6 @@
 /* =====================================================
    RENDER + INTERAKSI — tanpa data hardcode.
-   Semua konten diambil dari js/data.js (site, tools, projects).
+   Semua konten diambil dari js/data.js (site, stats, ui, tools, projects).
    ===================================================== */
 
 /* ---------- foto dengan fallback kanji 侍 (dipakai hero & #about) ---------- */
@@ -69,6 +69,30 @@ function renderHeroPhoto(){
   document.getElementById("heroVertical").textContent = decor.heroVertical || "";
 
   renderHeroPhoto();
+})();
+
+/* ---------- statistik hero (disisipkan sebelum tombol CTA) ---------- */
+(function renderStats(){
+  const ctaRow = document.querySelector("#heroStats .cta-row");
+  ctaRow.insertAdjacentHTML("beforebegin", stats.map(s => `
+    <div class="stat">
+      <div class="num">${s.num}</div>
+      <div class="label">${s.label}</div>
+    </div>
+  `).join(""));
+})();
+
+/* ---------- teks antarmuka: elemen ber-id + elemen [data-ui="kunci"] ---------- */
+(function renderUiText(){
+  const byId = {
+    toolsBackendLabel: ui.toolsBackend,
+    toolsPmLabel: ui.toolsPm,
+    contactTitle: ui.contactTitle,
+    contactText: ui.contactText,
+    footerLine: ui.footerLine
+  };
+  Object.entries(byId).forEach(([id, text]) => { document.getElementById(id).textContent = text; });
+  document.querySelectorAll("[data-ui]").forEach(el => { el.textContent = ui[el.dataset.ui] || ""; });
 })();
 
 /* ---------- deskripsi + foto (#about) ---------- */

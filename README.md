@@ -37,7 +37,7 @@ mengikuti pola yang sudah ada, misalnya:
   id: "proyek-baru",
   kanji: "新",                         // satu karakter kanji untuk watermark kartu
   scriptWord: "Baru",                  // kata coretan tangan di halaman detail
-  kanjiWord: "新しいプロジェクト — NEW PROJECT",
+  kanjiWord: "新しいプロジェクト · NEW PROJECT",
   title: "Nama Proyek",
   role: "Peranmu di proyek ini",
   year: "2026",
@@ -64,23 +64,23 @@ kanji sebagai gantinya — tidak perlu ubah apa pun di HTML atau JS.
 
 `accent` (opsional) adalah kode hex warna aksen khusus proyek ini —
 dipakai di kata highlight judul, garis kotak impact, panah before→after,
-tombol Preview Live, dan border/teks "Buka Detail" di kartu grid. Kosongkan
+tombol Lihat Situs, dan border/teks "Buka Detail" di kartu grid. Kosongkan
 atau hapus field ini kalau proyek belum punya warna aksen; halaman detail
 dan kartunya otomatis jatuh ke merah `--shu` seperti default.
 
 `repoUrl` boleh dikosongkan (`""`) untuk proyek yang repo-nya tidak boleh
-publik (mis. proyek client) — tombol "GitHub Repo" otomatis hilang dari
+publik (mis. proyek client) — tombol "Kode di GitHub" otomatis hilang dari
 halaman detail. Kalau di situasi itu kamu juga set `repoPrivate: true`,
-tempat tombol tadi akan menampilkan badge kecil "Proyek Client — kode
-tertutup" sebagai gantinya. Kalau `repoUrl` kosong dan `repoPrivate` tidak
+tempat tombol tadi akan menampilkan badge kecil berisi teks `ui.badgePrivate`
+sebagai gantinya. Kalau `repoUrl` kosong dan `repoPrivate` tidak
 diisi/`false`, tidak ada apa pun yang ditampilkan di situ.
 
 `liveUrl` juga boleh dikosongkan (`""`) untuk proyek yang belum rilis —
-tombol "Preview Live" otomatis hilang. Kalau `liveUrl` DAN `repoUrl`
+tombol "Lihat Situs" otomatis hilang. Kalau `liveUrl` DAN `repoUrl`
 sama-sama kosong serta `status` masih `"Dalam Pengembangan"`, halaman
-detail otomatis menampilkan badge "Dalam Pengembangan" menggantikan kedua
-tombol tadi. Isi `liveUrl` nanti begitu proyeknya rilis — tombol Preview
-Live akan otomatis muncul lagi.
+detail otomatis menampilkan badge `ui.badgeDev` menggantikan kedua tombol
+tadi. Isi `liveUrl` nanti begitu proyeknya rilis — tombol Lihat Situs
+akan otomatis muncul lagi.
 
 Urutan objek dalam array `projects` menentukan urutan tampil kartu
 (nomor otomatis 一, 二, 三, ... mengikuti urutan ini).
@@ -92,7 +92,7 @@ Semua ada di objek `site` pada bagian atas `js/data.js`:
 ```js
 const site = {
   nama: "Ahmad Zufar Ginting",
-  tagline: "Backend Developer × Project Manager",
+  tagline: "Backend Developer & Project Manager",
   bio: "...",                 // boleh pakai <b>teks tebal</b>
   aboutText: "...",           // paragraf naratif singkat di section Tentang Saya (2-4 kalimat)
   lokasi: "JAKARTA, INDONESIA",
@@ -123,8 +123,8 @@ const site = {
 
 ## 3. Menambah/mengubah Tools & Skills
 
-Seksi Tools tampil sebagai dua grid berlabel ("BACKEND —" dan
-"MANAGEMENT —"), keduanya dirender dari satu array `tools` di
+Seksi Tools tampil sebagai dua grid berlabel (teksnya di `ui.toolsBackend`
+dan `ui.toolsPm`), keduanya dirender dari satu array `tools` di
 `js/data.js`:
 
 ```js
@@ -136,7 +136,7 @@ const tools = [
 ];
 ```
 
-- `group`: `"backend"` masuk grid BACKEND, `"pm"` masuk grid MANAGEMENT.
+- `group`: `"backend"` masuk grid BACKEND, `"pm"` masuk grid Manajemen Proyek.
 - Ikon — pakai **salah satu** dari dua field berikut per item:
   - `deviconClass`: nama class dari [devicon](https://devicon.dev/) untuk
     tool yang tersedia di sana (mis. `"devicon-docker-plain colored"`).
@@ -187,7 +187,7 @@ const experience = [
   {
     company: "Nama Perusahaan",
     role: "Peranmu di sana",
-    period: "Bulan Tahun — Sekarang",   // atau "Bulan Tahun — Bulan Tahun"
+    period: "Bulan Tahun – Sekarang",   // atau "Bulan Tahun – Bulan Tahun" (tanda –, bukan -)
     logo: "assets/img/experience/nama-file.png"
   },
   // ...
@@ -203,7 +203,27 @@ const experience = [
 - Di layar sempit (mobile), timeline otomatis bertumpuk vertikal dan
   foto pindah ke bawah deskripsi/timeline.
 
-## 5. Mengubah warna
+## 5. Statistik hero & teks antarmuka
+
+Dua objek lain di `js/data.js` mengatur teks kecil di luar proyek dan
+pengalaman:
+
+- `stats`: tiga angka di sisi kanan hero (`num` + `label`). Pakai koma
+  untuk desimal, mis. `"3,84"`.
+- `ui`: label grup Tools, judul & kalimat ajakan di bagian Kontak, baris
+  hak cipta footer, serta label, tombol, dan badge di halaman detail
+  proyek (`labelRole`, `btnLive`, `badgePrivate`, dst.).
+
+Panduan gaya tulisan supaya tetap terdengar profesional:
+- Pakai "saya", bukan "aku"/"ku-".
+- Rentang tanggal pakai tanda – (`Mar–Jun 2026`, `Agustus 2023 – Sekarang`);
+  pemisah dua info pakai `·` (`Capstone · REST API`).
+- Di dalam kalimat tulis "dan", bukan "&". "&" cukup untuk judul/label pendek.
+- Ribuan pakai titik (`1.000+`), desimal pakai koma (`3,84`).
+- Kolom `before` di `impacts` harus masalah nyata, dan angka harus bisa
+  dipertanggungjawabkan saat wawancara.
+
+## 6. Mengubah warna
 
 Semua warna diatur lewat variabel di `css/tokens.css`. Paletnya diambil
 dari warna tradisional Jepang:
@@ -228,7 +248,7 @@ Ubah nilai hex di sana saja — seluruh halaman otomatis ikut berubah.
 langsung di dalam SVG, jadi kalau `--sumi`, `--bg-dark`, atau `--ai`
 diubah, samakan juga hex di dua pola itu.
 
-## 6. Deploy
+## 7. Deploy
 
 ### GitHub Pages
 1. Push seluruh isi folder ini ke repository GitHub.
@@ -245,7 +265,7 @@ diubah, samakan juga hex di dua pola itu.
 Karena tidak ada proses build, kedua platform hanya perlu men-serve
 file apa adanya.
 
-## 7. Animasi
+## 8. Animasi
 
 Atas keputusan sadar pemilik, animasi dekoratif (pita berjalan, ensō
 berputar, kelopak sakura, reveal-on-scroll, efek hover) berjalan untuk
@@ -274,7 +294,7 @@ mengaktifkan reduced motion — elemen hero langsung tampil.
   supaya loop-nya mulus tanpa lompatan di seam. Item marquee yang isinya
   kanji saja otomatis tampil sebagai lambang mon bulat.
 
-## 8. Tema visual "samurai & sumi-e"
+## 9. Tema visual "samurai & sumi-e"
 
 - **Pola tradisional** (variabel di awal `css/layout.css`):
   asanoha (daun rami) samar di hero & overlay, seigaiha (ombak) di

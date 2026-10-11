@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ahmad Zufar Ginting - Backend Developer & Project Manager</title>
+<title>Ahmad Zufar Ginting – Backend Developer & Project Manager</title>
 <link rel="icon" type="image/svg+xml" href="assets/img/kamon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -110,19 +110,8 @@
     <div class="portrait-caption" id="portraitCaption"></div>
   </div>
 
-  <div class="hero-right">
-    <div class="stat">
-      <div class="num">10+</div>
-      <div class="label">Proyek selesai</div>
-    </div>
-    <div class="stat">
-      <div class="num">3.84</div>
-      <div class="label">IPK, Sistem Informasi</div>
-    </div>
-    <div class="stat">
-      <div class="num">2</div>
-      <div class="label">Jalur karier: PM & Backend</div>
-    </div>
+  <div class="hero-right" id="heroStats">
+    <!-- .stat diisi oleh JS dari stats, disisipkan sebelum .cta-row -->
     <div class="cta-row">
       <a class="btn btn-red" id="cvLink" href="#" target="_blank" rel="noopener">Unduh CV</a>
       <a class="btn btn-ghost" href="#projects">Lihat Proyek</a>
@@ -163,11 +152,11 @@
     <h2 class="section-title">Tools & Skills</h2>
   </div>
   <div class="tools-group">
-    <div class="tools-group-label">Backend</div>
+    <div class="tools-group-label" id="toolsBackendLabel"></div>
     <div class="tools-grid" id="toolsBackend"><!-- diisi oleh JS --></div>
   </div>
   <div class="tools-group tools-group--right">
-    <div class="tools-group-label">Management</div>
+    <div class="tools-group-label" id="toolsPmLabel"></div>
     <div class="tools-grid" id="toolsManagement"><!-- diisi oleh JS --></div>
   </div>
 </section>
@@ -188,13 +177,13 @@
 <!-- ======================= FOOTER / CONTACT ======================= -->
 <footer id="contact">
   <span class="f-kanji reveal">礼</span>
-  <h2 class="reveal" data-delay="1">Mari Bangun Sesuatu.</h2>
-  <p>Terbuka untuk kolaborasi backend maupun peran Project Manager.</p>
+  <h2 class="reveal" data-delay="1" id="contactTitle"></h2>
+  <p id="contactText"></p>
   <a class="btn btn-red reveal" data-delay="2" id="footerEmail" href="#"></a>
   <a class="btn btn-ghost reveal" data-delay="3" id="footerCv" href="#" target="_blank" rel="noopener">Unduh CV</a>
   <div class="footer-social reveal" data-delay="4" id="footerSocial"><!-- diisi oleh JS --></div>
   <div class="f-waves" aria-hidden="true"></div>
-  <div class="f-line">© 2026 Ahmad Zufar Ginting · Dibangun dengan disiplin bushidō · Jakarta</div>
+  <div class="f-line" id="footerLine"></div>
 </footer>
 
 <!-- ======================= PROJECT DETAIL OVERLAY ======================= -->
@@ -206,10 +195,10 @@
     </div>
 
     <div class="ov-meta">
-      <div><div class="m-label">Role —</div><div class="m-value" id="ovRole"></div></div>
-      <div><div class="m-label">Tahun —</div><div class="m-value" id="ovYear"></div></div>
-      <div><div class="m-label">Tipe —</div><div class="m-value" id="ovType"></div></div>
-      <div><div class="m-label">Status —</div><div class="m-value" id="ovStatus"></div></div>
+      <div><div class="m-label" data-ui="labelRole"></div><div class="m-value" id="ovRole"></div></div>
+      <div><div class="m-label" data-ui="labelYear"></div><div class="m-value" id="ovYear"></div></div>
+      <div><div class="m-label" data-ui="labelType"></div><div class="m-value" id="ovType"></div></div>
+      <div><div class="m-label" data-ui="labelStatus"></div><div class="m-value" id="ovStatus"></div></div>
     </div>
 
     <div class="ov-title-wrap">
@@ -240,11 +229,11 @@
       </div>
 
       <div class="ov-about">
-        <h4>About —</h4>
+        <h4 data-ui="labelAbout"></h4>
         <p id="ovAbout"></p>
 
         <div class="impact-box">
-          <div class="i-label">Impact — Before → After</div>
+          <div class="i-label" data-ui="labelImpact"></div>
           <div id="ovImpacts"></div>
         </div>
 
@@ -252,11 +241,11 @@
 
         <div class="ov-actions">
           <a class="btn-play" id="ovLive" href="#" target="_blank" rel="noopener">
-            <span class="play-ico">▶</span> Preview Live
+            <span class="play-ico">▶</span> <span data-ui="btnLive"></span>
           </a>
-          <a class="btn-git" id="ovRepo" href="#" target="_blank" rel="noopener">GitHub Repo</a>
-          <span class="ov-repo-badge" id="ovRepoBadge" hidden>Proyek Client, kode tertutup</span>
-          <span class="ov-repo-badge" id="ovDevBadge" hidden>Dalam Pengembangan, rilis segera</span>
+          <a class="btn-git" id="ovRepo" href="#" target="_blank" rel="noopener" data-ui="btnRepo"></a>
+          <span class="ov-repo-badge" id="ovRepoBadge" data-ui="badgePrivate" hidden></span>
+          <span class="ov-repo-badge" id="ovDevBadge" data-ui="badgeDev" hidden></span>
         </div>
       </div>
     </div>
