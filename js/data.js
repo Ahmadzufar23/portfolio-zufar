@@ -108,6 +108,12 @@ const experience = [
     role: "Founder, Backend & PM",
     period: "Mei 2026 - Sekarang",
     logo: "assets/img/experience/hyungtang.png" // TODO: unggah logo Hyungtang
+  },
+  {
+    company: "PT Prismatama Cipta Teknologi",
+    role: "Fullstack Developer",
+    period: "September 2026 - Sekarang",
+    logo: "assets/img/experience/pct.png"
   }
 ];
 
